@@ -6,6 +6,7 @@
 
 namespace App\Modules\Admins\Providers;
 
+use App\Helpers\SubDomains;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        Route::domain('admin.localhost')
+        Route::domain(SubDomains::ADMIN . config('app.url'))
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . './../Routes/admin.php');
