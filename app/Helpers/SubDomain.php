@@ -6,7 +6,7 @@
 
 namespace App\Helpers;
 
-class SubDomains
+class SubDomain
 {
     public const ADMIN = 'admin.';
 }

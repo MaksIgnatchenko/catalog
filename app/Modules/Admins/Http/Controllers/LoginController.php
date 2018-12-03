@@ -46,13 +46,12 @@ class LoginController extends Controller
         return redirect('/login');
     }
 
-
     /**
      * @return string
      */
     public function username()
     {
-        return 'name';
+        return 'email';
     }
 
 }

@@ -5,16 +5,16 @@
 
     <div class="p-3">
         <form class="form-horizontal m-t-20" method="post" action="{{ route('login') }}">
-            {{ csrf_field() }}
-            <div class="form-group row{{ $errors->has('username') ? ' has-error' : '' }}">
+            @csrf
+            <div class="form-group row{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="col-12">
-                    @if ($errors->has('username'))
+                    @if ($errors->has('email'))
                         <span class="help-block">
-                            <strong>{{ $errors->first('username') }}</strong>
+                            <strong>{{ $errors->first('email') }}</strong>
                         </span>
                     @endif
-                    <input id="username" type="text" name="username" class="form-control" required autofocus
-                           placeholder="@lang('auth.username_placeholder')" value="{{ old('username') }}">
+                    <input id="email" type="text" name="email" class="form-control" required autofocus
+                           placeholder="@lang('auth.email_placeholder')" value="{{ old('email') }}">
                 </div>
             </div>
 
