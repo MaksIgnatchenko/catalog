@@ -1,0 +1,85 @@
+#wrapper table.dataTable thead .sorting:after {
+    content: '';
+}
+
+#wrapper table.dataTable thead .sorting_desc:after {
+    content: '';
+}
+
+#wrapper table.dataTable thead .sorting_asc:after {
+    content: '';
+}
+
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button.active {
+    border: 1px solid #d2d2d2;
+    background: #4bc08f !important;
+    color: #fff !important;
+}
+
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button:hover .paginate_button a {
+    background: #4bc08f !important;
+}
+
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
+    background: #4bc08f !important;
+    border: 0;
+}
+
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0 0.25em;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+#wrapper .dataTables_wrapper .dataTables_paginate ul.pagination {
+    padding-top: 12px;
+}
+
+body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.pagination>.active>a,
+.pagination>.active>a:focus,
+.pagination>.active>a:hover,
+.pagination>.active>span,
+.pagination>.active>span:focus,
+.pagination>.active>span:hover {
+    background-color: initial!important;
+}
+
+#wrapper .dataTables_info {
+    padding-top: 0;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button a {
+    color: #4bc08f;
+    border: 0;
+}
+
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button.active a,
+#wrapper .dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
+    color: #fff !important;
+}
+
+.wrapper-fixed-height {
+    height: auto !important;
+}
+
+/* inner content */
+.content .content {
+    padding: 15px 0px 0px 0px !important;
+}
+
+.content .content-header {
+    padding: 0px !important;
+}
+
+.modal-body select:not([multiple]) {
+    height: 2.5em !important;
+}
+
+#sidebar-menu > ul > li.active>a {
+    color: #1d1e3a;
+}

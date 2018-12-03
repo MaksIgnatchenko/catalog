@@ -21,14 +21,11 @@ Route::domain('localhost')->group(function () {
     });
 });
 
-Route::domain('admin.localhost')->group(function () {
-    Route::get('test', function () {
-        return rand(1, 100) . 'admin';
-    });
-});
-
 Route::domain('company.localhost')->group(function () {
     Route::get('test', function () {
         return rand(1, 100) . 'company';
     });
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
