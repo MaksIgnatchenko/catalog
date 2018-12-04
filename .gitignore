@@ -16,3 +16,4 @@ yarn-error.log
 docker-compose.yml
 /.ssl
 composer.lock
+public/apidoc
