@@ -10,6 +10,7 @@
         <div class="clearfix"></div>
         <div class="box">
             <div class="box-body">
+                <a href="{{route('type.create')}}" class="btn btn-primary pull-right create-article">Create new type</a>
                 @include('type.table')
             </div>
         </div>

@@ -64,10 +64,10 @@ class SpecialityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $speciality
+     * @param  Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function edit($speciality)
+    public function edit(Speciality $speciality)
     {
 		return view('speciality.edit')->with('speciality', $speciality);
     }

@@ -1,0 +1,70 @@
+stages:
+- php_build
+- js_build
+- deploy
+
+php_build:
+  stage: php_build
+  image: composer
+  script:
+  - composer install -on --ignore-platform-reqs --no-progress --no-dev
+  - composer dump-autoload --optimize
+  artifacts:
+    paths:
+    - vendor/
+    when: on_success
+    expire_in: 1h
+  only:
+  - develop
+
+js_build:
+  stage: js_build
+  image: node:8.11.2
+  script:
+  - npm install apidoc -g
+  - apidoc -i docs/ -o public/apidoc/
+  artifacts:
+    paths:
+    - public/apidoc/
+    when: on_success
+    expire_in: 1h
+  only:
+  - develop
+
+deploy:develop:
+  stage: deploy
+  script:
+  - apt-get update && apt-get install -y
+    ssh
+    rsync
+
+  - mkdir -p ~/.ssh
+  - echo -e "$SSH_PRIVATE_KEY_DEVELOP" > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+
+  - echo "$ENV_DEVELOP" > ./.env
+
+  - sed -i -e "s/%server_name%/${SSH_SERVER_HOST}/g" ./docker/nginx_ssl.conf
+
+  - mkdir ./ssl
+  - echo "$SSL_CERTIFICATE" > ./ssl/certificate.crt
+  - echo "$SSL_PRIVATE_KEY" > ./ssl/private.key
+
+  - cp docker-compose.yml.develop docker-compose.yml
+  - rm docker-compose.yml.*
+
+  - rm -f ./public/storage
+  - ln -s ../storage/app/public/ ./public/storage
+
+  - rm -rf ./.git
+  - rm -rf ./node_modules
+  - rm -rf ./tests
+  - rm -rf ./docs
+
+  - ssh -o StrictHostKeyChecking=no $SSH_USER_DEVELOP@$SERVER_HOST_DEVELOP "mkdir -p /var/www/catalog"
+
+  - rsync -az --exclude-from=.gitlab-ci-exclude --no-perms --no-owner --no-group --delete-during -e "ssh -o StrictHostKeyChecking=no" . $SSH_USER_DEVELOP@$SERVER_HOST_DEVELOP:/var/www/catalog
+  - ssh -o StrictHostKeyChecking=no $SSH_USER_DEVELOP@$SERVER_HOST_DEVELOP "cd /var/www/catalog && docker-compose up -d --force-recreate --remove-orphans && docker exec catalog_php /bin/bash /var/www/init_develop.sh"
+  only:
+  - develop
+
