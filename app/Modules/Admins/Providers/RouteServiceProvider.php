@@ -29,7 +29,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        Route::domain(SubDomain::ADMIN . config('app.url'))
+//        Route::domain(SubDomain::ADMIN . config('app.url'))
+        Route::prefix('admin')
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . './../Routes/admin.php');

@@ -13,6 +13,6 @@ Route::middleware(['auth:admin'])->group(function() {
 });
 
 Route::get('/login', 'LoginController@showLoginForm')->name('login')->middleware('guest:admin');
-Route::post('/login', 'LoginController@login');
+Route::post('/login', 'LoginController@login')->name('adminLogin');
 
 
