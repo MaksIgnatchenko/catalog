@@ -7,6 +7,7 @@
 namespace App\DataTables;
 
 use App\Modules\Admins\Models\Category;
+use App\Modules\Admins\Models\Speciality;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -32,7 +33,7 @@ class SpecialityDataTable extends DataTable
      * @param Achievement $model
      * @return Builder
      */
-    public function query(Category $model): Builder
+    public function query(Speciality $model): Builder
     {
         return $model->newQuery();
     }

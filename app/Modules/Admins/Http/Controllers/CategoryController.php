@@ -8,18 +8,13 @@ namespace App\Modules\Admins\Http\Controllers;
 
 use App\DataTables\CategoryDataTable;
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\Http\Requests\StoreCategoryRequest;
+use App\Modules\Admins\Http\Requests\UpdateCategoryRequest;
 use App\Modules\Admins\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    protected $categoryModel;
-
-    public function __construct()
-    {
-        $this->categoryModel = app()[Category::class];
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -38,62 +33,69 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+		return view('category.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        //
+        $category = app()[Category::class];
+        $category->fill($request->all());
+        $category->save();
+		return redirect()->route('category.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param Category $category
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+     public function show(Category $category)
     {
-        //
+		return view('category.show')->with('category', $category);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+		return view('category.edit')->with('category', $category);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param UpdateCategoryRequest $request
+	 * @param Category $category
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+		$category->update($request->all());
+        return redirect()->route('category.index');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param Category $category
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+		return redirect()->route('category.index');
     }
 }

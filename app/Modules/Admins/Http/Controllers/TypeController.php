@@ -8,6 +8,9 @@ namespace App\Modules\Admins\Http\Controllers;
 
 use App\DataTables\TypeDataTable;
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\Http\Requests\StoreTypeRequest;
+use App\Modules\Admins\Http\Requests\UpdateTypeRequest;
+use App\Modules\Admins\Models\Type;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -30,62 +33,68 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+		return view('type.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreTypeRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTypeRequest $request)
     {
-        //
+		$type = app()[Type::class];
+		$type->fill($request->all());
+		$type->save();
+		return redirect()->route('type.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Type $type)
     {
-        //
+		return view('type.show')->with('type', $type);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Type $type)
     {
-        //
+		return view('type.edit')->with('type', $type);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UpdateTypeRequest $request
+     * @param  Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTypeRequest $request, Type $type)
     {
-        //
+		$type->update($request->all());
+		return redirect()->route('type.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param Type $type
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
+    public function destroy(Type $type)
     {
-        //
+		$type->delete();
+		return redirect()->route('type.index');
     }
 }

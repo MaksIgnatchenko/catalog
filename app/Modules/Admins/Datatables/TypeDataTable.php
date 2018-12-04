@@ -7,6 +7,7 @@
 namespace App\DataTables;
 
 use App\Modules\Admins\Models\Category;
+use App\Modules\Admins\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -32,7 +33,7 @@ class TypeDataTable extends DataTable
      * @param Achievement $model
      * @return Builder
      */
-    public function query(Category $model): Builder
+    public function query(Type $model): Builder
     {
         return $model->newQuery();
     }

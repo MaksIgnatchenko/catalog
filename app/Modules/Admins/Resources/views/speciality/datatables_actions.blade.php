@@ -9,7 +9,7 @@
     </a>
 </div>
 <div class='btn-group'>
-    <a href="#" class='btn btn-primary'
+    <a href="#" class='btn btn-danger'
        onclick="document.getElementById('delete-speciality-{{$id}}-button').click()">
         {!! Form::open(['method'=>'DELETE', 'route'=>['speciality.destroy', $id]]) !!}
         <button hidden id="delete-speciality-{{$id}}-button" data-toggle="tooltip" data-placement="top" title="Delete"

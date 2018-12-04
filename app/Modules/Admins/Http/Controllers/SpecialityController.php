@@ -8,6 +8,9 @@ namespace App\Modules\Admins\Http\Controllers;
 
 use App\DataTables\SpecialityDataTable;
 use App\Http\Controllers\Controller;
+use App\Modules\Admins\Http\Requests\StoreSpecialityRequest;
+use App\Modules\Admins\Http\Requests\UpdateSpecialityRequest;
+use App\Modules\Admins\Models\Speciality;
 use Illuminate\Http\Request;
 
 class SpecialityController extends Controller
@@ -30,62 +33,68 @@ class SpecialityController extends Controller
      */
     public function create()
     {
-        //
+		return view('speciality.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreSpecialityRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSpecialityRequest $request)
     {
-        //
+		$speciality = app()[Speciality::class];
+		$speciality->fill($request->all());
+		$speciality->save();
+		return redirect()->route('speciality.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Speciality $speciality)
     {
-        //
+		return view('speciality.show')->with('speciality', $speciality);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($speciality)
     {
-        //
+		return view('speciality.edit')->with('speciality', $speciality);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  UpdateSpecialityRequest $request
+     * @param  Speciality  $speciality
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSpecialityRequest $request, Speciality $speciality)
     {
-        //
+		$speciality->update($request->all());
+		return redirect()->route('speciality.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param Speciality $speciality
+	 * @return \Illuminate\Http\RedirectResponse
+	 * @throws \Exception
+	 */
+    public function destroy(Speciality $speciality)
     {
-        //
+		$speciality->delete();
+		return redirect()->route('speciality.index');
     }
 }
