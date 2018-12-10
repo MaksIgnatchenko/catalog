@@ -5,7 +5,7 @@
 <li class="treeview {{ActiveLink::checkManagement() ? 'active' : ''}}">
     <a href="#" class="treeview-toggle"><i class="fa fa-table"></i><span>Management</span>
         <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
+                <i class="fa fa-angle-{{ActiveLink::checkManagement() ? 'left' : 'down'}} pull-right"></i>
               </span>
     </a>
     <ul class="treeview-menu">

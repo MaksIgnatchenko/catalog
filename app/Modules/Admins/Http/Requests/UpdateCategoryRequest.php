@@ -10,6 +10,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
 {
+    use UniqueEntityExcept;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -28,8 +30,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
 		return [
-			'name' => 'string|min:3|max:100',
-			'description' => 'string|min:10|max:300'
+            'name' => 'required|string|min:3|max:20|unique:categories,name,' . $this->exceptId(),
+            'description' => 'required|string|min:10|max:300',
 		];
     }
 }

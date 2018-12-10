@@ -7,6 +7,12 @@
 namespace App\Modules\Admins\Providers;
 
 use App\Helpers\SubDomain;
+use App\Modules\Admins\Exceptions\NoSuchModelException;
+use App\Modules\Admins\Models\Category;
+use App\Modules\Admins\Models\Speciality;
+use App\Modules\Admins\Models\Type;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +35,56 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-//        Route::domain(SubDomain::ADMIN . config('app.url'))
-        Route::prefix('admin')
+        Route::domain(SubDomain::ADMIN . config('app.url'))
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . './../Routes/admin.php');
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        Route::bind('category', function($value) {
+            try {
+                $category = Category::where('id', (int) $value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('category');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('category');
+                throw $exception;
+            }
+            return $category;
+        });
+
+        Route::bind('speciality', function($value) {
+            try {
+                $speciality = Speciality::where('id', (int) $value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('speciality');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('speciality');
+                throw $exception;
+            }
+            return $speciality;
+        });
+
+        Route::bind('type', function($value) {
+            try {
+                $type = Type::where('id', (int) $value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('type');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('type');
+                throw $exception;
+            }
+            return $type;
+        });
     }
 }

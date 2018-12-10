@@ -4,7 +4,7 @@
     <h4 class="text-muted text-center font-18"><b>@lang('auth.sign_in')</b></h4>
 
     <div class="p-3">
-        <form class="form-horizontal m-t-20" method="post" action="{{ route('login') }}">
+        <form class="form-horizontal m-t-20" method="post" action="{{ route('adminPostLogin') }}">
             @csrf
             <div class="form-group row{{ $errors->has('email') ? ' has-error' : '' }}">
                 <div class="col-12">

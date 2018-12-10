@@ -2,7 +2,7 @@
 <div class="form-group">
     <p>
         {!! Form::label('name', 'Name:') !!}
-        {!! $category->name !!}
+        {!! $speciality->name !!}
     </p>
 </div>
 
@@ -10,6 +10,6 @@
 <div class="form-group">
     <p>
         {!! Form::label('description', 'Description:') !!}
-        {!! $category->description !!}
+        {!! $speciality->description !!}
     </p>
 </div>

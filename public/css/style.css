@@ -83,3 +83,16 @@ body {
 #sidebar-menu > ul > li.active>a {
     color: #1d1e3a;
 }
+
+#dataTableBuilder_wrapper table td {
+    word-wrap: break-word;
+}
+
+#dataTableBuilder_wrapper {
+    overflow-x: auto;
+}
+
+.form-group {
+    word-wrap: break-word;
+    overflow-x: auto;
+}
