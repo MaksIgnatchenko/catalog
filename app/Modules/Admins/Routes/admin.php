@@ -12,8 +12,9 @@ Route::middleware(['auth:admin'])->group(function() {
     Route::resource('type', 'TypeController');
 });
 
-Route::get('/login', 'LoginController@showLoginForm')->name('adminGetLogin')->middleware('guest:admin');
+Route::get('/login', 'LoginController@showLoginForm')->name('login')->middleware('guest:admin');
 Route::post('/login', 'LoginController@login')->name('adminPostLogin');
+
 
 
 
