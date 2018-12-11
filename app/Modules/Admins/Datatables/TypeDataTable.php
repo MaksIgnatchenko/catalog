@@ -66,12 +66,12 @@ class TypeDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'name'
+                'title' => 'Name'
             ],
             [
                 'name' => 'description',
                 'data' => 'description',
-                'title' => 'description',
+                'title' => 'Description',
                 'orderable' => false
             ],
         ];

@@ -9,7 +9,7 @@
     <meta content="ThemeDesign" name="author"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
@@ -69,7 +69,7 @@
         </div>
 
         <footer class="footer">
-            {{date('Y')}} Walk-motivator
+            {{date('Y')}} Catalog of companies
         </footer>
 
     </div>
@@ -95,7 +95,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/js/app.min.js"></script>
 
 <script src="{{ asset('js/menu.js') }}"></script>
-
 
 <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css"/>

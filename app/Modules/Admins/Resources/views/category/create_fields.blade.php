@@ -2,7 +2,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('name', 'Name: ') }}
-        {!! Form::text('name', null, ['class' => 'form-control']) !!}
+        {!! Form::text('name', null, ['class' => 'form-control', 'maxlength' => 20]) !!}
     </p>
     @if ($errors->has('name'))
         <div class="text-red">{{ $errors->first('name') }}</div>
@@ -13,7 +13,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('description', 'Description: ') }}
-        {!! Form::text('description', null, ['class' => 'form-control']) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'maxlength' => 300]) !!}
     </p>
     @if ($errors->has('description'))
         <div class="text-red">{{ $errors->first('description') }}</div>

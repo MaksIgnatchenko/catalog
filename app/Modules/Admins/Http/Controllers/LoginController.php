@@ -20,7 +20,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin';
+    protected $redirectTo = '/';
 
     /**
      * @return mixed
@@ -43,7 +43,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect('admin/login');
+        return redirect()->route('login');
     }
 
     /**

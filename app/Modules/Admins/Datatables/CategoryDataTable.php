@@ -47,10 +47,11 @@ class CategoryDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '80px'])
+            ->addAction(['width' => '30%'])
             ->parameters([
                 'dom'     => 'frtip',
                 'order'   => [[0, 'desc']],
+                'responsive' => true,
             ]);
     }
 
@@ -65,13 +66,15 @@ class CategoryDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'name'
+                'title' => 'Name',
+                'width' => '20%',
             ],
             [
                 'name' => 'description',
                 'data' => 'description',
-                'title' => 'description',
-                'orderable' => false
+                'title' => 'Description',
+                'orderable' => false,
+                'width' => '50%',
             ],
         ];
     }
