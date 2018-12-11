@@ -9,6 +9,17 @@
     @endif
 </div>
 
+<!-- Speciality Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('speciality', 'Speciality: ') }}
+        {!! Form::select('speciality_id', $specialities, ['class' => 'form-control', 'maxlength' => 300]) !!}
+    </p>
+    @if ($errors->has('speciality_id'))
+        <div class="text-red">{{ $errors->first('speciality_id') }}</div>
+    @endif
+</div>
+
 <!-- Description Field -->
 <div class="form-group">
     <p>

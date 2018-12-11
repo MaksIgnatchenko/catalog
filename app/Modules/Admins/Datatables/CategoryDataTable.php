@@ -23,18 +23,22 @@ class CategoryDataTable extends DataTable
     public function dataTable($query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'category.datatables_actions');
+        return $dataTable
+            ->addColumn('action', 'category.datatables_actions')
+            ->addColumn('specialities_count', function($category) {
+                return $category->specialities->count();
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param Achievement $model
+     * @param Category $model
      * @return Builder
      */
     public function query(Category $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('specialities');
     }
 
     /**
@@ -70,11 +74,18 @@ class CategoryDataTable extends DataTable
                 'width' => '20%',
             ],
             [
+                'data' => 'specialities_count',
+                'title' => 'Contain<br>specialities',
+                'width' => '20%',
+                'searchable' => false,
+                'orderable' => false,
+            ],
+            [
                 'name' => 'description',
                 'data' => 'description',
                 'title' => 'Description',
+                'width' => '30%',
                 'orderable' => false,
-                'width' => '50%',
             ],
         ];
     }

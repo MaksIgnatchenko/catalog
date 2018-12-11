@@ -6,7 +6,6 @@
 
 namespace App\DataTables;
 
-use App\Modules\Admins\Models\Category;
 use App\Modules\Admins\Models\Speciality;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
@@ -24,18 +23,22 @@ class SpecialityDataTable extends DataTable
     public function dataTable($query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable->addColumn('action', 'speciality.datatables_actions');
+        return $dataTable
+            ->addColumn('action', 'speciality.datatables_actions')
+            ->addColumn('types_count', function($category) {
+                return $category->types->count();
+            });
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param Achievement $model
+     * @param Speciality  $model
      * @return Builder
      */
     public function query(Speciality $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('category', 'types');
     }
 
     /**
@@ -48,7 +51,7 @@ class SpecialityDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '80px'])
+            ->addAction(['width' => '30%'])
             ->parameters([
                 'dom'     => 'frtip',
                 'order'   => [[0, 'desc']],
@@ -66,13 +69,30 @@ class SpecialityDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'Name'
+                'title' => 'Name',
+                'width' => '20%',
+            ],
+            [
+                'name' => 'category',
+                'data' => 'category.name',
+                'title' => 'Category',
+                'width' => '20%',
+                'searchable' => false,
+                'orderable' => false,
+            ],
+            [
+                'data' => 'types_count',
+                'title' => 'Contain<br>types',
+                'width' => '10%',
+                'searchable' => false,
+                'orderable' => false,
             ],
             [
                 'name' => 'description',
                 'data' => 'description',
                 'title' => 'Description',
-                'orderable' => false
+                'width' => '20%',
+                'orderable' => false,
             ],
         ];
     }
