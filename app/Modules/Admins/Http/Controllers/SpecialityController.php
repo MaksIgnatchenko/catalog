@@ -10,6 +10,7 @@ use App\DataTables\SpecialityDataTable;
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\Http\Requests\StoreSpecialityRequest;
 use App\Modules\Admins\Http\Requests\UpdateSpecialityRequest;
+use App\Modules\Admins\Models\Category;
 use App\Modules\Admins\Models\Speciality;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,10 @@ class SpecialityController extends Controller
      */
     public function create()
     {
-		return view('speciality.create');
+        $categories = Category::all(['id', 'name'])
+            ->pluck('name', 'id')
+            ->toArray();
+		return view('speciality.create', ['categories' => $categories]);
     }
 
     /**

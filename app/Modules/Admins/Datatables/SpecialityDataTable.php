@@ -6,7 +6,6 @@
 
 namespace App\DataTables;
 
-use App\Modules\Admins\Models\Category;
 use App\Modules\Admins\Models\Speciality;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
@@ -30,12 +29,12 @@ class SpecialityDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param Achievement $model
+     * @param Speciality  $model
      * @return Builder
      */
     public function query(Speciality $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('category');
     }
 
     /**
@@ -66,13 +65,20 @@ class SpecialityDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'Name'
+                'title' => 'Name',
+            ],
+            [
+                'name' => 'category',
+                'data' => 'category.name',
+                'title' => 'Category',
+                'searchable' => false,
+                'orderable' => false,
             ],
             [
                 'name' => 'description',
                 'data' => 'description',
                 'title' => 'Description',
-                'orderable' => false
+                'orderable' => false,
             ],
         ];
     }

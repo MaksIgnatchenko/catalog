@@ -34,7 +34,7 @@ class CategoryDataTable extends DataTable
      */
     public function query(Category $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('specialities');
     }
 
     /**

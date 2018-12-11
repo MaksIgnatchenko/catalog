@@ -6,6 +6,14 @@
     </p>
 </div>
 
+<!-- Category Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('category', 'Category: ') }}
+        {!! $speciality->category->name !!}
+    </p>
+</div>
+
 <!-- Description Field -->
 <div class="form-group">
     <p>

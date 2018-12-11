@@ -35,7 +35,7 @@ class TypeDataTable extends DataTable
      */
     public function query(Type $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('speciality');
     }
 
     /**
@@ -66,13 +66,20 @@ class TypeDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'Name'
+                'title' => 'Name',
+            ],
+            [
+                'name' => 'speciality',
+                'data' => 'speciality.name',
+                'title' => 'Speciality',
+                'orderable' => false,
+                'searchable' => false,
             ],
             [
                 'name' => 'description',
                 'data' => 'description',
                 'title' => 'Description',
-                'orderable' => false
+                'orderable' => false,
             ],
         ];
     }

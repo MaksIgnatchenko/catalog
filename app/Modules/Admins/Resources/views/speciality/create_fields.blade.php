@@ -9,6 +9,17 @@
     @endif
 </div>
 
+<!-- Category Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('category', 'Category: ') }}
+        {!! Form::select('category_id', $categories, ['class' => 'form-control', 'maxlength' => 300]) !!}
+    </p>
+    @if ($errors->has('category_id'))
+        <div class="text-red">{{ $errors->first('category_id') }}</div>
+    @endif
+</div>
+
 <!-- Description Field -->
 <div class="form-group">
     <p>
