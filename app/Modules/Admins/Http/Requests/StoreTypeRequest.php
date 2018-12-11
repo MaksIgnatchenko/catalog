@@ -27,8 +27,8 @@ class StoreTypeRequest extends FormRequest
      */
     public function rules()
     {
-		return [
-			'name' => 'required|string|min:3|max:20',
+        return [
+            'name' => 'required|string|min:3|max:20',
 			'description' => 'required|string|min:10|max:300',
 		];
     }

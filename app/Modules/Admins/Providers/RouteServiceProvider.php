@@ -7,7 +7,6 @@
 namespace App\Modules\Admins\Providers;
 
 use App\Helpers\SubDomain;
-use App\Modules\Admins\Exceptions\NoSuchModelException;
 use App\Modules\Admins\Models\Category;
 use App\Modules\Admins\Models\Speciality;
 use App\Modules\Admins\Models\Type;
