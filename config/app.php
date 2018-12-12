@@ -175,6 +175,8 @@ return [
 //        App\Providers\EventServiceProvider::class,
 //        App\Providers\RouteServiceProvider::class,
         App\Modules\Admins\Providers\RouteServiceProvider::class,
+        App\Modules\Advertisement\Providers\RouteServiceProvider::class,
+        Khsing\World\WorldServiceProvider::class,
 
     ],
 
