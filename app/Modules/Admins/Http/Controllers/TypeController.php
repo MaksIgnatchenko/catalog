@@ -90,7 +90,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-		$type->update($request->all());
+		$type->update($request->except('speciality_id'));
 		return redirect()->route('type.index');
     }
 

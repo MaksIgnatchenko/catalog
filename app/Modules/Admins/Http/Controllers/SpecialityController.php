@@ -85,7 +85,7 @@ class SpecialityController extends Controller
      */
     public function update(UpdateSpecialityRequest $request, Speciality $speciality)
     {
-		$speciality->update($request->all());
+		$speciality->update($request->except('category_id'));
 		return redirect()->route('speciality.index');
     }
 

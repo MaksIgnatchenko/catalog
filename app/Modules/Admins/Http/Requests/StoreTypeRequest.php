@@ -30,6 +30,7 @@ class StoreTypeRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:20',
             'description' => 'required|string|min:10|max:300',
+            'speciality_id' => 'required|integer|exists:specialities,id',
         ];
     }
 }
