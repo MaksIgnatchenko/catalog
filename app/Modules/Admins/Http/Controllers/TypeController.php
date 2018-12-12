@@ -10,6 +10,7 @@ use App\DataTables\TypeDataTable;
 use App\Http\Controllers\Controller;
 use App\Modules\Admins\Http\Requests\StoreTypeRequest;
 use App\Modules\Admins\Http\Requests\UpdateTypeRequest;
+use App\Modules\Admins\Models\Speciality;
 use App\Modules\Admins\Models\Type;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,15 @@ class TypeController extends Controller
      */
     public function create()
     {
-		return view('type.create');
+        $specialities = Speciality::with('category')
+            ->get()
+            ->map(function($item) {
+                $item->name = $item->name . ' (category - ' . $item->category->name . ')';
+                return $item;
+            })
+            ->pluck('name', 'id')
+            ->toArray();
+		return view('type.create', ['specialities' => $specialities]);
     }
 
     /**
@@ -81,7 +90,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-		$type->update($request->all());
+		$type->update($request->except('speciality_id'));
 		return redirect()->route('type.index');
     }
 

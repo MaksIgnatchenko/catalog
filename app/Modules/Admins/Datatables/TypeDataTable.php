@@ -35,7 +35,7 @@ class TypeDataTable extends DataTable
      */
     public function query(Type $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('speciality');
     }
 
     /**
@@ -48,7 +48,7 @@ class TypeDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '80px'])
+            ->addAction(['width' => '30%'])
             ->parameters([
                 'dom'     => 'frtip',
                 'order'   => [[0, 'desc']],
@@ -66,13 +66,23 @@ class TypeDataTable extends DataTable
             [
                 'name' => 'name',
                 'data' => 'name',
-                'title' => 'Name'
+                'title' => 'Name',
+                'width' => '20%',
+            ],
+            [
+                'name' => 'speciality',
+                'data' => 'speciality.name',
+                'title' => 'Speciality',
+                'width' => '20%',
+                'orderable' => false,
+                'searchable' => false,
             ],
             [
                 'name' => 'description',
                 'data' => 'description',
                 'title' => 'Description',
-                'orderable' => false
+                'width' => '30%',
+                'orderable' => false,
             ],
         ];
     }

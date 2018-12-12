@@ -6,10 +6,30 @@
     </p>
 </div>
 
+<!-- Category Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('category', 'Category: ') }}
+        {!! $speciality->category->name !!}
+    </p>
+</div>
+
 <!-- Description Field -->
 <div class="form-group">
     <p>
         {!! Form::label('description', 'Description:') !!}
         {!! $speciality->description !!}
     </p>
+</div>
+
+<!-- Types Field -->
+<div class="form-group">
+    <p>
+        {!! Form::label('specialities', 'Specialities:') !!}
+    </p>
+    @foreach($speciality->types as $type)
+        <p>
+            {{ $type->name }}
+        </p>
+    @endforeach
 </div>

@@ -7,6 +7,7 @@
 namespace App\Modules\Admins\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Type extends Model
 {
@@ -25,5 +26,14 @@ class Type extends Model
     protected $fillable = [
         'name',
         'description',
+        'speciality_id',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function speciality() : BelongsTo
+    {
+        return $this->belongsTo(Speciality::class);
+    }
 }
