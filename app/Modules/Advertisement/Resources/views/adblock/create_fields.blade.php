@@ -13,9 +13,9 @@
 <div class="form-group">
     <p>
         {{ Form::label('country', 'Country: ') }}
-        {!! Form::select('country_id', $countries, ['class' => 'form-control']) !!}
+        {!! Form::select('country_id', $countries, ['class' => 'form-control', 'id' => 'countrySelect']) !!}
     </p>
-    @if ($errors->has('speciality_id'))
+    @if ($errors->has('country_id'))
         <div class="text-red">{{ $errors->first('country_id') }}</div>
     @endif
 </div>

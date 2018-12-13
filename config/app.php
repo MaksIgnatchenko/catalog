@@ -176,6 +176,7 @@ return [
 //        App\Providers\RouteServiceProvider::class,
         App\Modules\Admins\Providers\RouteServiceProvider::class,
         App\Modules\Advertisement\Providers\RouteServiceProvider::class,
+        App\Modules\Geography\Providers\RouteServiceProvider::class,
         Khsing\World\WorldServiceProvider::class,
 
     ],

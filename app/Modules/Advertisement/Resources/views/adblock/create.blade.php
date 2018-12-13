@@ -21,4 +21,5 @@
         </div>
         {!! Form::close() !!}
     </section>
+    <script src="{{ asset('/js/cities.js') }}"></script>
 @endsection
