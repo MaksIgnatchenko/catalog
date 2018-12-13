@@ -7,7 +7,9 @@
 namespace App\Modules\Advertisement\Http\Controllers;
 
 use App\Modules\Advertisement\Datatables\AdblockDataTable;
-use Khsing\World\Models\Country;
+use App\Modules\Advertisement\Enums\AdblockTypesEnum;
+use App\Modules\Advertisement\Http\Requests\StoreAdblockRequest;
+use App\Modules\Advertisement\Models\Adblock;
 
 class AdblockController
 {
@@ -29,26 +31,33 @@ class AdblockController
      */
     public function create()
     {
-        $countries = Country::orderBy('name')
-            ->get(['id', 'name'])
+        $geographyService = app()[\App\Modules\Geography\Services\GeographyServiceInterface::class];
+        $countries = $geographyService
+            ->getCountries()
             ->pluck('name', 'id')
-            ->prepend('Select country', null)
+            ->prepend('All countries', null)
             ->toArray();
-        return view('adblock.create', ['countries' => $countries]);
+        $adTypes = AdblockTypesEnum::getPositions();
+        $types = [];
+        $types[null] = 'Select type';
+        foreach ($adTypes as $type) {
+            $types[$type] = $type;
+        }
+        return view('adblock.create', ['countries' => $countries, 'types' => $types]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreCategoryRequest  $request
+     * @param  StoreAdblockRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreAdblockRequest $request)
     {
-        $category = app()[Category::class];
-        $category->fill($request->all());
-        $category->save();
-        return redirect()->route('category.index');
+        $adblock = app()[Adblock::class];
+        $adblock->fill($request->all());
+        $adblock->save();
+        return redirect()->route('adblock.index');
     }
 
     /**
@@ -94,9 +103,9 @@ class AdblockController
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy(Category $category)
+    public function destroy(Adblock $adblock)
     {
-        $category->delete();
-        return redirect()->route('category.index');
+        $adblock->delete();
+        return redirect()->route('adblock.index');
     }
 }

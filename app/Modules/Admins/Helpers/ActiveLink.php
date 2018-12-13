@@ -10,6 +10,7 @@ use App\Modules\Admins\Http\Controllers\CategoryController;
 use App\Modules\Admins\Http\Controllers\DashboardController;
 use App\Modules\Admins\Http\Controllers\SpecialityController;
 use App\Modules\Admins\Http\Controllers\TypeController;
+use App\Modules\Advertisement\Http\Controllers\AdblockController;
 use Illuminate\Support\Facades\Request;
 
 class ActiveLink
@@ -74,6 +75,16 @@ class ActiveLink
         }
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkAdblock(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof AdblockController;
     }
 
 

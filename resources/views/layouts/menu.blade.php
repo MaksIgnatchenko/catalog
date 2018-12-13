@@ -21,3 +21,7 @@
     </ul>
 </li>
 
+<li class="{{ActiveLink::checkAdblock() ? 'active' : ''}}">
+    <a href="{{route('adblock.index')}}"><i class="fa fa-bullhorn"></i> <span>Advertisement</span></a>
+</li>
+

@@ -7,18 +7,20 @@
 namespace App\Modules\Geography\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Khsing\World\Models\Country;
+use Illuminate\Http\JsonResponse;
 
 class CityController extends Controller
 {
-	public function getFromCountry(int $id)
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+	public function getFromCountry(int $id) : JsonResponse
 	{
-		$country = Country::find($id);
-		$cities = $country
-			->cities()
-			->get(['id', 'name'])
-			->pluck('name', 'id')
-			->toArray();
-		return response()->json($cities);
+        $geographyService = app()[\App\Modules\Geography\Services\GeographyServiceInterface::class];
+        $cities = $geographyService
+            ->getCitiesFromCountry($id, ['geography_cities.id', 'geography_cities.name'])
+            ->pluck('name', 'id');
+        return response()->json($cities);
 	}
 }

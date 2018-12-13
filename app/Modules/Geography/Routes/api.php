@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/countries', function () {
-    return \Khsing\World\Models\Country::orderBy('name')
-		->get(['id', 'name'])
-		->pluck('name', 'id')
-		->prepend('Select country', null)
-		->toArray();
-});
+Route::get('/countries', 'CountryController@getCountryList');
 
 Route::get('/cities/{country}', 'CityController@getFromCountry');
+
+Route::post('/test', function(Request $request) {
+    $obj = new \App\Modules\Admins\Models\Category();
+    $obj->fill($request->all());
+    $obj->save();
+});
+
