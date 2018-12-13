@@ -13,12 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/countries', function () {
-    return \Khsing\World\Models\Country::orderBy('name')
-		->get(['id', 'name'])
-		->pluck('name', 'id')
-		->prepend('Select country', null)
-		->toArray();
-});
+Route::get('/countries', 'CountryController@getCountryList');
 
 Route::get('/cities/{country}', 'CityController@getFromCountry');
+
+

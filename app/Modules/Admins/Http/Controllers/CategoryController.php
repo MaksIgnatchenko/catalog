@@ -11,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Modules\Admins\Http\Requests\StoreCategoryRequest;
 use App\Modules\Admins\Http\Requests\UpdateCategoryRequest;
 use App\Modules\Admins\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {

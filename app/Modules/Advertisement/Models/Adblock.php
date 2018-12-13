@@ -6,10 +6,14 @@
 
 namespace App\Modules\Advertisement\Models;
 
+use App\Modules\Advertisement\Services\ImageService;
+use App\Modules\Advertisement\Services\ImageSettings\ImageSettingsFactory;
+use App\Modules\Geography\Models\GeographyCity;
+use App\Modules\Geography\Models\GeographyCountry;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Khsing\World\Models\City;
-use Khsing\World\Models\Country;
+use Illuminate\Http\UploadedFile;
 
 class Adblock extends Model
 {
@@ -27,6 +31,7 @@ class Adblock extends Model
         'position',
         'type',
         'appear_start',
+        'appear_finish',
     ];
 
     /**
@@ -34,7 +39,7 @@ class Adblock extends Model
      */
     public function country() : BelongsTo
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(GeographyCountry::class);
     }
 
     /**
@@ -42,6 +47,22 @@ class Adblock extends Model
      */
     public function city() : BelongsTo
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(GeographyCity::class);
+    }
+
+    /**
+     * @param int $value
+     */
+    public function setAppearFinishAttribute(int $value) : void
+    {
+        $appearFinish = Carbon::parse($this->appear_start)->addDays($value)->toDateTimeString();
+        $this->attributes['appear_finish'] = $appearFinish;
+    }
+
+    public function setImageAttribute(UploadedFile $value) : void
+    {
+        $imageSettings = ImageSettingsFactory::getInstance($this->position);
+        $imageService = new ImageService($value, $imageSettings);
+        $this->attributes['image'] = $imageService->saveAndCrop($value, $imageSettings);
     }
 }

@@ -3,7 +3,7 @@
 </li>
 
 <li class="treeview {{ActiveLink::checkManagement() ? 'active' : ''}}">
-    <a href="#" class="treeview-toggle"><i class="fa fa-table"></i><span>Management</span>
+    <a href="#" class="treeview-toggle"><i class="fa fa-table"></i><span>Categories</span>
         <span class="pull-right-container">
                 <i class="fa fa-angle-{{ActiveLink::checkManagement() ? 'left' : 'down'}} pull-right"></i>
               </span>
@@ -19,5 +19,9 @@
             <a href="{{route('type.index')}}"><i class="fa {{ActiveLink::checkType() ? 'fa-circle' : 'fa-circle-o'}}"></i>Types</a>
         </li>
     </ul>
+</li>
+
+<li class="{{ActiveLink::checkAdblock() ? 'active' : ''}}">
+    <a href="{{route('adblock.index')}}"><i class="fa fa-bullhorn"></i> <span>Advertisement</span></a>
 </li>
 

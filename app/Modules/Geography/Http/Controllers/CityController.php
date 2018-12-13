@@ -6,19 +6,31 @@
 
 namespace App\Modules\Geography\Http\Controllers;
 
+use App\Helpers\ApiCode;
 use App\Http\Controllers\Controller;
-use Khsing\World\Models\Country;
+use App\Modules\Geography\Http\Requests\GetCitiesRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\JsonResponse;
+use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 
 class CityController extends Controller
 {
-	public function getFromCountry(int $id)
+    /**
+     * @param GetCitiesRequest $request
+     * @return JsonResponse
+     */
+	public function getFromCountry(GetCitiesRequest $request) : JsonResponse
 	{
-		$country = Country::find($id);
-		$cities = $country
-			->cities()
-			->get(['id', 'name'])
-			->pluck('name', 'id')
-			->toArray();
-		return response()->json($cities);
+	    $countryId = $request->country;
+        $geographyService = app()[\App\Modules\Geography\Services\GeographyServiceInterface::class];
+        try {
+            $cities = $geographyService
+                ->getCitiesFromCountry($countryId, ['geography_cities.id', 'geography_cities.name'])
+                ->pluck('name', 'id');
+        } catch (ModelNotFoundException | QueryException $e) {
+            return ResponseBuilder::error(ApiCode::NO_SUCH_COUNTRY);
+        }
+        return response()->json($cities);
 	}
 }

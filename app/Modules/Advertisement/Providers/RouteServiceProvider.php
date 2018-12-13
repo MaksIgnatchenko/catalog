@@ -29,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->adminMap();
+        $this->apiMap();
     }
 
     /**
@@ -43,5 +44,12 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'auth:admin'])
             ->namespace($this->adminNamespace)
             ->group(__DIR__ . './../Routes/admin.php');
+    }
+
+    public function apiMap()
+    {
+        Route::prefix('api')
+            ->namespace($this->adminNamespace)
+            ->group(__DIR__ . './../Routes/api.php');
     }
 }
