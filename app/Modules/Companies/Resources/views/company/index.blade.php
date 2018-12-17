@@ -10,7 +10,7 @@
         <div class="clearfix"></div>
         <div class="box">
             <div class="box-body">
-                @include('companies.table')
+                @include('company.table')
             </div>
         </div>
     </div>

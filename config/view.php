@@ -17,6 +17,7 @@ return [
         resource_path('views'),
         app_path('Modules/Admins/Resources/views'),
         app_path('Modules/Advertisement/Resources/views'),
+        app_path('Modules/Companies/Resources/views'),
     ],
 
     /*

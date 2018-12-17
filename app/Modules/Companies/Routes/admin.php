@@ -4,4 +4,4 @@
  *
  */
 
-Route::get('companies', 'CompanyController@index');
+Route::get('companies', 'CompanyController@index')->name('company.index');

@@ -11,6 +11,7 @@ use App\Modules\Admins\Http\Controllers\DashboardController;
 use App\Modules\Admins\Http\Controllers\SpecialityController;
 use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
+use App\Modules\Companies\Http\Controllers\Admin\CompanyController;
 use Illuminate\Support\Facades\Request;
 
 class ActiveLink
@@ -86,6 +87,16 @@ class ActiveLink
 
         return $controller instanceof AdblockController;
     }
+
+	/**
+	 * @return bool
+	 */
+	public static function checkCompany(): bool
+	{
+		$controller = self::getControllerInstance();
+
+		return $controller instanceof CompanyController;
+	}
 
 
     /**

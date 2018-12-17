@@ -47,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('category', function($value) {
+        Route::bind('country', function($value) {
             return is_int($value) ? $value : null;
         });
     }
