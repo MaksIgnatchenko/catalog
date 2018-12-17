@@ -230,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'ActiveLink' => \App\Modules\Admins\Helpers\ActiveLink::class,
+        'CheckCompanyStatus' => \App\Modules\Companies\Helpers\CheckCompanyStatus::class,
     ],
 
 ];

@@ -1,21 +1,21 @@
 @extends('layouts.app')
-@section('title', 'Edit category')
+@section('title', 'Edit limits of company')
 @section('content')
 
     <section class="content">
         <div class="clearfix"></div>
 
         @include('flash::message')
-        {!! Form::open(['route' => ['category.update', $category->id], 'method' => 'PUT', 'files' => true]) !!}
+        {!! Form::open(['route' => ['company.update', $company->id], 'method' => 'PUT']) !!}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
 
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit category {{$category->name}}</h3>
+                        <h3 class="box-title">Edit limits of company {{$company->name}}</h3>
                     </div>
                     <div class="box-body">
-                        @include('category.edit_fields')
+                        @include('company.edit_fields')
                     </div>
                 </div>
             </div>

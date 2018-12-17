@@ -1,22 +1,11 @@
-<!-- Name Field -->
+<!-- Images limit Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('name', 'Name: ') }}
-        {!! Form::text('name', $category->name, ['class' => 'form-control', 'maxlength' => 20]) !!}
+        {{ Form::label('images_limit', 'Images limit: ') }}
+        {!! Form::text('images_limit', $company->images_limit, ['class' => 'form-control', 'maxlength' => 20]) !!}
     </p>
-    @if ($errors->has('name'))
-        <div class="text-red">{{ $errors->first('name') }}</div>
-    @endif
-</div>
-
-<!-- Description Field -->
-<div class="form-group">
-    <p>
-        {{ Form::label('description', 'Description: ') }}
-        {!! Form::textarea('description', $category->description, ['class' => 'form-control',  'maxlength' => 300]) !!}
-    </p>
-    @if ($errors->has('description'))
-        <div class="text-red">{{ $errors->first('description') }}</div>
+    @if ($errors->has('images_limit'))
+        <div class="text-red">{{ $errors->first('images_limit') }}</div>
     @endif
 </div>
 

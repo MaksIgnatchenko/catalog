@@ -31,18 +31,6 @@ class StoreAdblockRequest extends FormRequest
     public function rules()
     {
         return [
-<<<<<<< HEAD
-            'type' => ['required', Rule::in(AdblockTypesEnum::getPositions())],
-            'position' => ['required_with:type', Rule::in(AdblockPositionsEnum::getPositions($this->type))],
-            'url' => 'required|url|max:255',
-            'image' => 'required|image|max:5000',
-            'country_id' => 'exists:geography_countries,id',
-            'city_id' => 'required_with:country_id|',
-            'description' => 'required|string|min:10|max:300',
-            'appear_start' => 'required|date|after:now',
-            'appear_finish' => 'required|min:1|max:10000',
-            ''
-=======
             'type' => ['bail', 'required', Rule::in(AdblockTypesEnum::getPositions())],
             'position' => ['bail', 'required', Rule::in(AdblockPositionsEnum::getPositions($this->type))],
             'url' => 'required|url|max:255',
@@ -52,7 +40,6 @@ class StoreAdblockRequest extends FormRequest
             'description' => 'required|string|min:10|max:300',
             'appear_start' => 'required|date|after:yesterday',
             'appear_finish' => 'required|min:1|max:10000',
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
         ];
     }
 }

@@ -25,10 +25,8 @@
     <a href="{{route('adblock.index')}}"><i class="fa fa-bullhorn"></i> <span>Advertisement</span></a>
 </li>
 
-<<<<<<< HEAD
-=======
 <li class="{{ActiveLink::checkCompany() ? 'active' : ''}}">
     <a href="{{route('company.index')}}"><i class="fa fa-building"></i> <span>Companies</span></a>
 </li>
 
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
+

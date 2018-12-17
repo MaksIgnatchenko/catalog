@@ -23,8 +23,5 @@
     </section>
     <script src="{{ asset('/js/cities.js') }}"></script>
     <script src="{{ asset('/js/adPositions.js') }}"></script>
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
+

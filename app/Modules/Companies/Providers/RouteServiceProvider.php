@@ -7,6 +7,9 @@
 namespace App\Modules\Companies\Providers;
 
 use App\Helpers\SubDomain;
+use App\Modules\Companies\Models\Company;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -43,5 +46,24 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'auth:admin'])
             ->namespace($this->adminNamespace)
             ->group(__DIR__ . './../Routes/admin.php');
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        Route::bind('company', function($value) {
+            try {
+                $company = Company::where('id', (int) $value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('company');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('company');
+                throw $exception;
+            }
+            return $company;
+        });
     }
 }

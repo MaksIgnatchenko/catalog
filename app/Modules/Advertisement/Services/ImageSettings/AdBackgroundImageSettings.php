@@ -15,28 +15,33 @@ class AdBackgroundImageSettings implements ImageSettingsInterface
 
     public function __construct()
     {
-<<<<<<< HEAD
-        $this->path = config('image.ad_background_image_path');
-=======
         $this->path = config('image.ads_image_path');
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
         $this->ration = config('image.ad_background_image_ratio');
         $this->format =config('image.ad_background_image_format');
     }
 
-    public function getRation(): int
+    /**
+     * @return int
+     */
+    public function getRatio(): int
     {
-        // TODO: Implement getWidth() method.
+        return $this->ration;
     }
 
+    /**
+     * @return string
+     */
     public function getPath(): string
     {
-        // TODO: Implement getPath() method.
+        return $this->path;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getFormat() : ?string
+    {
+        return $this->format;
+    }
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72

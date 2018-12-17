@@ -38,6 +38,7 @@ class Company extends Model
         'type_id',
         'logo',
         'images_limit',
+        'status',
         'email',
         'password',
     ];

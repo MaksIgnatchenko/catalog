@@ -8,7 +8,7 @@
         @include('flash::message')
         {!! Form::open(['route' => ['category.update', $category->id], 'method' => 'PUT', 'files' => true]) !!}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
 
                 <div class="box">
                     <div class="box-header with-border">

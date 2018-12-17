@@ -36,13 +36,16 @@ class ImageService
     public function saveAndCrop() : string
     {
         list($width, $height) = getimagesize($this->image);
+        $originFormat = $this->image->getClientOriginalExtension();
         if ($ratio = $this->settings->getRatio()) {
             $height = $width * $ratio;
         }
         $fileName = $this->image->hashName();
         $image = Image::make($this->image)
             ->fit($width, $height);
-        if (ImageFormatsEnum::DEFAULT !== $this->settings->getFormat()) {
+        if (ImageFormatsEnum::ORIGIN === $this->settings->getFormat()) {
+            $image = $image->encode($originFormat);
+        } else {
             $image = $image->encode($this->settings->getFormat());
         }
         return $this->saveImage($fileName, $image);
@@ -57,10 +60,7 @@ class ImageService
     {
         $fileName = $this->settings->getPath() . '/' . $fileName;
         Storage::put($fileName, $image);
-        return Storage::url($fileName);
+        return $fileName;
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72

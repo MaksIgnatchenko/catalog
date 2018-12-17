@@ -17,12 +17,4 @@ Route::get('/countries', 'CountryController@getCountryList');
 
 Route::get('/cities/{country}', 'CityController@getFromCountry');
 
-<<<<<<< HEAD
-Route::post('/test', function(Request $request) {
-    $obj = new \App\Modules\Admins\Models\Category();
-    $obj->fill($request->all());
-    $obj->save();
-});
-=======
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
 

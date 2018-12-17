@@ -18,15 +18,15 @@ return [
      * ratio = height / width
      */
     'ad_top_image_ratio' => 2,
-    'ad_top_image_format' => 'default',
+    'ad_top_image_format' => 'origin',
     /**
      * ratio = height / width
      */
     'ad_left_image_ratio' => 2,
-    'ad_left_image_format' => 'jpeg',
+    'ad_left_image_format' => 'origin',
     /**
      * ratio = height / width
      */
     'ad_background_image_ratio' => 1,
-    'ad_background_image_format' => 'default',
+    'ad_background_image_format' => 'origin',
 ];

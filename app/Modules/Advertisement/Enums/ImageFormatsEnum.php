@@ -8,5 +8,5 @@ namespace App\Modules\Advertisement\Enums;
 
 class ImageFormatsEnum
 {
-    public const DEFAULT = 'default';
+    public const ORIGIN = 'origin';
 }

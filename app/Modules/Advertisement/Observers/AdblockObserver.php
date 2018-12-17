@@ -13,9 +13,8 @@ class AdblockObserver
 {
     public function deleting(Adblock $adblock)
     {
-        if ($image = $adblock->image) {
-            $fileName = config('image.ads_image_path') . '/' . basename($image);
-            Storage::delete($fileName);
+        if ($adblock->image) {
+            Storage::delete($adblock->image);
         }
     }
 }

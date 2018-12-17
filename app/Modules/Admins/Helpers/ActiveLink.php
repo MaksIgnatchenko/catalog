@@ -11,10 +11,7 @@ use App\Modules\Admins\Http\Controllers\DashboardController;
 use App\Modules\Admins\Http\Controllers\SpecialityController;
 use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
-<<<<<<< HEAD
-=======
 use App\Modules\Companies\Http\Controllers\Admin\CompanyController;
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
 use Illuminate\Support\Facades\Request;
 
 class ActiveLink
@@ -91,8 +88,6 @@ class ActiveLink
         return $controller instanceof AdblockController;
     }
 
-<<<<<<< HEAD
-=======
 	/**
 	 * @return bool
 	 */
@@ -102,8 +97,6 @@ class ActiveLink
 
 		return $controller instanceof CompanyController;
 	}
-
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
 
     /**
      * @return mixed

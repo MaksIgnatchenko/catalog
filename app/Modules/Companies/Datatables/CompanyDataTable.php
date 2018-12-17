@@ -7,6 +7,7 @@
 namespace App\Modules\Companies\Datatables;
 
 use App\Modules\Companies\Models\Company;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -23,7 +24,11 @@ class CompanyDataTable extends DataTable
     public function dataTable($query): EloquentDataTable
     {
         $dataTable = new EloquentDataTable($query);
-        return $dataTable;
+        return $dataTable
+            ->editColumn('created_at', function($company) {
+                return Carbon::parse($company->created_at)->toDateString();
+            })
+            ->addColumn('action', 'company.datatables_actions');
     }
 
     /**
@@ -47,7 +52,7 @@ class CompanyDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '30%'])
+            ->addAction(['width' => '10%'])
             ->parameters([
                 'dom'     => 'frtip',
                 'order'   => [[0, 'desc']],
@@ -94,12 +99,21 @@ class CompanyDataTable extends DataTable
                 'width' => '10%',
             ],
             [
+                'data' => 'status',
+                'title' => 'Status',
+                'width' => '10%',
+            ],
+            [
                 'data' => 'images_count',
                 'title' => 'Images',
                 'width' => '10%',
                 'searchable' => false,
-                'orderable' => false,
-
+            ],
+            [
+                'data' => 'created_at',
+                'title' => 'Registration date',
+                'width' => '10%',
+                'searchable' => false,
             ],
             [
                 'data' => 'email',

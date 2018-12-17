@@ -4,4 +4,4 @@
  *
  */
 
-Route::get('companies', 'CompanyController@index')->name('company.index');
+Route::resource('company', 'CompanyController')->only(['index', 'update', 'edit']);

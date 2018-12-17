@@ -7,6 +7,7 @@
 namespace App\Modules\Advertisement\Datatables;
 
 use App\Modules\Advertisement\Models\Adblock;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
@@ -25,12 +26,14 @@ class AdblockDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         return $dataTable
             ->addColumn('action', 'adblock.datatables_actions')
+            ->editColumn('appear_start', function($query) {
+                return Carbon::parse($query->appear_start)->toDateString();
+            })
+            ->editColumn('appear_finish', function($query) {
+                return Carbon::parse($query->appear_finish)->toDateString();
+            })
             ->editColumn('image', function($query) {
-<<<<<<< HEAD
-                return $query->image ? '<img height="50" src="/storage/' . $query->image . '"  />' : '';
-=======
-                return ($query->image ? ("<img height='50' src=" . $query->image . " />") : (''));
->>>>>>> e4014f61c9c122663b441a06abce780df31eab72
+                return ($query->image ? ("<img height='50' src=http://" . \Storage::url($query->image) . " />") : (''));
             })->rawColumns(['image', 'action']);
     }
 

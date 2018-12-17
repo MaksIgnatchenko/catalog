@@ -16,12 +16,12 @@ class AdblockController
     /**
      * Display a listing of the resource.
      *
-     * @param AdblockDataTable $categoryDataTable
+     * @param AdblockDataTable $adblockDataTable
      * @return mixed
      */
-    public function index(AdblockDataTable $categoryDataTable)
+    public function index(AdblockDataTable $adblockDataTable)
     {
-        return $categoryDataTable->render('adblock.index');
+        return $adblockDataTable->render('adblock.index');
     }
 
     /**
