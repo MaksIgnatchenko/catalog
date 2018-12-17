@@ -42,4 +42,13 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->apiNamespace)
             ->group(__DIR__ . './../Routes/api.php');
     }
+
+    public function boot()
+    {
+        parent::boot();
+
+        Route::bind('country', function($value) {
+            return is_int($value) ? $value : null;
+        });
+    }
 }

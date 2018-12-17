@@ -15,7 +15,11 @@ class AdLeftImageSettings implements ImageSettingsInterface
 
     public function __construct()
     {
+<<<<<<< HEAD
         $this->path = config('image.ad_left_image_path');
+=======
+        $this->path = config('image.ads_image_path');
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72
         $this->ration = config('image.ad_left_image_ratio');
         $this->format =config('image.ad_left_image_format');
     }
@@ -38,4 +42,8 @@ class AdLeftImageSettings implements ImageSettingsInterface
         return $this->format;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72

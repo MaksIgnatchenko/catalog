@@ -8,7 +8,7 @@
         @include('flash::message')
         {!! Form::open(['route' => 'type.store', 'method' => 'POST', 'files' => true]) !!}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Create type</h3>

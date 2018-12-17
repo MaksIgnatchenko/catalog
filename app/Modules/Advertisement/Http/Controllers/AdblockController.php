@@ -35,11 +35,9 @@ class AdblockController
         $countries = $geographyService
             ->getCountries()
             ->pluck('name', 'id')
-            ->prepend('All countries', null)
             ->toArray();
         $adTypes = AdblockTypesEnum::getPositions();
         $types = [];
-        $types[null] = 'Select type';
         foreach ($adTypes as $type) {
             $types[$type] = $type;
         }

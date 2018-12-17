@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use MarcinOrlowski\ResponseBuilder\ExceptionHandlerHelper;
 
 class Handler extends ExceptionHandler
 {
@@ -55,7 +56,6 @@ class Handler extends ExceptionHandler
             flash('No such ' . $entityName)->error();
             return redirect('/' . $entityName);
         }
-
         return parent::render($request, $exception);
     }
 

@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Image Driver
@@ -14,27 +12,21 @@ return [
     | Supported: "gd", "imagick"
     |
     */
-
     'driver' => 'gd',
-
+    'ads_image_path' => 'ads',
     /**
      * ratio = height / width
      */
     'ad_top_image_ratio' => 2,
-    'ad_top_image_path' => 'ads',
     'ad_top_image_format' => 'default',
-
     /**
      * ratio = height / width
      */
     'ad_left_image_ratio' => 2,
-    'ad_left_image_path' => 'ads',
-    'ad_left_image_format' => 'default',
-
+    'ad_left_image_format' => 'jpeg',
     /**
      * ratio = height / width
      */
     'ad_background_image_ratio' => 1,
-    'ad_background_image_path' => 'ads',
     'ad_background_image_format' => 'default',
 ];

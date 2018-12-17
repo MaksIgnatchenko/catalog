@@ -26,7 +26,11 @@ class AdblockDataTable extends DataTable
         return $dataTable
             ->addColumn('action', 'adblock.datatables_actions')
             ->editColumn('image', function($query) {
+<<<<<<< HEAD
                 return $query->image ? '<img height="50" src="/storage/' . $query->image . '"  />' : '';
+=======
+                return ($query->image ? ("<img height='50' src=" . $query->image . " />") : (''));
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72
             })->rawColumns(['image', 'action']);
     }
 

@@ -59,4 +59,8 @@ class ImageService
         Storage::put($fileName, $image);
         return Storage::url($fileName);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72

@@ -16,7 +16,11 @@ class AdblockPositionsEnum
      * @param string $adBlockType
      * @return array
      */
+<<<<<<< HEAD
     public static function getPositions(string $adBlockType) : array
+=======
+    public static function getPositions(string $adBlockType = null) : array
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72
     {
         switch ($adBlockType) {
             case AdblockTypesEnum::DYNAMIC :
@@ -28,6 +32,14 @@ class AdblockPositionsEnum
                     self::BACKGROUND,
                     self::LEFT,
                 ];
+<<<<<<< HEAD
         }
     }
 }
+=======
+            default :
+                return [];
+        }
+    }
+}
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72

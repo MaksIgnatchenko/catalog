@@ -8,7 +8,7 @@
         @include('flash::message')
         {!! Form::open(['route' => 'adblock.store', 'method' => 'POST', 'files' => true]) !!}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
                         <h3 class="box-title">Create new adblock</h3>
@@ -23,4 +23,8 @@
     </section>
     <script src="{{ asset('/js/cities.js') }}"></script>
     <script src="{{ asset('/js/adPositions.js') }}"></script>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> e4014f61c9c122663b441a06abce780df31eab72
