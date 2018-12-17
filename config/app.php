@@ -175,6 +175,11 @@ return [
 //        App\Providers\EventServiceProvider::class,
 //        App\Providers\RouteServiceProvider::class,
         App\Modules\Admins\Providers\RouteServiceProvider::class,
+        App\Modules\Advertisement\Providers\RouteServiceProvider::class,
+        App\Modules\Geography\Providers\RouteServiceProvider::class,
+        App\Modules\Geography\Providers\GeographyServiceProvider::class,
+        App\Modules\Advertisement\Providers\AdvertisementServiceProvider::class,
+        App\Modules\Companies\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -225,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'ActiveLink' => \App\Modules\Admins\Helpers\ActiveLink::class,
+        'CheckCompanyStatus' => \App\Modules\Companies\Helpers\CheckCompanyStatus::class,
     ],
 
 ];

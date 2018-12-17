@@ -93,6 +93,11 @@ body {
 }
 
 .form-group {
+    width: 50%;
     word-wrap: break-word;
     overflow-x: auto;
+}
+
+.form-group select {
+    width: 100%;
 }
