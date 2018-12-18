@@ -32,10 +32,10 @@ class AdblockDataTable extends DataTable
             ->editColumn('appear_finish', function($query) {
                 return Carbon::parse($query->appear_finish)->toDateString();
             })
-            ->editColumn('country', function($query) {
+            ->addColumn('country', function($query) {
                 return $query->country->name ?? 'All countries';
             })
-            ->editColumn('city', function($query) {
+            ->addColumn('city', function($query) {
                 return $query->city->name ?? 'All cities';
             })
             ->editColumn('image', function($query) {

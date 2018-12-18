@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Adblock')
+@section('title', 'Advertisement')
 
 @section('content')
     <div class="content">

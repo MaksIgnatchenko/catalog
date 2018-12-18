@@ -1,20 +1,20 @@
 <!-- AdType Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('type', 'Ad block type: ') }}
+        {{ Form::label('type', 'Adblock type: ') }}
     </p>
-    {!! Form::select('type', $types, ['class' => 'form-control']) !!}
+    {!! Form::select('type', array_merge(['' => 'Select type'], $types), ['class' => 'form-control']) !!}
     @if ($errors->has('type'))
-        <div class="text-red">{{ $errors->first('country_id') }}</div>
+        <div class="text-red">{{ $errors->first('type') }}</div>
     @endif
 </div>
 
 <!-- AdPosition Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('position', 'Ad block position: ') }}
+        {{ Form::label('position', 'Adblock position: ') }}
     </p>
-    {!! Form::select('position', [null => 'Select position'], ['class' => 'form-control']) !!}
+    {!! Form::select('position', ['' => 'Select position'], ['class' => 'form-control']) !!}
     @if ($errors->has('position'))
         <div class="text-red">{{ $errors->first('position') }}</div>
     @endif
@@ -37,7 +37,7 @@
         {{ Form::label('city', 'City: ') }}
     </p>
         {!! Form::select('city_id', [null => 'All cities'], ['class' => 'form-control']) !!}
-    @if ($errors->has('country_id'))
+    @if ($errors->has('city_id'))
         <div class="text-red">{{ $errors->first('city_id') }}</div>
     @endif
 </div>
@@ -47,7 +47,7 @@
     <p>
         {{ Form::label('image', 'Image: ') }}
     </p>
-        {!! Form::file('image', null, ['class' => 'form-control', 'maxlength' => 300]) !!}
+        {!! Form::file('image', null, ['class' => 'form-control']) !!}
     @if ($errors->has('image'))
         <div class="text-red">{{ $errors->first('image') }}</div>
     @endif

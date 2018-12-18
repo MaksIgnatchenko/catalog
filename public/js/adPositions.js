@@ -1,7 +1,12 @@
 $( document ).ready(function() {
+    var positionSelect = $('select[name=position]');
     var typeSelect = $('select[name=type]');
-    prependDefaultOption(typeSelect, true)
+    if (typeSelect[0].value !== null) {
+        // console.log(positionSelect[0].value);
+        getPositions(typeSelect[0].value);
+    }
     typeSelect.change('change', function() {
+        console.log(positionSelect[0].value);
         var selectValue = this.value;
         if(selectValue) {
             getPositions(selectValue);
@@ -9,15 +14,6 @@ $( document ).ready(function() {
             cleanSelect(positionSelect);
         }
     });
-    var positionSelect = $('select[name=position]');
-
-    function prependDefaultOption(select, isDefault) {
-        var newOption = $('<option value>Select type</option>');
-        if (isDefault) {
-            newOption.attr("selected","selected");
-        }
-        select.prepend(newOption);
-    }
 
     function insertNewOption(select, key, val) {
         var newOption = $('<option value="'+key+'">'+val+'</option>');
@@ -25,10 +21,11 @@ $( document ).ready(function() {
     }
 
     function cleanSelect(select) {
-        select.children().remove().end().append('<option value>Select position</option>');
+        select.children().remove().end();
     }
 
     function getPositions(type) {
+        // console.log(positionSelect[0].value);
         $.ajax({
             url: '/api/positions/' + type,
             cache: false,
@@ -37,7 +34,7 @@ $( document ).ready(function() {
                 "Content-Type":"json",
             },
             success: function (data, textStatus, xhr) {
-                cleanSelect(positionSelect);
+                // cleanSelect(positionSelect);
                 $.each(data, function(key, value){
                     insertNewOption(positionSelect, key, value);
                 });
