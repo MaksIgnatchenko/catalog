@@ -32,6 +32,12 @@ class AdblockDataTable extends DataTable
             ->editColumn('appear_finish', function($query) {
                 return Carbon::parse($query->appear_finish)->toDateString();
             })
+            ->editColumn('country', function($query) {
+                return $query->country->name ?? 'All countries';
+            })
+            ->editColumn('city', function($query) {
+                return $query->city->name ?? 'All cities';
+            })
             ->editColumn('image', function($query) {
                 return ($query->image ? ("<img height='50' src=http://" . \Storage::url($query->image) . " />") : (''));
             })->rawColumns(['image', 'action']);
@@ -95,12 +101,12 @@ class AdblockDataTable extends DataTable
                 'width' => '10%',
             ],
             [
-                'data' => 'country.name',
+                'data' => 'country',
                 'title' => 'Country',
                 'width' => '10%',
             ],
             [
-                'data' => 'city.name',
+                'data' => 'city',
                 'title' => 'City',
                 'width' => '10%',
             ],
