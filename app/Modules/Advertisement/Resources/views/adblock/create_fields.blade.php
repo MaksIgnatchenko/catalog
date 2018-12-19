@@ -3,7 +3,7 @@
     <p>
         {{ Form::label('type', 'Adblock type: ') }}
     </p>
-    {!! Form::select('type', array_merge(['' => 'Select type'], $types), ['class' => 'form-control']) !!}
+    {!! Form::select('type', $types, ['class' => 'form-control'], ['placeholder' => 'Select type']) !!}
     @if ($errors->has('type'))
         <div class="text-red">{{ $errors->first('type') }}</div>
     @endif
@@ -14,7 +14,7 @@
     <p>
         {{ Form::label('position', 'Adblock position: ') }}
     </p>
-    {!! Form::select('position', ['' => 'Select position'], ['class' => 'form-control']) !!}
+    {!! Form::select('position',[], ['class' => 'form-control'], ['placeholder' => 'Select position']) !!}
     @if ($errors->has('position'))
         <div class="text-red">{{ $errors->first('position') }}</div>
     @endif
@@ -47,7 +47,7 @@
     <p>
         {{ Form::label('image', 'Image: ') }}
     </p>
-        {!! Form::file('image', null, ['class' => 'form-control']) !!}
+        {!! Form::file('image', old('image'), ['class' => 'form-control']) !!}
     @if ($errors->has('image'))
         <div class="text-red">{{ $errors->first('image') }}</div>
     @endif
@@ -101,3 +101,59 @@
 <div class="form-group text-right">
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
 </div>
+
+<script>
+    $( document ).ready(function() {
+        let typeSelect = $('select[name=type]');
+        let positionSelect = $('select[name=position]');
+
+        @if( count($errors) > 0 && old('position') ?? null)
+            getPositions(typeSelect[0].value, "{{ old('position') }}")
+        @endif
+
+
+        typeSelect.change('change', function() {
+            console.log(positionSelect[0].value);
+            let selectValue = this.value;
+            if(selectValue) {
+                getPositions(selectValue);
+            } else {
+                cleanSelect(positionSelect);
+            }
+        });
+
+        function insertNewOption(select, key, val, selected = false) {
+            if (selected) {
+                var newOption = $('<option value="'+key+'">'+val+'</option>').attr('selected','selected');
+            } else {
+                var newOption = $('<option value="'+key+'">'+val+'</option>')
+            }
+            select.append(newOption);
+        }
+
+        function cleanSelect(select) {
+            select.children().not(':first').remove().end();
+        }
+
+        function getPositions(type, selectedKey) {
+            $.ajax({
+                url: '/api/positions/' + type,
+                cache: false,
+                type: 'GET',
+                headers: {
+                    "Content-Type":"json",
+                },
+                success: function (data, textStatus, xhr) {
+                    cleanSelect(positionSelect);
+                    $.each(data, function(key, value){
+                        insertNewOption(positionSelect, key, value, key == selectedKey);
+                    });
+                },
+                error :function(err) {
+                    cleanSelect(positionSelect);
+                }
+            })
+        }
+    });
+
+</script>
