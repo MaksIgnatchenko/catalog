@@ -34,12 +34,12 @@ class StoreAdblockRequest extends FormRequest
             'type' => ['bail', 'required', Rule::in(AdblockTypesEnum::getPositions())],
             'position' => ['bail', 'required', Rule::in(AdblockPositionsEnum::getPositions($this->type))],
             'url' => 'required|url|max:255',
-            'image' => 'required|image|max:5000',
+            'image' => 'required|image|mimes:jpeg,png,bmp,gif|max:5120',
             'country_id' => 'nullable|integer|exists:geography_countries,id',
             'city_id' => 'nullable|integer|exists:geography_cities,id',
             'description' => 'required|string|min:10|max:300',
             'appear_start' => 'required|date|after:yesterday',
-            'appear_finish' => 'required|min:1|max:10000',
+            'appear_finish' => 'required|int|min:1|max:10000',
         ];
     }
 }

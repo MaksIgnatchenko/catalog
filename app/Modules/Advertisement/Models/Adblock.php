@@ -39,7 +39,9 @@ class Adblock extends Model
      */
     public function country() : BelongsTo
     {
-        return $this->belongsTo(GeographyCountry::class);
+        return $this
+            ->belongsTo(GeographyCountry::class)
+            ->withDefault(['name' => 'All countries']);
     }
 
     /**
@@ -47,7 +49,9 @@ class Adblock extends Model
      */
     public function city() : BelongsTo
     {
-        return $this->belongsTo(GeographyCity::class);
+        return $this
+            ->belongsTo(GeographyCity::class)
+            ->withDefault(['name' => 'All cities']);
     }
 
     /**

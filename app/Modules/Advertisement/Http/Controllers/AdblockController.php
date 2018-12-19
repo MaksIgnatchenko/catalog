@@ -59,45 +59,9 @@ class AdblockController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Category $category
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show(Category $category)
-    {
-        return view('category.show')->with('category', $category);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        return view('category.edit')->with('category', $category);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateCategoryRequest $request
-     * @param Category $category
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
-    {
-        $category->update($request->all());
-        return redirect()->route('category.index');
-
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param Category $category
+     * @param Adblock $adblock
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
