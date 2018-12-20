@@ -110,7 +110,7 @@
         var countrySelect = $('select[name=country_id]');
         var citySelect = $('select[name=city_id]');
 
-        @if( count($errors) > 0 && old('position') ?? null)
+        @if( count($errors) > 0 && old('type'))
             getDependsOptions(typeSelect[0].value, '/api/positions/', positionSelect, "{{ old('position') }}")
         @endif
 
@@ -123,7 +123,7 @@
             }
         });
 
-        @if( count($errors) > 0 && old('city_id') ?? null)
+        @if( count($errors) > 0 && old('country_id'))
             if (countrySelect[0].value) {
                 getDependsOptions(countrySelect[0].value, '/api/cities/', citySelect, "{{ old('city_id') }}")
             }

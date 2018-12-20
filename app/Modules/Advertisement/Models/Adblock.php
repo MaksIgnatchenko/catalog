@@ -51,7 +51,7 @@ class Adblock extends Model
     {
         return $this
             ->belongsTo(GeographyCity::class)
-            ->withDefault(['name' => 'All cities']);
+            ->withDefault(['id' => null, 'name' => 'All cities']);
     }
 
     /**

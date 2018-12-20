@@ -32,12 +32,6 @@ class AdblockDataTable extends DataTable
             ->editColumn('appear_finish', function($query) {
                 return Carbon::parse($query->appear_finish)->toDateString();
             })
-//            ->addColumn('country', function($query) {
-//                return $query->country;
-//            })
-//            ->addColumn('city', function($query) {
-//                return $query->city;
-//            })
             ->editColumn('image', function($query) {
                 return ($query->image ? ("<img height='50' src=http://" . \Storage::url($query->image) . " />") : (''));
             })
@@ -52,7 +46,8 @@ class AdblockDataTable extends DataTable
      */
     public function query(Adblock $model): Builder
     {
-        return $model->with(['country', 'city'])->newQuery();
+        $adblocks = $model->with(['country', 'city'])->select('adblocks.*');
+        return $this->applyScopes($adblocks);
     }
 
     /**
