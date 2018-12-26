@@ -12,11 +12,14 @@ class AdminTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('admins')->insert([
-            'name' => 'admin',
-            'email' => 'appus.catalog@gmail.com',
-            'password' => Hash::make('admin'),
-        ]);
+        $admin = new \App\Modules\Admins\Models\Admin();
+        $admin->name = 'superadmin';
+        $admin->email = 'appus.catalog@gmail.com';
+        $admin->password = 'admin';
+        $admin->save();
+        $roleId = \App\Modules\Permissions\Models\Role::where('name','superadmin')->first();
+        $admin->attachRole($roleId);
+
     }
 }
 

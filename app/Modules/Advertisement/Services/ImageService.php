@@ -17,6 +17,7 @@ class ImageService
     /**
      * @var UploadedFile
      */
+    private $originImage;
     private $image;
 
     /**
@@ -26,7 +27,7 @@ class ImageService
 
     public function  __construct(UploadedFile $image, ImageSettingsInterface $settings)
     {
-        $this->image = $image;
+        $this->originImage = $image;
         $this->settings = $settings;
     }
 
@@ -35,18 +36,14 @@ class ImageService
      */
     public function saveAndCrop() : string
     {
-        list($width, $height) = getimagesize($this->image);
-        $originFormat = $this->image->getClientOriginalExtension();
-        if ($ratio = $this->settings->getRatio()) {
-            $height = $width * $ratio;
-        }
-        $fileName = $this->image->hashName();
-        $image = Image::make($this->image)
-            ->fit($width, $height);
+        $originFormat = $this->originImage->getClientOriginalExtension();
+        $fileName = $this->originImage->hashName();
+        $this->image = Image::make($this->originImage);
+        $this->resizeImage();
         if (ImageFormatsEnum::ORIGIN === $this->settings->getFormat()) {
-            $image = $image->encode($originFormat);
+            $image = $this->image->encode($originFormat);
         } else {
-            $image = $image->encode($this->settings->getFormat());
+            $image = $this->image->encode($this->settings->getFormat());
         }
         return $this->saveImage($fileName, $image);
     }
@@ -61,6 +58,17 @@ class ImageService
         $fileName = $this->settings->getPath() . '/' . $fileName;
         Storage::put($fileName, $image);
         return $fileName;
+    }
+
+    private function resizeImage() {
+        if (($ratio = $this->settings->getRatio()) >= 1) {
+            $height = $this->image->height();
+            $width = round($height / $ratio);
+        } else {
+            $width = $this->image->width();
+            $height = $width * $ratio;
+        }
+        $this->image->fit($width, $height);
     }
 
 }

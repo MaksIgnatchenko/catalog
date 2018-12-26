@@ -6,13 +6,26 @@
 
 namespace App\Modules\Advertisement\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Modules\Advertisement\Datatables\AdblockDataTable;
 use App\Modules\Advertisement\Enums\AdblockTypesEnum;
 use App\Modules\Advertisement\Http\Requests\StoreAdblockRequest;
 use App\Modules\Advertisement\Models\Adblock;
 
-class AdblockController
+class AdblockController extends Controller
 {
+    /**
+     * AdblockController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:index_adblocks')->only('index');
+        $this->middleware('permission:read_adblocks')->only('show');
+        $this->middleware('permission:create_adblocks')->only(['create', 'store']);
+        $this->middleware('permission:edit_adblocks')->only(['edit', 'update']);
+        $this->middleware('permission:delete_adblocks')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -59,45 +72,9 @@ class AdblockController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param Category $category
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show(Category $category)
-    {
-        return view('category.show')->with('category', $category);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        return view('category.edit')->with('category', $category);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateCategoryRequest $request
-     * @param Category $category
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(UpdateCategoryRequest $request, Category $category)
-    {
-        $category->update($request->all());
-        return redirect()->route('category.index');
-
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param Category $category
+     * @param Adblock $adblock
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */

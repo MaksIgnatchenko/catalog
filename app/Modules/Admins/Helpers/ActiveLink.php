@@ -12,6 +12,8 @@ use App\Modules\Admins\Http\Controllers\SpecialityController;
 use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
 use App\Modules\Companies\Http\Controllers\Admin\CompanyController;
+use App\Modules\Permissions\Http\Controllers\RoleController;
+use App\Modules\Supervisors\Http\Controllers\SupervisorController;
 use Illuminate\Support\Facades\Request;
 
 class ActiveLink
@@ -97,6 +99,26 @@ class ActiveLink
 
 		return $controller instanceof CompanyController;
 	}
+
+    /**
+     * @return bool
+     */
+    public static function checkRole(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof RoleController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkSupervisor(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof SupervisorController;
+    }
 
     /**
      * @return mixed
