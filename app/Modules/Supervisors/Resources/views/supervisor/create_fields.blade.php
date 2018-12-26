@@ -24,7 +24,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('password', 'Password: ') }}
-        {!! Form::password('password', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
+        {!! Form::text('password', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
     </p>
     @if ($errors->has('password'))
         <div class="text-red">{{ $errors->first('password') }}</div>
@@ -35,7 +35,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('password_confirmation', 'Password confirmation: ') }}
-        {!! Form::password('password_confirmation', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
+        {!! Form::text('password_confirmation', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
     </p>
     @if ($errors->has('password_confirmation'))
         <div class="text-red">{{ $errors->first('password_confirmation') }}</div>
@@ -49,8 +49,8 @@
     </p>
 @foreach ($roles as $role)
     <p>
-        {{ Form::label($role->display_name, $role->display_name . ': ') }}
-        {!! Form::checkbox('roles[]', $role->id, false) !!}
+        {!! Form::checkbox('roles[]', $role->id, false, ['id' => 'permission_' . $role->id, 'class' => 'custom-checkbox']) !!}
+        {{ Form::label('permission_' . $role->id, $role->display_name . ': ') }}
     </p>
 @endforeach
 </div>

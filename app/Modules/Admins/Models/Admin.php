@@ -6,6 +6,7 @@
 
 namespace App\Modules\Admins\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -33,6 +34,17 @@ class Admin extends Authenticatable
         if ($password) {
             $this->attributes['password'] = Hash::make($password);
         }
+    }
+
+    /**
+     * Scope a query to only include supervisors except superadmin.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSupervisors(Builder $query) : Builder
+    {
+        return $query->where('id', '>', 1);
     }
 }
 

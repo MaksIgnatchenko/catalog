@@ -31,7 +31,7 @@ class UpdateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string|min:3|max:20|unique:roles,display_name,' . $this->exceptId(),
+            'name' => 'string|min:3|max:50|unique:roles,display_name,' . $this->exceptId(),
             'description' => 'string|min:10|max:300',
             'permissions' => 'array',
             'permissions.*' => 'exists:permissions,id',

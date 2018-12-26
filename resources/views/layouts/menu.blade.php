@@ -2,7 +2,7 @@
     <a href="{{route('admin')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
 </li>
 
-@permission('create_categories')
+@permission('index_categories')
     <li class="treeview {{ActiveLink::checkManagement() ? 'active' : ''}}">
         <a href="#" class="treeview-toggle"><i class="fa fa-table"></i><span>Categories</span>
             <span class="pull-right-container">
@@ -23,25 +23,25 @@
     </li>
 @endpermission
 
-@permission('create_adblocks')
+@permission('index_adblocks')
     <li class="{{ActiveLink::checkAdblock() ? 'active' : ''}}">
         <a href="{{route('adblock.index')}}"><i class="fa fa-bullhorn"></i> <span>Advertisement</span></a>
     </li>
 @endpermission
 
-@permission('create_companies')
+@permission('index_companies')
     <li class="{{ActiveLink::checkCompany() ? 'active' : ''}}">
         <a href="{{route('company.index')}}"><i class="fa fa-building"></i> <span>Companies</span></a>
     </li>
 @endpermission
 
-@permission('create_roles')
+@permission('index_roles')
     <li class="{{ActiveLink::checkRole() ? 'active' : ''}}">
         <a href="{{route('role.index')}}"><i class="fa fa-suitcase"></i> <span>Roles</span></a>
     </li>
 @endpermission
 
-@permission('create_supervisors')
+@permission('index_supervisors')
     <li class="{{ActiveLink::checkSupervisor() ? 'active' : ''}}">
         <a href="{{route('supervisor.index')}}"><i class="fa fa-user"></i> <span>Supervisors</span></a>
     </li>

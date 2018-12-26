@@ -31,7 +31,7 @@ class StoreSupervisorRequest extends FormRequest
             'name' => 'required|string|min:5|max:50|unique:admins,name',
             'email' => 'required|email|string|min:5|max:100|unique:admins,email',
             'password' => 'required|string|min:6|max:50,confirmed',
-            'password_confirmation' => 'required|string|max:100',
+            'password_confirmation' => 'required|string|max:50|same:password',
             'roles' => 'array',
             'roles.*' => 'exists:roles,id',
         ];

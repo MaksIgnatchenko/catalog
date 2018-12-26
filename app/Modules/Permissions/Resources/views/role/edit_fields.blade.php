@@ -2,7 +2,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('name', 'Name: ') }}
-        {!! Form::text('name', $role->name, ['class' => 'form-control', 'maxlength' => 20]) !!}
+        {!! Form::text('name', $role->name, ['class' => 'form-control', 'maxlength' => 50]) !!}
     </p>
     @if ($errors->has('name'))
         <div class="text-red">{{ $errors->first('name') }}</div>
@@ -16,8 +16,8 @@
     </p>
     @foreach ($permissions as $permission)
         <p>
-            {{ Form::label($permission->display_name, $permission->display_name . ': ') }}
-            {!! Form::checkbox('permissions[]', $permission->id, in_array($permission->id, $selectedPermissions)) !!}
+            {!! Form::checkbox('permissions[]', $permission->id, in_array($permission->id, $selectedPermissions), ['id' => 'permission_' . $permission->id, 'class' => 'custom-checkbox']) !!}
+            {{ Form::label('permission_' . $permission->id, $permission->display_name . ': ') }}
         </p>
     @endforeach
 </div>

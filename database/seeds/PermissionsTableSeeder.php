@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PermissionsTableSeeder extends Seeder
 {
@@ -50,7 +51,6 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Permission for delete ' . $entity,
             ];
         }
-        print_r($permissions);
-        \Illuminate\Support\Facades\DB::table('permissions')->insert($permissions);
+        DB::table('permissions')->insert($permissions);
     }
 }

@@ -43,7 +43,7 @@ class SupervisorDataTable extends DataTable
      */
     public function query(Admin $model): Builder
     {
-        return $model->newQuery()->with('roles');
+        return $model->supervisors()->newQuery()->with('roles');
     }
 
     /**
