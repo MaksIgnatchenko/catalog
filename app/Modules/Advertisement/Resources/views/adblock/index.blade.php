@@ -10,7 +10,9 @@
         <div class="clearfix"></div>
         <div class="box">
             <div class="box-body">
-                <a href="{{route('adblock.create')}}" class="btn btn-primary pull-right create-article">Create new adblock</a>
+                @permission('create_adblocks')
+                    <a href="{{route('adblock.create')}}" class="btn btn-primary pull-right create-article">Create new adblock</a>
+                @endpermission
                 @include('adblock.table')
             </div>
         </div>

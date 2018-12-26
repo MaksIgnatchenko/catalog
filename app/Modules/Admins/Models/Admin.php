@@ -8,9 +8,12 @@ namespace App\Modules\Admins\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class Admin extends Authenticatable
 {
+    use LaratrustUserTrait;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,9 +28,11 @@ class Admin extends Authenticatable
     /**
      * @param string $password
      */
-    public function setPasswordAttribute(string $password): void
+    public function setPasswordAttribute(string $password = null): void
     {
-        $this->attributes['password'] = Hash::make($password);
+        if ($password) {
+            $this->attributes['password'] = Hash::make($password);
+        }
     }
 }
 
