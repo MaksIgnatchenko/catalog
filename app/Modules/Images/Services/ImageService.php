@@ -4,10 +4,10 @@
  *
  */
 
-namespace App\Modules\Advertisement\Services;
+namespace App\Modules\Images\Services;
 
 use App\Modules\Advertisement\Enums\ImageFormatsEnum;
-use App\Modules\Advertisement\Services\ImageSettings\ImageSettingsInterface;
+use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;

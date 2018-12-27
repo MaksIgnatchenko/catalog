@@ -4,7 +4,7 @@
  *
  */
 
-namespace App\Modules\Advertisement\Services\ImageSettings;
+namespace App\Modules\Images\Services\ImageSettings;
 
 interface ImageSettingsInterface
 {

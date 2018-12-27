@@ -8,8 +8,10 @@ namespace App\Modules\Companies\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Companies\Datatables\CompanyDataTable;
+use App\Modules\Companies\Http\Requests\EditAdminCompanyRequest;
 use App\Modules\Companies\Http\Requests\UpdateAdminCompanyRequest;
 use App\Modules\Companies\Models\Company;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -33,18 +35,33 @@ class CompanyController extends Controller
      */
     public function update(UpdateAdminCompanyRequest $request, Company $company)
     {
-        $company->update($request->only(['status', 'images_limit']));
+        $company->update($request->only(['status', 'company_images_limit', 'team_images_limit', 'date_change_status']));
         return redirect()->route('company.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param  EditAdminCompanyRequest  $request
      * @param  Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(EditAdminCompanyRequest $request, Company $company)
     {
-        return view('company.edit')->with('company', $company);
+        return view('company.edit', ['company' => $company, 'operation' => $request->operation, 'newStatus' => $request->newStatus]);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Company $company
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(Company $company)
+    {
+        $company->delete();
+        return redirect()->route('company.index');
+    }
+
 }

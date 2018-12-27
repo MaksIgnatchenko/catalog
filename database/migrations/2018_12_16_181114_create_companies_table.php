@@ -22,8 +22,10 @@ class CreateCompaniesTable extends Migration
             $table->unsignedInteger('speciality_id');
             $table->unsignedInteger('type_id');
             $table->string('logo')->nullable();
-            $table->unsignedInteger('images_limit');
+            $table->unsignedInteger('company_images_limit');
+            $table->unsignedInteger('team_images_limit');
             $table->string('status');
+            $table->date('date_change_status')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

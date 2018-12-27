@@ -4,7 +4,7 @@
  *
  */
 
-namespace App\Modules\Companies\Models;
+namespace App\Modules\Images\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
