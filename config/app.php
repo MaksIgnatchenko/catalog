@@ -182,6 +182,7 @@ return [
         App\Modules\Companies\Providers\RouteServiceProvider::class,
         App\Modules\Permissions\Providers\RouteServiceProvider::class,
         App\Modules\Supervisors\Providers\RouteServiceProvider::class,
+        App\Modules\StaticContent\Providers\RouteServiceProvider::class,
 
     ],
 

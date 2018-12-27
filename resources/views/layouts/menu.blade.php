@@ -47,3 +47,8 @@
     </li>
 @endpermission
 
+@permission('index_static_content')
+<li class="{{ActiveLink::checkWhoWeAre() ? 'active' : ''}}">
+    <a href="{{route('who-we-are.index')}}"><i class="fa fa-user"></i> <span>Who we are</span></a>
+</li>
+@endpermission

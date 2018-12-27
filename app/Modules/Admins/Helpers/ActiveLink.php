@@ -13,6 +13,7 @@ use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
 use App\Modules\Companies\Http\Controllers\Admin\CompanyController;
 use App\Modules\Permissions\Http\Controllers\RoleController;
+use App\Modules\StaticContent\Http\Controllers\WhoWeAreController;
 use App\Modules\Supervisors\Http\Controllers\SupervisorController;
 use Illuminate\Support\Facades\Request;
 
@@ -118,6 +119,16 @@ class ActiveLink
         $controller = self::getControllerInstance();
 
         return $controller instanceof SupervisorController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkWhoWeAre(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof WhoWeAreController;
     }
 
     /**
