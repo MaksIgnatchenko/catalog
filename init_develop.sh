@@ -5,10 +5,9 @@ cd /var/www
 
 chmod -R 777 storage/ bootstrap/cache
 
-mkdir -p public/images
-chmod -R 777 public/images
-
 php artisan down
+
+php artisan storage:link -q
 
 php artisan migrate --force
 php artisan route:clear

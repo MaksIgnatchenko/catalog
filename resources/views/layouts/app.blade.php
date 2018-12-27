@@ -69,7 +69,7 @@
         </div>
 
         <footer class="footer">
-            {{date('Y')}} Catalog of companies
+            {{ '@' . date('Y')}} Catalog of companies
         </footer>
 
     </div>
