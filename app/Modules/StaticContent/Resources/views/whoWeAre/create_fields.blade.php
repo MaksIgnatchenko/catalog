@@ -1,37 +1,30 @@
-<!-- Name Field -->
+<!-- TEXT ENGLISH Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('name', 'Name: ') }}
-        {!! Form::text('name', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
+        {{ Form::label('payload[en]', 'English: ') }}
+        {!! Form::textarea('payload[en]', null, ['class' => 'form-control', 'maxlength' => 500]) !!}
     </p>
-    @if ($errors->has('name'))
-        <div class="text-red">{{ $errors->first('name') }}</div>
+    @if ($errors->has('payload[en]'))
+        <div class="text-red">{{ $errors->first('payload[en]') }}</div>
     @endif
 </div>
 
-<!-- Permissions Field -->
+<!-- TEXT ARABIC Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('Permissions', 'Permissions: ') }}
+        {{ Form::label('payload[ar]', 'Arabic: ') }}
+        {!! Form::textarea('payload[ar]', null, ['class' => 'form-control', 'maxlength' => 500]) !!}
     </p>
-@foreach ($permissions as $permission)
-    <p>
-        {!! Form::checkbox('permissions[]', $permission->id, false, ['id' => 'permission_' . $permission->id, 'class' => 'custom-checkbox']) !!}
-        {{ Form::label('permission_' . $permission->id, $permission->display_name . ': ') }}
-    </p>
-@endforeach
-</div>
-
-<!-- Description Field -->
-<div class="form-group">
-    <p>
-        {{ Form::label('description', 'Description: ') }}
-        {!! Form::textarea('description', null, ['class' => 'form-control', 'maxlength' => 300]) !!}
-    </p>
-    @if ($errors->has('description'))
-        <div class="text-red">{{ $errors->first('description') }}</div>
+    @if ($errors->has('payload[ar]'))
+        <div class="text-red">{{ $errors->first('payload[ar]') }}</div>
     @endif
 </div>
+
+<!-- HIDDEN STATUS Field -->
+{{ Form::hidden('status', 'active') }}
+
+<!-- HIDDEN CONTENT TYPE Field -->
+{{ Form::hidden('content_type', 'who_we_are') }}
 
 <!-- Submit Field -->
 <div class="form-group text-right">

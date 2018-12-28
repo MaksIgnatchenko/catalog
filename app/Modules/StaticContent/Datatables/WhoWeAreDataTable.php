@@ -25,6 +25,12 @@ class WhoWeAreDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         return $dataTable
             ->addColumn('action', 'whoWeAre.datatables_actions')
+            ->addColumn('payload_en', function ($query){
+                return $query->payload->en;
+            })
+            ->addColumn('payload_ar', function ($query){
+                return $query->payload->ar;
+            })
             ->rawColumns(['action']);
     }
 
@@ -66,14 +72,14 @@ class WhoWeAreDataTable extends DataTable
     {
         return [
             [
-                'name' => 'english',
-                'data' => 'payload->en',
+                'name' => 'payload_en',
+                'data' => 'payload_en',
                 'title' => 'English',
                 'width' => '25%',
             ],
             [
-                'name' => 'arabic',
-                'data' => 'payload->ar',
+                'name' => 'payload_ar',
+                'data' => 'payload_ar',
                 'title' => 'Arabic',
                 'width' => '25%',
             ],

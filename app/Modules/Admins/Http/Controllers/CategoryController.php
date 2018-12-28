@@ -15,6 +15,18 @@ use App\Modules\Admins\Models\Category;
 class CategoryController extends Controller
 {
     /**
+     * CategoryController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:index_categories')->only('index');
+        $this->middleware('permission:read_categories')->only('show');
+        $this->middleware('permission:create_categories')->only(['create', 'store']);
+        $this->middleware('permission:edit_categories')->only(['edit', 'update']);
+        $this->middleware('permission:delete_categories')->only('destroy');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param CategoryDataTable $categoryDataTable

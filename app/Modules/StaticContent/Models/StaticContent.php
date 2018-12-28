@@ -7,6 +7,7 @@
 namespace App\Modules\StaticContent\Models;
 
 use App\Modules\StaticContent\Enums\ContentTypeEnum;
+use App\Modules\StaticContent\Enums\StaticContentStatusEnum;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;
@@ -39,7 +40,28 @@ class StaticContent extends Model
     protected $fillable = [
         'payload',
         'content_type',
+        'status',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'payload' => 'array',
+    ];
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive(Builder $query) : Builder
+    {
+        return $query->where('status',StaticContentStatusEnum::ACTIVE);
+    }
 
     /**
      * Scope a query to only include popular users.

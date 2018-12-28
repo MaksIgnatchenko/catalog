@@ -8,6 +8,8 @@ namespace App\Modules\StaticContent\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\StaticContent\DataTables\WhoWeAreDataTable;
+use App\Modules\StaticContent\Models\StaticContent;
+use Illuminate\Http\Request;
 
 class WhoWeAreController extends Controller
 {
@@ -34,32 +36,30 @@ class WhoWeAreController extends Controller
         return $whoWeAreDataTable->render('whoWeAre.index');
     }
 
-//    /**
-//     * Show the form for creating a new resource.
-//     *
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function create()
-//    {
-//        $roles = Role::all(['id', 'display_name']);
-//        return view('supervisor.create', ['roles' => $roles]);
-//    }
-//
-//    /**
-//     * Store a newly created resource in storage.
-//     *
-//     * @param  StoreSupervisorRequest  $request
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function store(StoreSupervisorRequest $request)
-//    {
-//        $supervisor = app()[Admin::class];
-//        $supervisor->fill($request->all());
-//        $supervisor->save();
-//        $supervisor->syncRoles($request->roles);
-//        return redirect()->route('supervisor.index');
-//    }
-//
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('whoWeAre.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $supervisor = app()[StaticContent::class];
+        $supervisor->fill($request->all());
+        $supervisor->save();
+        return redirect()->route('who-we-are.index');
+    }
+
 //    /**
 //     * Display the specified resource.
 //     *

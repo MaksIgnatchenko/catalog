@@ -1,6 +1,6 @@
 @permission('read_static_content')
     <div class='btn-group'>
-        <a href="{{ route('whoWeAre.show', $id) }}" class='btn btn-primary'>
+        <a href="{{ route('who-we-are.show', $id) }}" class='btn btn-primary'>
             <i class="glyphicon glyphicon-eye-open"></i>
         </a>
     </div>
@@ -8,7 +8,7 @@
 
 @permission('edit_static_content')
 <div class='btn-group'>
-    <a href="{{ route('whoWeAre.edit', $id) }}" class='btn btn-primary'>
+    <a href="{{ route('who-we-are.edit', $id) }}" class='btn btn-primary'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>
 </div>

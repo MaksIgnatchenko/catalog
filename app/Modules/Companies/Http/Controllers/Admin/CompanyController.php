@@ -16,6 +16,18 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     /**
+     * CompanyController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:index_companies')->only('index');
+        $this->middleware('permission:read_companies')->only('show');
+        $this->middleware('permission:create_companies')->only(['create', 'store']);
+        $this->middleware('permission:edit_companies')->only(['edit', 'update']);
+        $this->middleware('permission:delete_companies')->only('destroy');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param CompanyDataTable $companyDataTable
