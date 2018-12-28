@@ -1,11 +1,22 @@
-<!-- Images limit Field -->
+<!-- Company's images limit Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('images_limit', 'Images limit: ') }}
-        {!! Form::text('images_limit', $company->images_limit, ['class' => 'form-control', 'maxlength' => 20]) !!}
+        {{ Form::label('company_images_limit', 'Company\'s images limit: ') }}
+        {!! Form::text('company_images_limit', $company->company_images_limit, ['class' => 'form-control', 'maxlength' => 20]) !!}
     </p>
-    @if ($errors->has('images_limit'))
-        <div class="text-red">{{ $errors->first('images_limit') }}</div>
+    @if ($errors->has('company_images_limit'))
+        <div class="text-red">{{ $errors->first('company_images_limit') }}</div>
+    @endif
+</div>
+
+<!-- Team's images limit Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('team_images_limit', 'Team\'s images limit: ') }}
+        {!! Form::text('team_images_limit', $company->team_images_limit, ['class' => 'form-control', 'maxlength' => 20]) !!}
+    </p>
+    @if ($errors->has('team_images_limit'))
+        <div class="text-red">{{ $errors->first('team_images_limit') }}</div>
     @endif
 </div>
 

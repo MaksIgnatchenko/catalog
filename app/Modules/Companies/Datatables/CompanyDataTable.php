@@ -6,6 +6,7 @@
 
 namespace App\Modules\Companies\Datatables;
 
+use App\Modules\Companies\Enums\CompanyImageTypeEnum;
 use App\Modules\Companies\Models\Company;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,8 +26,11 @@ class CompanyDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
         return $dataTable
-            ->editColumn('created_at', function($company) {
+            ->editColumn('created_at', function ($company) {
                 return Carbon::parse($company->created_at)->toDateString();
+            })
+            ->editColumn('status', function ($company) {
+                return ucfirst(str_replace('_', ' ', $company->status));
             })
             ->addColumn('action', 'company.datatables_actions');
     }
@@ -39,7 +43,16 @@ class CompanyDataTable extends DataTable
      */
     public function query(Company $model): Builder
     {
-        return $model->withCount('images')->with(['category', 'speciality', 'type', 'country', 'city'])->newQuery();
+        return $model->withCount([
+            'images as companyImagesLimitCount' => function ($query) {
+                $query->where('type', CompanyImageTypeEnum::COMPANY_IMAGE);
+            },
+            'images as teamImagesLimitCount' => function ($query) {
+                $query->where('type', CompanyImageTypeEnum::TEAM_IMAGE);
+            },
+        ])
+            ->with(['category', 'speciality', 'type', 'country', 'city'])
+            ->newQuery();
     }
 
     /**
@@ -54,8 +67,8 @@ class CompanyDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '10%'])
             ->parameters([
-                'dom'     => 'frtip',
-                'order'   => [[0, 'desc']],
+                'dom' => 'frtip',
+                'order' => [[0, 'desc']],
                 'responsive' => true,
             ]);
     }
@@ -104,15 +117,27 @@ class CompanyDataTable extends DataTable
                 'width' => '10%',
             ],
             [
-                'data' => 'images_count',
-                'title' => 'Images',
-                'width' => '10%',
+                'data' => 'companyImagesLimitCount',
+                'title' => 'Company<br>images',
+                'width' => '6%',
+                'searchable' => false,
+            ],
+            [
+                'data' => 'teamImagesLimitCount',
+                'title' => 'Team<br>images',
+                'width' => '6%',
                 'searchable' => false,
             ],
             [
                 'data' => 'created_at',
                 'title' => 'Registration date',
-                'width' => '10%',
+                'width' => '6%',
+                'searchable' => false,
+            ],
+            [
+                'data' => 'date_change_status',
+                'title' => 'Status change date',
+                'width' => '6%',
                 'searchable' => false,
             ],
             [

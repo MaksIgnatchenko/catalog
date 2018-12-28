@@ -11,11 +11,26 @@ class CompanyStatusEnum
 
     public const ACTIVE = 'active';
     public const BLOCK = 'block';
+    public const WAITING_FOR_ACTIVATION = 'waiting_for_activation';
+    public const WAITING_FOR_BLOCK = 'waiting_for_block';
 
     /**
      * @return array
      */
     public static function getAvailable() : array
+    {
+        return [
+            self::ACTIVE,
+            self::BLOCK,
+            self::WAITING_FOR_ACTIVATION,
+            self::WAITING_FOR_BLOCK,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAvailableForAdminEditRequest() : array
     {
         return [
             self::ACTIVE,
