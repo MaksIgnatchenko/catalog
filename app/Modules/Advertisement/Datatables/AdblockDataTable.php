@@ -9,6 +9,7 @@ namespace App\Modules\Advertisement\Datatables;
 use App\Modules\Advertisement\Models\Adblock;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\Html\Builder as YajraBuilder;
@@ -35,7 +36,7 @@ class AdblockDataTable extends DataTable
             ->editColumn('image', function($query) {
                 return ($query->image ? ("<img height='50' src=http://" . \Storage::url($query->image) . " />") : (''));
             })
-            ->rawColumns(['image', 'action']);
+            ->rawColumns(['image', 'action', ]);
     }
 
     /**

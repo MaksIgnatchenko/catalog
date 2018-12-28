@@ -32,9 +32,6 @@ class CompanyDataTable extends DataTable
             ->editColumn('status', function ($company) {
                 return ucfirst(str_replace('_', ' ', $company->status));
             })
-            ->addColumn('date_change_status', function ($company) {
-                return $company->date_change_status ?? null;
-            })
             ->addColumn('action', 'company.datatables_actions');
     }
 

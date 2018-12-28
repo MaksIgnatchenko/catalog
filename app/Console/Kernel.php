@@ -27,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new ActivateCompanies(Company::class))->everyMinute();
-        $schedule->job(new BlockCompanies(Company::class))->everyMinute();
+        $schedule->job(new ActivateCompanies(Company::class))->hourly();
+        $schedule->job(new BlockCompanies(Company::class))->hourly();
     }
 
     /**
