@@ -39,7 +39,8 @@ class CompaniesTableSeeder extends Seeder
                 'speciality_id' => $speciality->id,
                 'type_id' => $type->id,
                 'logo' => null,
-                'images_limit' => config('company.default_company_images_limit'),
+                'company_images_limit' => config('company.default_company_images_limit'),
+                'team_images_limit' => config('company.default_team_images_limit'),
                 'status' => 'active',
                 'created_at' => $dates[array_rand($dates)],
             ];

@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Modules\Companies\Jobs\ActivateCompanies;
+use App\Modules\Companies\Jobs\BlockCompanies;
+use App\Modules\Companies\Models\Company;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->job(new ActivateCompanies(Company::class))->hourly();
+        $schedule->job(new BlockCompanies(Company::class))->hourly();
     }
 
     /**

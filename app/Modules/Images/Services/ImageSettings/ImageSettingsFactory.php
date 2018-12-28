@@ -4,9 +4,12 @@
  *
  */
 
-namespace App\Modules\Advertisement\Services\ImageSettings;
+namespace App\Modules\Images\Services\ImageSettings;
 
 use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
+use App\Modules\Advertisement\Services\ImageSettings\AdBackgroundImageSettings;
+use App\Modules\Advertisement\Services\ImageSettings\AdLeftImageSettings;
+use App\Modules\Advertisement\Services\ImageSettings\AdTopImageSettings;
 
 class ImageSettingsFactory
 {
@@ -21,5 +24,4 @@ class ImageSettingsFactory
                 return new AdBackgroundImageSettings();
         }
     }
-
 }

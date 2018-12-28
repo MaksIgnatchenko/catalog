@@ -1,5 +1,7 @@
 <?php
+
 use Illuminate\Database\Seeder;
+
 class CategoriesSeeder extends Seeder
 {
     /**
@@ -9,39 +11,84 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        $categories = [];
-        for($i = 1; $i < 10; $i++) {
-            $categories[] = [
-                'name' => 'Category' . $i,
-                'description' => 'test description',
-            ];
-        }
+        $categories = [
+            [
+                'name' => 'Category1',
+                'description' => 'Category1 description',
+            ],
+            [
+                'name' => 'Category2',
+                'description' => 'Category2 description',
+            ],
+        ];
         DB::table('categories')->insert($categories);
-        $categories = \App\Modules\Admins\Models\Category::all();
-        $n = 1;
-        $specialities = [];
-        foreach($categories as $category) {
-            for($i = 1; $i <= 2; $i++, $n++) {
-                $specialities[] = [
-                    'name' => 'Speciality' . $n,
-                    'category_id' => $category->id,
-                    'description' => 'test description',
-                ];
-            }
-        }
+
+        $specialities = [
+            [
+                'name' => 'Speciality1',
+                'description' => 'Speciality1 description',
+                'category_id' => 1,
+            ],
+            [
+                'name' => 'Speciality2',
+                'description' => 'Speciality2 description',
+                'category_id' => 1,
+            ],
+            [
+                'name' => 'Speciality3',
+                'description' => 'Speciality3 description',
+                'category_id' => 2,
+            ],
+            [
+                'name' => 'Speciality4',
+                'description' => 'Speciality4 description',
+                'category_id' => 2,
+            ],
+        ];
         DB::table('specialities')->insert($specialities);
-        $specialities = \App\Modules\Admins\Models\Speciality::all();
-        $n = 1;
-        $types = [];
-        foreach($specialities as $speciality) {
-            for($i = 1; $i <= 2; $i++, $n++) {
-                $types[] = [
-                    'name' => 'Type' . $n,
-                    'speciality_id' => $speciality->id,
-                    'description' => 'test description',
-                ];
-            }
-        }
+
+        $types = [
+            [
+                'name' => 'Type1',
+                'description' => 'Type1 description',
+                'speciality_id' => 1,
+            ],
+            [
+                'name' => 'Type2',
+                'description' => 'Type2 description',
+                'speciality_id' => 1,
+            ],
+            [
+                'name' => 'Type3',
+                'description' => 'Type3 description',
+                'speciality_id' => 2,
+            ],
+            [
+                'name' => 'Type4',
+                'description' => 'Type4 description',
+                'speciality_id' => 2,
+            ],
+            [
+                'name' => 'Type5',
+                'description' => 'Type5 description',
+                'speciality_id' => 3,
+            ],
+            [
+                'name' => 'Type6',
+                'description' => 'Type6 description',
+                'speciality_id' => 3,
+            ],
+            [
+                'name' => 'Type7',
+                'description' => 'Type7 description',
+                'speciality_id' => 4,
+            ],
+            [
+                'name' => 'Type8',
+                'description' => 'Type8 description',
+                'speciality_id' => 4,
+            ],
+        ];
         DB::table('types')->insert($types);
     }
 }

@@ -7,6 +7,8 @@
 namespace App\Modules\Advertisement\Services\ImageSettings;
 
 
+use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
+
 class AdBackgroundImageSettings implements ImageSettingsInterface
 {
     private $path;

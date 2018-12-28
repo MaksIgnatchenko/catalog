@@ -6,10 +6,10 @@
 
 namespace App\Modules\Advertisement\Models;
 
-use App\Modules\Advertisement\Services\ImageService;
-use App\Modules\Advertisement\Services\ImageSettings\ImageSettingsFactory;
 use App\Modules\Geography\Models\GeographyCity;
 use App\Modules\Geography\Models\GeographyCountry;
+use App\Modules\Images\Services\ImageService;
+use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

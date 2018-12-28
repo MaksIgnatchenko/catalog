@@ -1,5 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Edit limits of company')
+@section('title')
+    {{ CompanyEditOperations::getHeader($newStatus) }}
+@endsection
 @section('content')
 
     <section class="content">
@@ -12,10 +14,10 @@
 
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Edit limits of company {{$company->name}}</h3>
+                        <h3 class="box-title">{{CompanyEditOperations::getHeader($newStatus) . ' ' . $company->name}}</h3>
                     </div>
                     <div class="box-body">
-                        @include('company.edit_fields')
+                        @include(CompanyEditOperations::getViewName($operation))
                     </div>
                 </div>
             </div>

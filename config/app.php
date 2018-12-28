@@ -180,6 +180,7 @@ return [
         App\Modules\Geography\Providers\GeographyServiceProvider::class,
         App\Modules\Advertisement\Providers\AdvertisementServiceProvider::class,
         App\Modules\Companies\Providers\RouteServiceProvider::class,
+        App\Modules\Companies\Providers\CompanyServiceProvider::class,
         App\Modules\Permissions\Providers\RouteServiceProvider::class,
         App\Modules\Supervisors\Providers\RouteServiceProvider::class,
         App\Modules\StaticContent\Providers\RouteServiceProvider::class,
@@ -234,6 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'ActiveLink' => \App\Modules\Admins\Helpers\ActiveLink::class,
         'CheckCompanyStatus' => \App\Modules\Companies\Helpers\CheckCompanyStatus::class,
+        'CompanyEditOperations' => App\Modules\Companies\Helpers\CompanyEditOperations::class,
+        'CompanyEditOperationsEnum' => App\Modules\Companies\Enums\CompanyEditOperationsEnum::class,
         'CustomUrl' => \App\Helpers\CustomUrl::class,
     ],
 

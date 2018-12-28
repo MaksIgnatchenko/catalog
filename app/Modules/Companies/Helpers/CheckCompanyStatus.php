@@ -27,4 +27,22 @@ class CheckCompanyStatus
     {
         return CompanyStatusEnum::BLOCK === $status;
     }
+
+    /**
+     * @param string $status
+     * @return bool
+     */
+    public static function isWaitingForActivation(string $status) : bool
+    {
+        return CompanyStatusEnum::WAITING_FOR_ACTIVATION === $status;
+    }
+
+    /**
+     * @param string $status
+     * @return bool
+     */
+    public static function isWaitingForBlock(string $status) : bool
+    {
+        return CompanyStatusEnum::WAITING_FOR_BLOCK === $status;
+    }
 }
