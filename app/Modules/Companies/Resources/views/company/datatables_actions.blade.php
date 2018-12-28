@@ -9,7 +9,7 @@
 @if(CheckCompanyStatus::isBlock($status))
     <div class='btn-group'>
         <a href="{{ route('company.edit', [$id, 'operation' => CompanyEditOperationsEnum::CHANGE_STATUS, 'newStatus' => \App\Modules\Companies\Enums\CompanyStatusEnum::ACTIVE]) }}" class='btn btn-dark'>
-            <i class="glyphicon glyphicon-ok"></i>
+            <i class="glyphicon glyphicon-remove"></i>
         </a>
     </div>
 @endif

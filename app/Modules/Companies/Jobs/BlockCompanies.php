@@ -7,7 +7,6 @@
 namespace App\Modules\Companies\Jobs;
 
 use App\Modules\Companies\Enums\CompanyStatusEnum;
-use App\Modules\Companies\Models\Company;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -21,16 +20,16 @@ class BlockCompanies implements ShouldQueue
     /**
      * @var mixed
      */
-    private $companyModel;
+    private $companyModelName;
 
     /**
-     * Create a new job instance.
+     *  Create a new job instance.
      *
-     * @return void
+     * @param string $companyModelName
      */
-    public function __construct()
+    public function __construct(string $companyModelName)
     {
-        $this->companyModel = app()[Company::class];
+        $this->companyModelName = $companyModelName;
     }
 
     /**
@@ -40,9 +39,11 @@ class BlockCompanies implements ShouldQueue
      */
     public function handle()
     {
-        $companies = $this->companyModel->waitingForBlock()->changeStatusToday();
+        $companyModel = new $this->companyModelName;
+        $companies = $companyModel->waitingForBlock()->changeStatusToday();
         $companies->update([
             'status' => CompanyStatusEnum::BLOCK,
+            'date_change_status' => null
         ]);
     }
 }
