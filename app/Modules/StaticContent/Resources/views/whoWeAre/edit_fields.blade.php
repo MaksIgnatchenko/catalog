@@ -1,35 +1,33 @@
-<!-- Name Field -->
+<!-- Status Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('name', 'Name: ') }}
-        {!! Form::text('name', $role->name, ['class' => 'form-control', 'maxlength' => 50]) !!}
+        {{ Form::label('Status', 'Status: ') }}
     </p>
-    @if ($errors->has('name'))
-        <div class="text-red">{{ $errors->first('name') }}</div>
+        <p>
+            {!! Form::checkbox('status', $whoWeAre->status, $whoWeAre->isActive(), ['id' => 'statusCheckbox', 'class' => 'custom-checkbox']) !!}
+            {{ Form::label('statusCheckbox') }}
+        </p>
+</div>
+
+<!-- Payload English Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('payload[' . LanguagesEnum::ENGLISH . ']', 'English: ') }}
+        {!! Form::textarea('payload[' . LanguagesEnum::ENGLISH . ']', $whoWeAre->getTranslation('payload', LanguagesEnum::ENGLISH, false), ['class' => 'form-control',  'maxlength' => 1000]) !!}
+    </p>
+    @if ($errors->has('payload[' . LanguagesEnum::ENGLISH . ']'))
+        <div class="text-red">{{ $errors->first('payload[' . LanguagesEnum::ENGLISH . ']') }}</div>
     @endif
 </div>
 
-<!-- Permissions Field -->
+<!-- Payload Arabic Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('Permissions', 'Permissions: ') }}
+        {{ Form::label('payload[' . LanguagesEnum::ARABIC . ']', 'Arabic: ') }}
+        {!! Form::textarea('payload[' . LanguagesEnum::ARABIC . ']', $whoWeAre->getTranslation('payload', LanguagesEnum::ARABIC, false), ['class' => 'form-control arabic_input',  'maxlength' => 1000]) !!}
     </p>
-    @foreach ($permissions as $permission)
-        <p>
-            {!! Form::checkbox('permissions[]', $permission->id, in_array($permission->id, $selectedPermissions), ['id' => 'permission_' . $permission->id, 'class' => 'custom-checkbox']) !!}
-            {{ Form::label('permission_' . $permission->id, $permission->display_name . ': ') }}
-        </p>
-    @endforeach
-</div>
-
-<!-- Description Field -->
-<div class="form-group">
-    <p>
-        {{ Form::label('description', 'Description: ') }}
-        {!! Form::textarea('description', $role->description, ['class' => 'form-control',  'maxlength' => 300]) !!}
-    </p>
-    @if ($errors->has('description'))
-        <div class="text-red">{{ $errors->first('description') }}</div>
+    @if ($errors->has('payload[ar]'))
+        <div class="text-red">{{ $errors->first('payload[' . LanguagesEnum::ARABIC . ']') }}</div>
     @endif
 </div>
 
@@ -37,3 +35,5 @@
 <div class="form-group text-right">
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
 </div>
+
+<script src="{{ asset('js/status_checkbox.js') }}"></script>

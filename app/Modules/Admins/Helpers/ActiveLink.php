@@ -132,6 +132,19 @@ class ActiveLink
     }
 
     /**
+     * @return bool
+     */
+    public static function checkStaticContent(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        if ($controller instanceof WhoWeAreController) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @return mixed
      */
     public static function getControllerInstance()

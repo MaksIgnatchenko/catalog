@@ -1,28 +1,23 @@
-<!-- Name Field -->
+<!-- Status Field -->
 <div class="form-group">
     <p>
-        {!! Form::label('name', 'Name:') !!}
-        {!! $role->display_name !!}
+        {!! Form::label('status', 'Status:') !!}
+        {!! $whoWeAre->status !!}
     </p>
 </div>
 
-<!-- Description Field -->
+<!-- Description English Field -->
 <div class="form-group">
     <p>
         {!! Form::label('description', 'Description:') !!}
-        {!! $role->description !!}
+        {!! $whoWeAre->getTranslation('payload', 'en', false) !!}
     </p>
 </div>
 
-<!-- Permissions Field -->
+<!-- Description Arabic Field -->
 <div class="form-group">
     <p>
-        {!! Form::label('permissions', 'Permissions:') !!}
+        {!! Form::label('description', 'Description:') !!}
+        {!! $whoWeAre->getTranslation('payload', 'ar', false) !!}
     </p>
-    @foreach($role->permissions as $permission)
-        <p>
-            {{ $permission->display_name }}
-        </p>
-    @endforeach
 </div>
-

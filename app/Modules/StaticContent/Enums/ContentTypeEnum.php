@@ -38,5 +38,18 @@ class ContentTypeEnum
      */
     public const SOCIAL_MEDIA_ACCOUNTS = 'social_media_accounts';
 
-
+    /**
+     * @return array
+     */
+    public static function getAvailable() : array
+    {
+        return [
+            self::WHO_WE_ARE,
+            self::OUR_VISION,
+            self::HELP,
+            self::TERMS_AND_CONDITIONS,
+            self::PRIVACY_POLICY,
+            self::SOCIAL_MEDIA_ACCOUNTS,
+        ];
+    }
 }

@@ -73,4 +73,18 @@ class StaticContent extends Model
     {
         return $query->where('content_type',ContentTypeEnum::WHO_WE_ARE);
     }
+
+    /**
+     * Check is status active.
+     *
+     * @return bool
+     */
+    public function isActive() : bool
+    {
+        if (StaticContentStatusEnum::ACTIVE === $this->status) {
+            return true;
+        }
+
+        return false;
+    }
 }

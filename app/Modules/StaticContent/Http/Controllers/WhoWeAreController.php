@@ -8,8 +8,9 @@ namespace App\Modules\StaticContent\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\StaticContent\DataTables\WhoWeAreDataTable;
+use App\Modules\StaticContent\Http\Requests\WhoWeAre\StoreWhoWeAreRequest;
+use App\Modules\StaticContent\Http\Requests\WhoWeAre\UpdateWhoWeAreRequest;
 use App\Modules\StaticContent\Models\StaticContent;
-use Illuminate\Http\Request;
 
 class WhoWeAreController extends Controller
 {
@@ -49,10 +50,10 @@ class WhoWeAreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param  StoreWhoWeAreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreWhoWeAreRequest $request)
     {
         $supervisor = app()[StaticContent::class];
         $supervisor->fill($request->all());
@@ -60,54 +61,51 @@ class WhoWeAreController extends Controller
         return redirect()->route('who-we-are.index');
     }
 
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param Admin $supervisor
-//     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-//     */
-//    public function show(Admin $supervisor)
-//    {
-//        return view('supervisor.show', ['supervisor' => $supervisor]);
-//    }
-//
-//    /**
-//     * Show the form for editing the specified resource.
-//     *
-//     * @param  Admin  $supervisor
-//     * @return \Illuminate\Http\Response
-//     */
-//    public function edit(Admin $supervisor)
-//    {
-//        $roles = Role::all(['id', 'display_name']);
-//        $selectedRoles = $supervisor->roles->pluck('id', 'id')->toArray();
-//        return view('supervisor.edit', ['supervisor' => $supervisor, 'roles' => $roles, 'selectedRoles' => $selectedRoles] );
-//    }
-//
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param UpdateSupervisorRequest $request
-//     * @param Admin $supervisor
-//     * @return \Illuminate\Http\RedirectResponse
-//     */
-//    public function update(UpdateSupervisorRequest $request, Admin $supervisor)
-//    {
-//        $supervisor->update($request->all());
-//        $supervisor->syncRoles($request->roles);
-//        return redirect()->route('supervisor.index');
-//    }
-//
-//    /**
-//     * Remove the specified resource from storage.
-//     *
-//     * @param Admin $supervisor
-//     * @return \Illuminate\Http\RedirectResponse
-//     * @throws \Exception
-//     */
-//    public function destroy(Admin $supervisor)
-//    {
-//        $supervisor->delete();
-//        return redirect()->route('supervisor.index');
-//    }
+    /**
+     * Display the specified resource.
+     *
+     * @param StaticContent $whoWeAre
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(StaticContent $whoWeAre)
+    {
+        return view('whoWeAre.show', ['whoWeAre' => $whoWeAre]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  StaticContent $whoWeAre
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(StaticContent $whoWeAre)
+    {
+        return view('whoWeAre.edit', ['whoWeAre' => $whoWeAre] );
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateWhoWeAreRequest $request
+     * @param StaticContent $whoWeAre
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateWhoWeAreRequest $request, StaticContent $whoWeAre)
+    {
+        $whoWeAre->update($request->all());
+        return redirect()->route('who-we-are.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param StaticContent $whoWeAre
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(StaticContent $whoWeAre)
+    {
+        $whoWeAre->delete();
+        return redirect()->route('who-we-are.index');
+    }
 }

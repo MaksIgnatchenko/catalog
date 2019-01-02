@@ -48,7 +48,16 @@
 @endpermission
 
 @permission('index_static_content')
-<li class="{{ActiveLink::checkWhoWeAre() ? 'active' : ''}}">
-    <a href="{{route('who-we-are.index')}}"><i class="fa fa-user"></i> <span>Who we are</span></a>
+<li class="treeview {{ActiveLink::checkStaticContent() ? 'active' : ''}}">
+    <a href="#" class="treeview-toggle"><i class="fa fa-book"></i><span>Site Content</span>
+        <span class="pull-right-container">
+                    <i class="fa fa-angle-{{ActiveLink::checkStaticContent() ? 'right' : 'down'}} pull-right"></i>
+                  </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{{ActiveLink::checkWhoWeAre() ? 'active' : ''}}">
+            <a href="{{route('who-we-are.index')}}"><i class="fa {{ActiveLink::checkWhoWeAre() ? 'fa-circle' : 'fa-circle-o'}}"></i>Who we are</a>
+        </li>
+    </ul>
 </li>
 @endpermission

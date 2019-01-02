@@ -184,6 +184,7 @@ return [
         App\Modules\Permissions\Providers\RouteServiceProvider::class,
         App\Modules\Supervisors\Providers\RouteServiceProvider::class,
         App\Modules\StaticContent\Providers\RouteServiceProvider::class,
+        App\Modules\StaticContent\Providers\StaticContentServiceProvider::class
 
     ],
 
@@ -238,6 +239,7 @@ return [
         'CompanyEditOperations' => App\Modules\Companies\Helpers\CompanyEditOperations::class,
         'CompanyEditOperationsEnum' => App\Modules\Companies\Enums\CompanyEditOperationsEnum::class,
         'CustomUrl' => \App\Helpers\CustomUrl::class,
+        'LanguagesEnum' => \App\Modules\Languages\Enums\LanguagesEnum::class,
     ],
 
 ];

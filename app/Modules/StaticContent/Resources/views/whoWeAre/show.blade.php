@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Role details')
+@section('title', 'Who We Are article details')
 @section('content')
 
     <div class="content">
@@ -15,10 +15,10 @@
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">role info</h3>
+                        <h3 class="box-title">Who We Are article info</h3>
                     </div>
                     <div class="box-body">
-                        @include('role.show_fields')
+                        @include('whoWeAre.show_fields')
                     </div>
                 </div>
             </div>

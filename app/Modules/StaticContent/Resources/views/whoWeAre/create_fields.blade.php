@@ -1,32 +1,45 @@
+<!-- Status Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('Status', 'Status: ') }}
+    </p>
+    <p>
+        {!! Form::checkbox('status', 'block', false, ['id' => 'statusCheckbox', 'class' => 'custom-checkbox']) !!}
+        {{ Form::label('statusCheckbox') }}
+    </p>
+    @if ($errors->has('status'))
+        <div class="text-red">{{ $errors->first('status') }}</div>
+    @endif
+</div>
+
 <!-- TEXT ENGLISH Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('payload[en]', 'English: ') }}
-        {!! Form::textarea('payload[en]', null, ['class' => 'form-control', 'maxlength' => 500]) !!}
+        {{ Form::label('payload[' . LanguagesEnum::ENGLISH . ']' , 'English: ') }}
+        {!! Form::textarea('payload[' . LanguagesEnum::ENGLISH . ']', null, ['class' => 'form-control', 'maxlength' => 1000]) !!}
     </p>
-    @if ($errors->has('payload[en]'))
-        <div class="text-red">{{ $errors->first('payload[en]') }}</div>
+    @if ($errors->has('payload[' . LanguagesEnum::ENGLISH . ']'))
+        <div class="text-red">{{ $errors->first('payload[' . LanguagesEnum::ENGLISH . ']') }}</div>
     @endif
 </div>
 
 <!-- TEXT ARABIC Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('payload[ar]', 'Arabic: ') }}
-        {!! Form::textarea('payload[ar]', null, ['class' => 'form-control', 'maxlength' => 500]) !!}
+        {{ Form::label('payload[' . LanguagesEnum::ARABIC . ']', 'Arabic: ') }}
+        {!! Form::textarea('payload[' . LanguagesEnum::ARABIC . ']', null, ['class' => 'form-control arabic_input', 'maxlength' => 1000]) !!}
     </p>
-    @if ($errors->has('payload[ar]'))
-        <div class="text-red">{{ $errors->first('payload[ar]') }}</div>
+    @if ($errors->has('payload[' . LanguagesEnum::ARABIC . ']'))
+        <div class="text-red">{{ $errors->first('payload[' . LanguagesEnum::ARABIC . ']') }}</div>
     @endif
 </div>
-
-<!-- HIDDEN STATUS Field -->
-{{ Form::hidden('status', 'active') }}
 
 <!-- HIDDEN CONTENT TYPE Field -->
 {{ Form::hidden('content_type', 'who_we_are') }}
 
 <!-- Submit Field -->
 <div class="form-group text-right">
-    {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
+    {!! Form::submit('Save', ['class' => 'btn btn-success', 'id' => 'save_button']) !!}
 </div>
+
+<script src="{{ asset('js/status_checkbox.js') }}"></script>

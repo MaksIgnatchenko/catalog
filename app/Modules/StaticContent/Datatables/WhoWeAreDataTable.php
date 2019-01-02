@@ -6,6 +6,7 @@
 
 namespace App\Modules\StaticContent\DataTables;
 
+use App\Modules\StaticContent\Enums\StaticContentStatusEnum;
 use App\Modules\StaticContent\Models\StaticContent;
 use Illuminate\Database\Eloquent\Builder;
 use Yajra\DataTables\EloquentDataTable;
@@ -25,13 +26,22 @@ class WhoWeAreDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         return $dataTable
             ->addColumn('action', 'whoWeAre.datatables_actions')
-            ->addColumn('payload_en', function ($query){
-                return $query->payload->en;
+            ->editColumn('payload_en', function ($query){
+                return $query->getTranslation('payload', 'en', false);
             })
-            ->addColumn('payload_ar', function ($query){
-                return $query->payload->ar;
+            ->editColumn('payload_ar', function ($query){
+                return $query->getTranslation('payload', 'ar', false);
             })
-            ->rawColumns(['action']);
+            ->editColumn('status', function ($query){
+                if (StaticContentStatusEnum::ACTIVE === $query->status) {
+                    return "<div style='color:#3097d1'>" . $query->status . "</div>";
+                }
+                return "<div class style='color:#aa4a24'>" . $query->status . "</div>";
+            })
+//            ->setRowClass(function ($query) {
+//                return $query->status === 'active' ? 'alert-success' : 'alert-warning';
+//            })
+            ->rawColumns(['action', 'status']);
     }
 
     /**
@@ -55,7 +65,7 @@ class WhoWeAreDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '30%'])
+            ->addAction(['width' => '25%'])
             ->parameters([
                 'dom'     => 'frtip',
                 'order'   => [[0, 'desc']],
@@ -72,16 +82,25 @@ class WhoWeAreDataTable extends DataTable
     {
         return [
             [
-                'name' => 'payload_en',
+                'name' => 'payload',
                 'data' => 'payload_en',
                 'title' => 'English',
                 'width' => '25%',
+                'orderable' => false,
             ],
             [
-                'name' => 'payload_ar',
+                'name' => 'payload',
                 'data' => 'payload_ar',
                 'title' => 'Arabic',
                 'width' => '25%',
+                'orderable' => false,
+            ],
+            [
+                'name' => 'status',
+                'data' => 'status',
+                'title' => 'Status',
+                'width' => '10%',
+                'orderable' => false,
             ],
             [
                 'name' => 'created_at',
