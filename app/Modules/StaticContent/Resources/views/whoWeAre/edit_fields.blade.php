@@ -3,10 +3,13 @@
     <p>
         {{ Form::label('Status', 'Status: ') }}
     </p>
-        <p>
-            {!! Form::checkbox('status', $whoWeAre->status, $whoWeAre->isActive(), ['id' => 'statusCheckbox', 'class' => 'custom-checkbox']) !!}
-            {{ Form::label('statusCheckbox') }}
-        </p>
+    <p>
+        {!! Form::checkbox('status', $whoWeAre->status, $whoWeAre->isActive(), ['id' => 'statusCheckbox', 'class' => 'custom-checkbox']) !!}
+        {{ Form::label('statusCheckbox') }}
+    </p>
+    @if ($errors->has('status'))
+        <div class="text-red">{{ $errors->first('status') }}</div>
+    @endif
 </div>
 
 <!-- Payload English Field -->
@@ -30,6 +33,14 @@
         <div class="text-red">{{ $errors->first('payload[' . LanguagesEnum::ARABIC . ']') }}</div>
     @endif
 </div>
+
+@if ($errors->has('payload'))
+    <div class="text-red">{{ $errors->first('payload') }}</div>
+@endif
+
+<!-- HIDDEN CONTENT TYPE Field -->
+{{ Form::hidden('content_type', 'who_we_are') }}
+
 
 <!-- Submit Field -->
 <div class="form-group text-right">

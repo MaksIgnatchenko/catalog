@@ -240,6 +240,7 @@ return [
         'CompanyEditOperationsEnum' => App\Modules\Companies\Enums\CompanyEditOperationsEnum::class,
         'CustomUrl' => \App\Helpers\CustomUrl::class,
         'LanguagesEnum' => \App\Modules\Languages\Enums\LanguagesEnum::class,
+        'StaticContentStatusEnum' => \App\Modules\StaticContent\Enums\StaticContentStatusEnum::class,
     ],
 
 ];

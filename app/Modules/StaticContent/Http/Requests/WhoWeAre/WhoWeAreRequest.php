@@ -6,12 +6,14 @@
 
 namespace App\Modules\StaticContent\Http\Requests\WhoWeAre;
 
+use App\Modules\Languages\Rules\HasDefaultTranslationRule;
+use App\Modules\Languages\Rules\LanguageRule;
 use App\Modules\StaticContent\Enums\ContentTypeEnum;
 use App\Modules\StaticContent\Enums\StaticContentStatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateWhoWeAreRequest extends FormRequest
+class WhoWeAreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,9 +34,23 @@ class UpdateWhoWeAreRequest extends FormRequest
     {
         return [
             'status' => ['required', 'string', 'min:1', 'max:100', Rule::in(StaticContentStatusEnum::getAvailable())],
-            'content_type' => ['string', 'min:1', 'max:100', Rule::in(ContentTypeEnum::getAvailable())],
-            'payload' => 'required|array',
+            'content_type' => ['required', 'string', 'min:1', 'max:100', Rule::in(ContentTypeEnum::getAvailable())],
+            'payload' => ['required', 'array', new LanguageRule(), new HasDefaultTranslationRule()],
             'payload.*' => 'nullable|string|max:1000',
         ];
     }
+
+    /**
+     * Get all of the input and files for the request.
+     *
+     * @param  array|mixed  $keys
+     * @return array
+     */
+    public function all($keys = null) : array
+    {
+        $inputFields = parent::all();
+        $inputFields['status'] = $inputFields['status'] ?? StaticContentStatusEnum::BLOCK;
+        return $inputFields;
+    }
+
 }

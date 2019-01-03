@@ -34,6 +34,10 @@
     @endif
 </div>
 
+@if ($errors->has('payload'))
+    <div class="text-red">{{ $errors->first('payload') }}</div>
+@endif
+
 <!-- HIDDEN CONTENT TYPE Field -->
 {{ Form::hidden('content_type', 'who_we_are') }}
 

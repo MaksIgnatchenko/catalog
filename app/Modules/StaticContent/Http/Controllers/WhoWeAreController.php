@@ -8,8 +8,7 @@ namespace App\Modules\StaticContent\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\StaticContent\DataTables\WhoWeAreDataTable;
-use App\Modules\StaticContent\Http\Requests\WhoWeAre\StoreWhoWeAreRequest;
-use App\Modules\StaticContent\Http\Requests\WhoWeAre\UpdateWhoWeAreRequest;
+use App\Modules\StaticContent\Http\Requests\WhoWeAre\WhoWeAreRequest;
 use App\Modules\StaticContent\Models\StaticContent;
 
 class WhoWeAreController extends Controller
@@ -50,10 +49,10 @@ class WhoWeAreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreWhoWeAreRequest  $request
+     * @param  WhoWeAreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreWhoWeAreRequest $request)
+    public function store(WhoWeAreRequest $request)
     {
         $supervisor = app()[StaticContent::class];
         $supervisor->fill($request->all());
@@ -86,11 +85,11 @@ class WhoWeAreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateWhoWeAreRequest $request
+     * @param WhoWeAreRequest $request
      * @param StaticContent $whoWeAre
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateWhoWeAreRequest $request, StaticContent $whoWeAre)
+    public function update(WhoWeAreRequest $request, StaticContent $whoWeAre)
     {
         $whoWeAre->update($request->all());
         return redirect()->route('who-we-are.index');

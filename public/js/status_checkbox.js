@@ -1,6 +1,5 @@
 $( document ).ready(function() {
-    var checkbox = $('.custom-checkbox');
-    var save_button = $('#save_button');
+    var checkbox = $('#statusCheckbox');
 
     if (checkbox.attr('checked')) {
         checkbox.value = 'active';
@@ -19,10 +18,4 @@ $( document ).ready(function() {
             this.value = 'block';
         }
     });
-
-    save_button.on('click', function() {
-        if (!checkbox.attr('checked')) {
-            checkbox.attr('checked', 'checked');
-        }
-    })
 });
