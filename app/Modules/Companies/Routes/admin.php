@@ -4,4 +4,4 @@
  *
  */
 
-Route::resource('company', 'CompanyController')->only(['index', 'update', 'edit', 'destroy']);
+Route::resource('company', 'CompanyController');

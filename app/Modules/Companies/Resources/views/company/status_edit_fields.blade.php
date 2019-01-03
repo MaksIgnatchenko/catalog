@@ -43,7 +43,6 @@
     });
 
     $('#isNow').click(function(){
-        console.log(this.checked);
         if(this.checked == true){
             $('#dateField').attr('disabled', 'disabled');
         } else {

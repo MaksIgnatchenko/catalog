@@ -25,7 +25,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'App\Modules\Admins\Http\Controllers';
+    protected $adminNamespace = 'App\Modules\Admins\Http\Controllers';
+
+    protected $apiNamespace = 'App\Modules\Admins\Http\Controllers\Api';
 
     /**
      * Define the routes for the application.
@@ -34,10 +36,36 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        $this->adminMap();
+        $this->apiMap();
+    }
+
+    /**
+     * Define the routes for the admin.
+     *
+     * @return void
+     */
+
+    public function adminMap()
+    {
         Route::domain(SubDomain::ADMIN . config('app.url'))
             ->middleware('web')
-            ->namespace($this->namespace)
+            ->namespace($this->adminNamespace)
             ->group(__DIR__ . './../Routes/admin.php');
+    }
+
+    /**
+     * Define the routes for the api.
+     *
+     * @return void
+     */
+
+    public function apiMap()
+    {
+        Route::prefix('api')
+            ->namespace($this->apiNamespace)
+            ->middleware('bindings')
+            ->group(__DIR__ . './../Routes/api.php');
     }
 
     public function boot()

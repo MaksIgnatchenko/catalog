@@ -12,17 +12,28 @@ use App\Modules\Companies\Services\CompanyStatusChanger;
 class CompanyObserver
 {
     /**
-     * Detect user location.
+     * Creating company listener.
+     *
+     * @param Company $company
+     */
+    public function creating(Company $company) : void
+    {
+        $attributes = $company->toArray();
+        $companyStatusChanger = new CompanyStatusChanger($attributes);
+        $statusData = $companyStatusChanger->getReplacementData();
+        $company->fill(array_merge($statusData));
+    }
+
+    /**
+     * Updating company listener.
      *
      * @param Company $company
      */
     public function updating(Company $company) : void
     {
         $changedAttributes = $company->getDirty();
-//        dd($changedAttributes);
         $companyStatusChanger = new CompanyStatusChanger($changedAttributes);
-        $statusData = $companyStatusChanger->getUpdatedData();
-//        dd($statusData);
+        $statusData = $companyStatusChanger->getReplacementData();
         $company->fill(array_merge($statusData));
     }
 }
