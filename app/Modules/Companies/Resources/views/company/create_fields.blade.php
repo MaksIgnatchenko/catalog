@@ -46,11 +46,11 @@
 <!-- Status Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('status', 'Company status: ') }}
+        {{ Form::label('status1', 'Company status: ') }}
     </p>
-    {!! Form::select('statuses',$dto->getStatuses(), ['class' => 'form-control'], ['placeholder' => 'Select company status']) !!}
-    @if ($errors->has('statuses'))
-        <div class="text-red">{{ $errors->first('statuses') }}</div>
+    {!! Form::select('status', $dto->getStatuses(), ['class' => 'form-control'], ['placeholder' => 'Select company status']) !!}
+    @if ($errors->has('status'))
+        <div class="text-red">{{ $errors->first('status') }}</div>
     @endif
 </div>
 
@@ -150,12 +150,41 @@
     @endif
 </div>
 
+<!-- Company image Field -->
+<div id="company_image_field" class="form-group input-group control-group increment">
+    <p>
+        {{ Form::label('company_image', 'Company image: ') }}
+    </p>
+    {!! Form::file('company_image[]', ['class' => 'form-control company-image']) !!}
+</div>
+
+<div class="input-group-btn">
+    <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+</div>
+
+@if ($errors->has('company_image'))
+    <div class="text-red">{{ $errors->first('company_image') }}</div>
+@endif
+
 <!-- Submit Field -->
 <div class="form-group text-right">
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
 </div>
 
 <script>
+    var i = 0;
+    $(".btn-success").click(function(){
+        var html = $(".company_image").clone();
+        console.log(html);
+        html.val('');
+        i++;
+        $(".increment").after(html);
+    });
+
+    $("body").on("click",".btn-danger",function(){
+        $(this).parents(".control-group").remove();
+    });
+
     var datePicker;
     var options={
         format: 'mm/dd/yyyy',
@@ -166,7 +195,13 @@
         datePicker = $('#dateField').datepicker(options);
     });
 
-    $('#isNow').click(function(){
+    var isNowCheckbox = $('#isNow');
+
+    if (isNowCheckbox.attr('checked')) {
+        $('#dateField').attr('disabled', 'disabled');
+    }
+
+    isNowCheckbox.click(function(){
         if(this.checked == true){
             $('#dateField').attr('disabled', 'disabled');
         } else {
@@ -186,7 +221,7 @@
     @endif
 
     @if( count($errors) > 0 && old('speciality_id'))
-        getDependsOptions(specialitySelect[0].value, '/api/types/', typeSelect, "{{ old('type_id') }}")
+        getDependsOptions({{ old('speciality_id') }}, '/api/types/', typeSelect, "{{ old('type_id') }}")
     @endif
 
     categorySelect.change('change', function() {

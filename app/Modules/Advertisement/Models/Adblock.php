@@ -9,6 +9,7 @@ namespace App\Modules\Advertisement\Models;
 use App\Modules\Geography\Models\GeographyCity;
 use App\Modules\Geography\Models\GeographyCountry;
 use App\Modules\Images\Services\ImageService;
+use App\Modules\Images\Services\ImageServiceTest;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -67,6 +68,6 @@ class Adblock extends Model
     {
         $imageSettings = ImageSettingsFactory::getInstance($this->position);
         $imageService = new ImageService($value, $imageSettings);
-        $this->attributes['image'] = $imageService->saveAndCrop($value, $imageSettings);
+        $this->attributes['image'] = $imageService->getUrl();
     }
 }

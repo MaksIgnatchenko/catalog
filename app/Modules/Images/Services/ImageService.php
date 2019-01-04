@@ -11,6 +11,7 @@ use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManagerStatic;
 
 class ImageService
 {
@@ -34,12 +35,13 @@ class ImageService
     /**
      * @return string
      */
-    public function saveAndCrop() : string
+    public function getUrl() : string
     {
         $originFormat = $this->originImage->getClientOriginalExtension();
         $fileName = $this->originImage->hashName();
         $this->image = Image::make($this->originImage);
-        $this->resizeImage();
+        $frame = $this->getFrame();
+        $this->image = $frame->insert($this->image, 'center');
         if (ImageFormatsEnum::ORIGIN === $this->settings->getFormat()) {
             $image = $this->image->encode($originFormat);
         } else {
@@ -60,15 +62,25 @@ class ImageService
         return $fileName;
     }
 
-    private function resizeImage() {
-        if (($ratio = $this->settings->getRatio()) >= 1) {
-            $height = $this->image->height();
-            $width = round($height / $ratio);
+    /**
+     * @return \Intervention\Image\Image
+     */
+    private function getFrame() : \Intervention\Image\Image
+    {
+        $width = $this->image->width();
+        $height = $this->image->height();
+        $ratio = $this->settings->getRatio();
+
+        $mismatchWidth = $width - $height / $ratio;
+        $mismatchHeight = $height - $width * $ratio;
+
+        if ($mismatchWidth < 0 && $mismatchHeight > 0) {
+            $width = $width * $height / $ratio;
         } else {
-            $width = $this->image->width();
             $height = $width * $ratio;
         }
-        $this->image->fit($width, $height);
+
+        return ImageManagerStatic::canvas($width, $height);
     }
 
 }
