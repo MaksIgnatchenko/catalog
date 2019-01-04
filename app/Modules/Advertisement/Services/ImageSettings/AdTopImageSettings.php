@@ -7,6 +7,7 @@
 namespace App\Modules\Advertisement\Services\ImageSettings;
 
 
+use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 
 class AdTopImageSettings implements ImageSettingsInterface
@@ -14,12 +15,14 @@ class AdTopImageSettings implements ImageSettingsInterface
     private $path;
     private $ration;
     private $format;
+    private $imageType;
 
     public function __construct()
     {
         $this->path = config('image.ads_image_path');
         $this->ration = config('image.ad_top_image_ratio');
         $this->format = config('image.ad_top_image_format');
+        $this->imageType = AdblockPositionsEnum::TOP;
     }
 
     /**
@@ -44,5 +47,13 @@ class AdTopImageSettings implements ImageSettingsInterface
     public function getFormat() : ?string
     {
         return $this->format;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageType(): ?string
+    {
+        return $this->imageType ?? null;
     }
 }

@@ -6,6 +6,8 @@
 
 namespace App\Modules\Companies\DTO;
 
+use App\Modules\Companies\Services\WeekDays;
+
 class AdminCompanyDTO
 {
     /**
@@ -34,6 +36,11 @@ class AdminCompanyDTO
     private $defaultTeamImagesLimit;
 
     /**
+     * @var
+     */
+    private $weekDays;
+
+    /**
      * AdminCompanyDTO constructor.
      * @param array $countries
      * @param array $categories
@@ -46,6 +53,7 @@ class AdminCompanyDTO
         $this->statuses = $statuses;
         $this->defaultCompanyImagesLimit = config('company.default_company_images_limit');
         $this->defaultTeamImagesLimit = config('company.default_team_images_limit');
+        $this->weekDays = (new WeekDays())->getDays();
     }
 
     /**
@@ -118,4 +126,11 @@ class AdminCompanyDTO
         return $this->defaultCompanyImagesLimit;
     }
 
+    /**
+     * @return array
+     */
+    public function getWeekDays() : array
+    {
+        return $this->weekDays;
+    }
 }

@@ -7,6 +7,7 @@
 namespace App\Modules\Advertisement\Services\ImageSettings;
 
 
+use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 
 class AdLeftImageSettings implements ImageSettingsInterface
@@ -14,6 +15,7 @@ class AdLeftImageSettings implements ImageSettingsInterface
     private $path;
     private $ration;
     private $format;
+    private $imageType;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class AdLeftImageSettings implements ImageSettingsInterface
         $this->path = config('image.ads_image_path');
         $this->ration = config('image.ad_left_image_ratio');
         $this->format =config('image.ad_left_image_format');
+        $this->imageType = AdblockPositionsEnum::LEFT;
     }
 
     /**
@@ -45,5 +48,13 @@ class AdLeftImageSettings implements ImageSettingsInterface
     public function getFormat() : ?string
     {
         return $this->format;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageType(): ?string
+    {
+        return $this->imageType ?? null;
     }
 }

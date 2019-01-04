@@ -9,7 +9,6 @@ namespace App\Modules\Advertisement\Models;
 use App\Modules\Geography\Models\GeographyCity;
 use App\Modules\Geography\Models\GeographyCountry;
 use App\Modules\Images\Services\ImageService;
-use App\Modules\Images\Services\ImageServiceTest;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -64,6 +63,9 @@ class Adblock extends Model
         $this->attributes['appear_finish'] = $appearFinish;
     }
 
+    /**
+     * @param UploadedFile $value
+     */
     public function setImageAttribute(UploadedFile $value) : void
     {
         $imageSettings = ImageSettingsFactory::getInstance($this->position);

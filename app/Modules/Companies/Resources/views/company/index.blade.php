@@ -13,9 +13,6 @@
                 <a href="{{route('company.create')}}" class="btn btn-primary pull-right create-article">Create new company</a>
                 @include('company.table')
             </div>
-            <div class="box-body">
-                @include('company.table')
-            </div>
         </div>
     </div>
 @endsection

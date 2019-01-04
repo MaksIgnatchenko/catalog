@@ -18,6 +18,17 @@ class Image extends Model
     protected $table = 'images';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'url',
+        'type',
+        'imageable_id',
+    ];
+
+    /**
      * Get all of the owning imageable models.
      */
     public function imageable()

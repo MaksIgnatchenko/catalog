@@ -51,6 +51,14 @@ class ImageService
     }
 
     /**
+     * @return string|null
+     */
+    public function getImageType() : ?string
+    {
+        return $this->settings->getImageType();
+    }
+
+    /**
      * @param string $fileName
      * @param \Intervention\Image\Image $image
      * @return string
@@ -75,11 +83,10 @@ class ImageService
         $mismatchHeight = $height - $width * $ratio;
 
         if ($mismatchWidth < 0 && $mismatchHeight > 0) {
-            $width = $width * $height / $ratio;
+            $width = $height / $ratio;
         } else {
             $height = $width * $ratio;
         }
-
         return ImageManagerStatic::canvas($width, $height);
     }
 

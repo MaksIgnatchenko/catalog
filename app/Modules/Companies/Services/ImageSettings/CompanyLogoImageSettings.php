@@ -6,6 +6,7 @@
 
 namespace App\Modules\Companies\Services\ImageSettings;
 
+use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 
 class CompanyLogoImageSettings implements ImageSettingsInterface
@@ -13,12 +14,14 @@ class CompanyLogoImageSettings implements ImageSettingsInterface
     private $path;
     private $ratio;
     private $format;
+    private $imageType;
 
     public function __construct()
     {
         $this->path = config('image.companies_image_path');
         $this->ratio = config('image.company_logo_image_ratio');
         $this->format =config('image.company_logo_image_format');
+        $this->imageType = CompanyImagePositionsEnum::LOGO;
     }
 
     /**
@@ -43,6 +46,14 @@ class CompanyLogoImageSettings implements ImageSettingsInterface
     public function getFormat() : ?string
     {
         return $this->format;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageType(): ?string
+    {
+        return $this->imageType ?? null;
     }
 
 }

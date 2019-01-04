@@ -150,21 +150,113 @@
     @endif
 </div>
 
-<!-- Company image Field -->
-<div id="company_image_field" class="form-group input-group control-group increment">
+<!-- Logo Field -->
+<div class="form-group">
     <p>
-        {{ Form::label('company_image', 'Company image: ') }}
+        {{ Form::label('logo', 'Logo: ') }}
     </p>
-    {!! Form::file('company_image[]', ['class' => 'form-control company-image']) !!}
+    {!! Form::file('logo', false, ['class' => 'form-control']) !!}
+    @if ($errors->has('logo'))
+        <div class="text-red">{{ $errors->first('logo') }}</div>
+    @endif
 </div>
 
-<div class="input-group-btn">
-    <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+<!-- Company image Field -->
+<div id="company-images">
+    <div class="input-group-btn">
+        <span>Company images:</span>
+        <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add new company image</button>
+    </div>
+    <div id="company_image_field" class="increment company-image-field form-group">
+        <p>
+            {{ Form::label('company_image', 'Company image: ') }}
+        </p>
+        {!! Form::file('company_image[]', ['class' => 'form-control company-image']) !!}
+        <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i>Remove</button>
+    </div>
 </div>
+
 
 @if ($errors->has('company_image'))
     <div class="text-red">{{ $errors->first('company_image') }}</div>
 @endif
+
+<!-- Company Team image Field -->
+<div id="company-team-images">
+    <div class="input-group-btn">
+        <span>Team images:</span>
+        <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add new team image</button>
+    </div>
+    <div id="company_team_image_field" class="form-group input-group control-group increment company-image-field">
+        <p>
+            {{ Form::label('company_team_image', 'Team image: ') }}
+        </p>
+        {!! Form::file('company_team_image[]', ['class' => 'form-control company-image']) !!}
+        <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i>Remove</button>
+    </div>
+</div>
+
+@if ($errors->has('company_team_image'))
+    <div class="text-red">{{ $errors->first('company_team_image') }}</div>
+@endif
+
+<!-- About us Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('about_us', 'About us: ') }}
+    </p>
+    {!! Form::textarea('about_us', null, ['class' => 'form-control', 'maxlength' => 10000]) !!}
+    @if ($errors->has('about_us'))
+        <div class="text-red">{{ $errors->first('about_us') }}</div>
+    @endif
+</div>
+
+<!-- Our services Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_services', 'Our services: ') }}
+    </p>
+    {!! Form::textarea('our_services', null, ['class' => 'form-control', 'maxlength' => 10000]) !!}
+    @if ($errors->has('our_services'))
+        <div class="text-red">{{ $errors->first('our_services') }}</div>
+    @endif
+</div>
+
+<!-- Working days Fields -->
+<div class="form-group">
+    <table>
+        <thead>
+            <tr>
+                <th>Day of week</th>
+                <th>Is working day</th>
+                <th>Work from</th>
+                <th>Work to</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($dto->getWeekDays() as $day)
+            <tr>
+                <td>
+                    {{ $day['name'] }}
+                </td>
+                <td>
+                    {!! Form::checkbox('work_days[' . $day['abbreviation'] . '][is_work]', true, false, ['id' => $day['abbreviation'], 'class' => 'custom-checkbox']) !!}
+                    {{ Form::label($day['abbreviation'], 'Now' . ': ') }}
+                </td>
+                <td>
+                    {!! Form::text('work_days[' . $day['abbreviation'] . '][from]', null, ['id' => $day['abbreviation'] . '_from', 'class' => 'form-control time-field']) !!}
+                </td>
+                <td>
+                    {!! Form::text('work_days[' . $day['abbreviation'] . '][to]', null, ['id' => $day['abbreviation'] . '_to', 'class' => 'form-control time-field']) !!}
+                </td>
+            </tr>
+        @endforeach
+
+        </tbody>
+    </table>
+
+</div>
+
 
 <!-- Submit Field -->
 <div class="form-group text-right">
@@ -172,21 +264,36 @@
 </div>
 
 <script>
-    var i = 0;
+    $('.time-field').each(function() {
+        console.log($(this));
+        // $(this).timepicker(timeOptions);
+    });
+
+    var companyImagesIterator = 1;
     $(".btn-success").click(function(){
-        var html = $(".company_image").clone();
-        console.log(html);
-        html.val('');
-        i++;
-        $(".increment").after(html);
+        var parent = $(this).parent().parent();
+        var parentBlock = $(this).parent().siblings().first();
+        if (companyImagesIterator < 5) {
+            var html = parentBlock.clone();
+            // clean image field value
+            html.children().eq(1).val('');
+            companyImagesIterator++;
+            parent.append(html);
+        } else {
+            alert('You can add up to 5 photos at a time.');
+        }
     });
 
     $("body").on("click",".btn-danger",function(){
-        $(this).parents(".control-group").remove();
+        var parentChildrenCount = $(this).parent().parent().children().length;
+        if (parentChildrenCount > 2) {
+            $(this).parent().remove();
+            companyImagesIterator--;
+        }
     });
 
     var datePicker;
-    var options={
+    var options= {
         format: 'mm/dd/yyyy',
         todayHighlight: true,
         autoclose: true,
@@ -194,6 +301,10 @@
     jQuery(function($){
         datePicker = $('#dateField').datepicker(options);
     });
+
+    var timeOptions = {
+        'timeFormat' : 'H:i'
+    };
 
     var isNowCheckbox = $('#isNow');
 

@@ -33,6 +33,16 @@ return [
     'companies_image_path' => 'companies',
 
     /**
+     * max size for company images (KB).
+     */
+    'company_images_max_size' => 5120,
+
+    /**
+     * max size for company logo (KB).
+     */
+    'company_logo_max_size' => 1024,
+
+    /**
      * ratio = height / width
      */
     'company_image_ratio' => 1,

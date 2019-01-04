@@ -7,6 +7,8 @@
 namespace App\Modules\Companies\Http\Requests;
 
 use App\Modules\Companies\Enums\CompanyStatusEnum;
+use App\Modules\Companies\Rules\WorkDaysRule;
+use App\Modules\Companies\Rules\WorldCountRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -43,6 +45,18 @@ class StoreAdminCompanyRequest extends FormRequest
             'team_images_limit' => 'required|integer|min:0|max:100',
             'status' => [ 'required', 'string', 'max:100', Rule::in(CompanyStatusEnum::getBasicStatuses())],
             'date_change_status' => 'date|after_or_equal:today',
+            'company_image' => 'array',
+            'company_image.*' => 'image|mimes:jpeg,png,bmp,gif|max:' . config('image.company_images_max_size'),
+            'company_team_image' => 'array',
+            'company_team_image.*' => 'image|mimes:jpeg,png,bmp,gif|max:' . config('image.company_images_max_size'),
+            'logo' => 'image|mimes:jpeg,png,bmp,gif|max:' . config('image.company_logo_max_size'),
+            'about_us' => ['required', 'string', new WorldCountRule(config('company.min_word_count_about_us'))],
+            'our_services' => ['required', 'string', new WorldCountRule(config('company.min_word_count_our_services'))],
+            'work_days' => ['required', 'array', 'max:7', new WorkDaysRule()],
+            'work_days.*.from' => 'date_format:H:i',
+            'work_days.*.to' => 'date_format:H:i',
+            'latitude' => 'numeric|between:-90,90',
+            'longitude' => 'numeric|between:-180,180',
         ];
     }
 }
