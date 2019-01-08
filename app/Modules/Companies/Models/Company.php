@@ -53,6 +53,20 @@ class Company extends Model
         'status',
         'email',
         'password',
+        'latitude',
+        'longitude',
+        'about_us',
+        'our_services',
+        'work_days',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'work_days' => 'array',
     ];
 
     public $images;
@@ -75,7 +89,7 @@ class Company extends Model
     {
         $imageSettings = ImageSettingsFactory::getInstance(CompanyImagePositionsEnum::LOGO);
         $imageService = new ImageService($value, $imageSettings);
-        $this->attributes['image'] = $imageService->getUrl();
+        $this->attributes['logo'] = $imageService->getUrl();
     }
 
     /**

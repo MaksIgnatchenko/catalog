@@ -16,15 +16,18 @@ class WorkDaysRule implements Rule
             $isWork = $day['is_work'] ?? null;
             $from = $day['from'] ?? null;
             $to = $day['to'] ?? null;
-            if ($isWork && !($from && $to)) {
-                return false;
+            if ($isWork) {
+                if (!($from && $to)) {
+                    return false;
+                }
             }
         }
+        return true;
     }
 
     public function message()
     {
-        return 'Working hours is required for working day';
+        return 'Daily schedule is required for working day';
     }
 
 }

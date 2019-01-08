@@ -5,3 +5,4 @@
  */
 
 Route::resource('company', 'CompanyController');
+

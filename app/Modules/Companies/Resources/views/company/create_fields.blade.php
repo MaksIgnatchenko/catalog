@@ -24,7 +24,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('password', 'Password: ') }}
-        {!! Form::text('password', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
+        {!! Form::password('password', ['placeholder'=>'Password', 'class'=>'form-control', 'maxlength' => 50, 'autocomplete' => 'off']) !!}
     </p>
     @if ($errors->has('password'))
         <div class="text-red">{{ $errors->first('password') }}</div>
@@ -35,7 +35,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('password_confirmation', 'Password confirmation: ') }}
-        {!! Form::text('password_confirmation', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
+        {!! Form::password('password_confirmation', ['placeholder'=>'Password', 'class'=>'form-control', 'maxlength' => 50, 'autocomplete' => 'off']) !!}
     </p>
     @if ($errors->has('password_confirmation'))
         <div class="text-red">{{ $errors->first('password_confirmation') }}</div>
@@ -66,7 +66,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('date_change_status', 'Date for change status: ') }}
-        {!! Form::text('date_change_status', null, ['id' => 'dateField', 'class' => 'form-control']) !!}
+        {!! Form::text('date_change_status', null, ['id' => 'dateField', 'class' => 'form-control', 'autocomplete' => 'off']) !!}
     </p>
     @if ($errors->has('date_change_status'))
         <div class="text-red">{{ $errors->first('date_change_status') }}</div>
@@ -163,16 +163,18 @@
 
 <!-- Company image Field -->
 <div id="company-images">
-    <div class="input-group-btn">
-        <span>Company images:</span>
-        <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add new company image</button>
+    <h3>Company images</h3>
+    <div class="images-paren-div">
+        <div id="company-image-field" class="increment company-image-field form-group">
+            <p>
+                {{ Form::label('company_image', 'Company image: ') }}
+            </p>
+            {!! Form::file('company_image[]', false, ['class' => 'form-control company-image']) !!}
+            <button class="btn btn-danger" type="button">Remove</button>
+        </div>
     </div>
-    <div id="company_image_field" class="increment company-image-field form-group">
-        <p>
-            {{ Form::label('company_image', 'Company image: ') }}
-        </p>
-        {!! Form::file('company_image[]', ['class' => 'form-control company-image']) !!}
-        <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i>Remove</button>
+    <div class="input-group-btn">
+        <button class="btn btn-success" type="button">Add new company image</button>
     </div>
 </div>
 
@@ -183,16 +185,18 @@
 
 <!-- Company Team image Field -->
 <div id="company-team-images">
-    <div class="input-group-btn">
-        <span>Team images:</span>
-        <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i>Add new team image</button>
+    <h3>Team images</h3>
+    <div class="images-paren-div">
+        <div class="increment company-image-field form-group">
+            <p>
+                {{ Form::label('company_team_image', 'Team image: ') }}
+            </p>
+            {!! Form::file('company_team_image[]', false, ['class' => 'form-control company-image']) !!}
+            <button class="btn btn-danger" type="button">Remove</button>
+        </div>
     </div>
-    <div id="company_team_image_field" class="form-group input-group control-group increment company-image-field">
-        <p>
-            {{ Form::label('company_team_image', 'Team image: ') }}
-        </p>
-        {!! Form::file('company_team_image[]', ['class' => 'form-control company-image']) !!}
-        <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i>Remove</button>
+    <div class="input-group-btn">
+        <button class="btn btn-success" type="button">Add new team image</button>
     </div>
 </div>
 
@@ -227,7 +231,6 @@
     <table>
         <thead>
             <tr>
-                <th>Day of week</th>
                 <th>Is working day</th>
                 <th>Work from</th>
                 <th>Work to</th>
@@ -237,26 +240,45 @@
         @foreach($dto->getWeekDays() as $day)
             <tr>
                 <td>
-                    {{ $day['name'] }}
+                    {!! Form::checkbox('work_days[' . $day['name'] . '][is_work]', true, false, ['id' => $day['name'], 'class' => 'custom-checkbox time-checkbox']) !!}
+                    {{ Form::label($day['name']) }}
                 </td>
                 <td>
-                    {!! Form::checkbox('work_days[' . $day['abbreviation'] . '][is_work]', true, false, ['id' => $day['abbreviation'], 'class' => 'custom-checkbox']) !!}
-                    {{ Form::label($day['abbreviation'], 'Now' . ': ') }}
+                    {!! Form::text('work_days[' . $day['name'] . '][from]', null, ['id' => $day['name'] . '_from', 'class' => 'form-control time-field']) !!}
                 </td>
                 <td>
-                    {!! Form::text('work_days[' . $day['abbreviation'] . '][from]', null, ['id' => $day['abbreviation'] . '_from', 'class' => 'form-control time-field']) !!}
-                </td>
-                <td>
-                    {!! Form::text('work_days[' . $day['abbreviation'] . '][to]', null, ['id' => $day['abbreviation'] . '_to', 'class' => 'form-control time-field']) !!}
+                    {!! Form::text('work_days[' . $day['name'] . '][to]', null, ['id' => $day['name'] . '_to', 'class' => 'form-control time-field']) !!}
                 </td>
             </tr>
         @endforeach
-
         </tbody>
     </table>
-
+    @if ($errors->has('work_days'))
+        <div class="text-red">{{ $errors->first('work_days') }}</div>
+    @endif
 </div>
 
+<!-- Latitude Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('latitude', 'Latitude: ') }}
+        {!! Form::text('latitude', null, ['class' => 'form-control', 'maxlength' => 20]) !!}
+    </p>
+    @if ($errors->has('latitude'))
+        <div class="text-red">{{ $errors->first('latitude') }}</div>
+    @endif
+</div>
+
+<!-- Longitude Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('longitude', 'Longitude: ') }}
+        {!! Form::text('longitude', null, ['class' => 'form-control', 'maxlength' => 20]) !!}
+    </p>
+    @if ($errors->has('longitude'))
+        <div class="text-red">{{ $errors->first('longitude') }}</div>
+    @endif
+</div>
 
 <!-- Submit Field -->
 <div class="form-group text-right">
@@ -264,33 +286,48 @@
 </div>
 
 <script>
-    $('.time-field').each(function() {
-        console.log($(this));
-        // $(this).timepicker(timeOptions);
-    });
-
-    var companyImagesIterator = 1;
     $(".btn-success").click(function(){
-        var parent = $(this).parent().parent();
-        var parentBlock = $(this).parent().siblings().first();
-        if (companyImagesIterator < 5) {
-            var html = parentBlock.clone();
+        var imagesCount = $('.increment').length;
+        var parent = $(this).parent().parent().find('.images-paren-div');
+        var clonedBlock = parent.children().first();
+        if (imagesCount < 10) {
+            var html = clonedBlock.clone();
             // clean image field value
             html.children().eq(1).val('');
-            companyImagesIterator++;
             parent.append(html);
         } else {
-            alert('You can add up to 5 photos at a time.');
+            alert('You can add up to 10 images at a time.');
         }
     });
 
     $("body").on("click",".btn-danger",function(){
         var parentChildrenCount = $(this).parent().parent().children().length;
-        if (parentChildrenCount > 2) {
+        if (parentChildrenCount > 1) {
             $(this).parent().remove();
-            companyImagesIterator--;
         }
     });
+
+    $(".time-checkbox").each(function() {
+        var isWorkCheckbox = $(this);
+        handleTimeInputs($(this));
+    });
+
+    $(".time-checkbox").click(function(){
+        var isWorkCheckbox = $(this);
+        handleTimeInputs($(this));
+    });
+
+    function handleTimeInputs(isWorkDayCheckbox) {
+        var from = isWorkDayCheckbox.parent().siblings().eq(0).children().first();
+        var to = isWorkDayCheckbox.parent().siblings().eq(1).children().first();
+        if (isWorkDayCheckbox.prop('checked')) {
+            from.prop('disabled', false);
+            to.prop('disabled', false);
+        } else {
+            from.prop('disabled', 'disabled');
+            to.prop('disabled', 'disabled');
+        }
+    }
 
     var datePicker;
     var options= {
@@ -306,6 +343,10 @@
         'timeFormat' : 'H:i'
     };
 
+    jQuery(function($){
+        timePicker = $('.time-field').timepicker(timeOptions);
+    });
+
     var isNowCheckbox = $('#isNow');
 
     if (isNowCheckbox.attr('checked')) {
@@ -313,6 +354,7 @@
     }
 
     isNowCheckbox.click(function(){
+        console.log(this);
         if(this.checked == true){
             $('#dateField').attr('disabled', 'disabled');
         } else {

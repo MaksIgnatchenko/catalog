@@ -14,6 +14,7 @@ use App\Modules\Images\Services\ImageService;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyObserver
 {
@@ -42,6 +43,23 @@ class CompanyObserver
     }
 
     /**
+     * Deleting company listener.
+     *
+     * @param Company $company
+     */
+    public function deleting(Company $company) : void
+    {
+        $images = $company->images()
+            ->get(['url'])
+            ->pluck('url', 'url')
+            ->values()
+            ->toArray();
+        $images[] = $company->logo;
+        Storage::delete($images);
+        $company->images()->delete();
+    }
+
+    /**
      * Updating company listener.
      *
      * @param Company $company
@@ -60,12 +78,14 @@ class CompanyObserver
      */
     private function saveCompanyImages(Company $company, string $imagePosition) : void
     {
-        $images = [];
-        foreach ($company->images[$imagePosition] as $image) {
-            $imageSettings = ImageSettingsFactory::getInstance($imagePosition);
-            $images[] = $this->getImage($image, $imageSettings);
+        if ($incomingImages = $company->images[$imagePosition]) {
+            $images = [];
+            foreach ($company->images[$imagePosition] as $image) {
+                $imageSettings = ImageSettingsFactory::getInstance($imagePosition);
+                $images[] = $this->getImage($image, $imageSettings);
+            }
+            $company->images()->saveMany($images);
         }
-        $company->images()->saveMany($images);
     }
 
     /**
