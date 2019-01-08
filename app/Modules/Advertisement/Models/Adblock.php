@@ -63,10 +63,13 @@ class Adblock extends Model
         $this->attributes['appear_finish'] = $appearFinish;
     }
 
+    /**
+     * @param UploadedFile $value
+     */
     public function setImageAttribute(UploadedFile $value) : void
     {
         $imageSettings = ImageSettingsFactory::getInstance($this->position);
         $imageService = new ImageService($value, $imageSettings);
-        $this->attributes['image'] = $imageService->saveAndCrop($value, $imageSettings);
+        $this->attributes['image'] = $imageService->getUrl();
     }
 }

@@ -29,4 +29,36 @@ return [
      */
     'ad_background_image_ratio' => 1,
     'ad_background_image_format' => 'origin',
+
+    'companies_image_path' => 'companies',
+
+    /**
+     * max size for company images (KB).
+     */
+    'company_images_max_size' => 5120,
+
+    /**
+     * max size for company logo (KB).
+     */
+    'company_logo_max_size' => 1024,
+
+    /**
+     * ratio = height / width
+     */
+    'company_image_ratio' => 1,
+    'company_image_format' => 'origin',
+
+    /**
+     * ratio = height / width
+     */
+    'company_team_image_ratio' => 1,
+    'company_team_image_format' => 'origin',
+
+    /**
+     * ratio = height / width
+     */
+    'company_logo_image_ratio' => 1,
+    'company_logo_image_format' => 'origin',
+
+
 ];

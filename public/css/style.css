@@ -160,3 +160,13 @@ body {
     color: #aa4a24;
 }
 
+#company-images {
+    background-image: linear-gradient(to right, #f0faff, #ffffff);
+    margin: 10px 0;
+}
+
+#company-team-images {
+    background-image: linear-gradient(to right, #faf0ff, #ffffff);
+    margin: 10px 0;
+}
+

@@ -10,14 +10,18 @@ use App\Modules\Admins\Models\Category;
 use App\Modules\Admins\Models\Speciality;
 use App\Modules\Admins\Models\Type;
 use App\Modules\Companies\Enums\CompanyStatusEnum;
+use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
 use App\Modules\Geography\Models\GeographyCity;
 use App\Modules\Geography\Models\GeographyCountry;
 use App\Modules\Images\Models\Image;
+use App\Modules\Images\Services\ImageService;
+use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Http\UploadedFile;
 
 class Company extends Model
 {
@@ -41,13 +45,52 @@ class Company extends Model
         'speciality_id',
         'type_id',
         'logo',
+        'company_image',
+        'company_team_image',
         'company_images_limit',
         'team_images_limit',
         'date_change_status',
         'status',
         'email',
         'password',
+        'latitude',
+        'longitude',
+        'about_us',
+        'our_services',
+        'work_days',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'work_days' => 'array',
+    ];
+
+    public $images;
+
+
+    public function setCompanyImageAttribute(array $value)
+    {
+        $this->images[CompanyImagePositionsEnum::COMPANY_IMAGE] = $value;
+    }
+
+    public function setCompanyTeamImageAttribute(array $value)
+    {
+        $this->images[CompanyImagePositionsEnum::TEAM_IMAGE] = $value;
+    }
+
+    /**
+     * @param UploadedFile $value
+     */
+    public function setLogoAttribute(UploadedFile $value) : void
+    {
+        $imageSettings = ImageSettingsFactory::getInstance(CompanyImagePositionsEnum::LOGO);
+        $imageService = new ImageService($value, $imageSettings);
+        $this->attributes['logo'] = $imageService->getUrl();
+    }
 
     /**
      * @return MorphMany

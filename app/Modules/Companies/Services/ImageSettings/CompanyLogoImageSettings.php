@@ -4,25 +4,24 @@
  *
  */
 
-namespace App\Modules\Advertisement\Services\ImageSettings;
+namespace App\Modules\Companies\Services\ImageSettings;
 
-
-use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
+use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 
-class AdTopImageSettings implements ImageSettingsInterface
+class CompanyLogoImageSettings implements ImageSettingsInterface
 {
     private $path;
-    private $ration;
+    private $ratio;
     private $format;
     private $imageType;
 
     public function __construct()
     {
-        $this->path = config('image.ads_image_path');
-        $this->ration = config('image.ad_top_image_ratio');
-        $this->format = config('image.ad_top_image_format');
-        $this->imageType = AdblockPositionsEnum::TOP;
+        $this->path = config('image.companies_image_path');
+        $this->ratio = config('image.company_logo_image_ratio');
+        $this->format =config('image.company_logo_image_format');
+        $this->imageType = CompanyImagePositionsEnum::LOGO;
     }
 
     /**
@@ -30,7 +29,7 @@ class AdTopImageSettings implements ImageSettingsInterface
      */
     public function getRatio(): int
     {
-        return $this->ration;
+        return $this->ratio;
     }
 
     /**
@@ -56,4 +55,5 @@ class AdTopImageSettings implements ImageSettingsInterface
     {
         return $this->imageType ?? null;
     }
+
 }

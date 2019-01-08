@@ -33,7 +33,7 @@ class CompanyStatusChanger
     /**
      * @return array
      */
-    public function getUpdatedData() : array
+    public function getReplacementData() : array
     {
         if ($this->getStatus() && $this->getDateChangeStatus()) {
             return [

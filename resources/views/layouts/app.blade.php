@@ -97,7 +97,6 @@
 <script src="{{ asset('js/menu.js') }}"></script>
 
 <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.4/jquery-jvectormap.css"/>
 
 
 @yield('script')
