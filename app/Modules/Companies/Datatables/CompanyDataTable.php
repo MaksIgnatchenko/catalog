@@ -6,7 +6,7 @@
 
 namespace App\Modules\Companies\Datatables;
 
-use App\Modules\Companies\Enums\CompanyImageTypeEnum;
+use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
 use App\Modules\Companies\Models\Company;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -45,10 +45,10 @@ class CompanyDataTable extends DataTable
     {
         return $model->withCount([
             'images as companyImagesLimitCount' => function ($query) {
-                $query->where('type', CompanyImageTypeEnum::COMPANY_IMAGE);
+                $query->where('type', CompanyImagePositionsEnum::COMPANY_IMAGE);
             },
             'images as teamImagesLimitCount' => function ($query) {
-                $query->where('type', CompanyImageTypeEnum::TEAM_IMAGE);
+                $query->where('type', CompanyImagePositionsEnum::TEAM_IMAGE);
             },
         ])
             ->with(['category', 'speciality', 'type', 'country', 'city'])

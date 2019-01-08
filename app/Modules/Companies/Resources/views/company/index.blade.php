@@ -10,6 +10,7 @@
         <div class="clearfix"></div>
         <div class="box">
             <div class="box-body">
+                <a href="{{route('company.create')}}" class="btn btn-primary pull-right create-article">Create new company</a>
                 @include('company.table')
             </div>
         </div>

@@ -32,7 +32,7 @@ class EditAdminCompanyRequest extends FormRequest
     {
 		return [
             'operation' => ['string', 'max:100', Rule::in(CompanyEditOperationsEnum::getAvailable())],
-            'newStatus' => ['string', 'max:100', Rule::in(CompanyStatusEnum::getAvailableForAdminEditRequest())],
+            'newStatus' => ['string', 'max:100', Rule::in(CompanyStatusEnum::getBasicStatuses())],
 		];
     }
 }

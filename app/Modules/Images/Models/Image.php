@@ -7,6 +7,7 @@
 namespace App\Modules\Images\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
@@ -18,10 +19,32 @@ class Image extends Model
     protected $table = 'images';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'url',
+        'type',
+        'imageable_id',
+    ];
+
+    /**
      * Get all of the owning imageable models.
      */
     public function imageable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        dd('hi');
+        Storage::delete($this->url);
+        return parent::delete();
     }
 }

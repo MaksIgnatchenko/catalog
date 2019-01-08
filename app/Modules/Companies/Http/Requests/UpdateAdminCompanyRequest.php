@@ -33,7 +33,7 @@ class UpdateAdminCompanyRequest extends FormRequest
             'status' => ['string', Rule::in(CompanyStatusEnum::getAvailable())],
             'company_images_limit' => 'integer|min:0|max:100',
             'team_images_limit' => 'integer|min:0|max:100',
-            'date_change_status' => 'date',
+            'date_change_status' => 'date|after_or_equal:today',
 		];
     }
 }

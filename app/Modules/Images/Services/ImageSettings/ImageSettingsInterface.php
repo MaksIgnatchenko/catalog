@@ -27,4 +27,9 @@ interface ImageSettingsInterface
      * @return string|null
      */
     public function getFormat() : ?string;
+
+    /**
+     * @return string|null
+     */
+    public function getImageType() : ?string;
 }

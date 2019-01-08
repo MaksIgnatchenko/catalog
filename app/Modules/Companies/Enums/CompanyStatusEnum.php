@@ -30,7 +30,7 @@ class CompanyStatusEnum
     /**
      * @return array
      */
-    public static function getAvailableForAdminEditRequest() : array
+    public static function getBasicStatuses() : array
     {
         return [
             self::ACTIVE,

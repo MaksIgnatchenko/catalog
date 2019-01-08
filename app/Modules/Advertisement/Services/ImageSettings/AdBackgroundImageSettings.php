@@ -7,6 +7,7 @@
 namespace App\Modules\Advertisement\Services\ImageSettings;
 
 
+use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 
 class AdBackgroundImageSettings implements ImageSettingsInterface
@@ -14,12 +15,15 @@ class AdBackgroundImageSettings implements ImageSettingsInterface
     private $path;
     private $ration;
     private $format;
+    private $imageType;
+
 
     public function __construct()
     {
         $this->path = config('image.ads_image_path');
         $this->ration = config('image.ad_background_image_ratio');
         $this->format =config('image.ad_background_image_format');
+        $this->imageType = AdblockPositionsEnum::BACKGROUND;
     }
 
     /**
@@ -46,4 +50,11 @@ class AdBackgroundImageSettings implements ImageSettingsInterface
         return $this->format;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getImageType(): ?string
+    {
+        return $this->imageType ?? null;
+    }
 }

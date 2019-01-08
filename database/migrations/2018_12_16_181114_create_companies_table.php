@@ -28,6 +28,11 @@ class CreateCompaniesTable extends Migration
             $table->date('date_change_status')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->text('about_us');
+            $table->text('our_services');
+            $table->decimal('latitude', 10, 8)->default(0);
+            $table->decimal('longitude', 11, 8)->default(0);
+            $table->json('work_days');
             $table->timestamps();
         });
     }
