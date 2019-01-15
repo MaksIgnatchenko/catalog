@@ -49,7 +49,7 @@
     </p>
     @foreach ($roles as $role)
         <p>
-            {!! Form::checkbox('roles[]', $role->id, false, ['id' => 'permission_' . $role->id, 'class' => 'custom-checkbox']) !!}
+            {!! Form::checkbox('roles[]', $role->id, in_array($role->id, $selectedRoles), ['id' => 'permission_' . $role->id, 'class' => 'custom-checkbox']) !!}
             {{ Form::label('permission_' . $role->id, $role->display_name . ': ') }}
         </p>
     @endforeach

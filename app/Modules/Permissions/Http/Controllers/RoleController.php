@@ -60,7 +60,9 @@ class RoleController extends Controller
         $role = app()[Role::class];
         $role->fill($request->all());
         $role->save();
-        $role->syncPermissions($request->permissions);
+        if ($request->permissions) {
+            $role->syncPermissions($request->permissions);
+        }
         return redirect()->route('role.index');
     }
 
@@ -98,7 +100,11 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->all());
-        $role->syncPermissions($request->permissions);
+        if ($request->permissions) {
+            $role->syncPermissions($request->permissions);
+        } else {
+            $role->permissions()->detach();
+        }
         return redirect()->route('role.index');
     }
 
