@@ -26,7 +26,7 @@
 <div class="form-group">
     <p>
         {{ Form::label('description', 'Description: ') }}
-        {!! Form::textarea('description', null, ['class' => 'form-control', 'maxlength' => 300]) !!}
+        {!! Form::textarea('description', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
     </p>
     @if ($errors->has('description'))
         <div class="text-red">{{ $errors->first('description') }}</div>

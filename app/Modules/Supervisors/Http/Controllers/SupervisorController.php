@@ -64,7 +64,9 @@ class SupervisorController extends Controller
         $supervisor = app()[Admin::class];
         $supervisor->fill($request->all());
         $supervisor->save();
-        $supervisor->syncRoles($request->roles);
+        if ($request->roles) {
+            $supervisor->syncRoles($request->roles);
+        }
         return redirect()->route('supervisor.index');
     }
 
@@ -102,7 +104,11 @@ class SupervisorController extends Controller
     public function update(UpdateSupervisorRequest $request, Admin $supervisor)
     {
         $supervisor->update($request->all());
-        $supervisor->syncRoles($request->roles);
+        if ($request->roles) {
+            $supervisor->syncRoles($request->roles);
+        } else {
+            $supervisor->roles()->detach();
+        }
         return redirect()->route('supervisor.index');
     }
 

@@ -115,33 +115,33 @@
 </div>
 
 <!-- Company image Field -->
-<div id="company-images">
-    <h3>Company images</h3>
-    <div class="images-paren-div">
-        <div id="company-image-field" class="increment company-image-field form-group">
-            <p>
-                {{ Form::label('company_images', 'Company images: ') }}
-            </p>
-            @foreach($company->company_images as $image)
+<h3>Team images</h3>
+<div>
+    <p>
+        {{ Form::label('company_team_image', 'Company image: ') }}
+    </p>
+    <ul class="company-images__list">
+        @foreach($company->company_images as $image)
+            <li class="company-images__item">
                 {!!  ImageTag::get(CustomUrl::getFull(Storage::url($image->url))) !!}
-            @endforeach
-        </div>
-    </div>
+            </li>
+        @endforeach
+    </ul>
 </div>
 
 <!-- Company Team image Field -->
-<div id="company-team-images">
-    <h3>Team images</h3>
-    <div class="images-paren-div">
-        <div class="increment company-image-field form-group">
-            <p>
-                {{ Form::label('company_team_image', 'Team image: ') }}
-            </p>
-            @foreach($company->team_images as $image)
+<h3>Team images</h3>
+<div>
+    <p>
+        {{ Form::label('company_team_image', 'Team image: ') }}
+    </p>
+    <ul class="company-images__list">
+        @foreach($company->team_images as $image)
+            <li class="company-images__item">
                 {!!  ImageTag::get(CustomUrl::getFull(Storage::url($image->url))) !!}
-            @endforeach
-        </div>
-    </div>
+            </li>
+        @endforeach
+    </ul>
 </div>
 
 <!-- About us Field -->
@@ -182,6 +182,6 @@
 <div class="form-group">
     <p>
         {{ Form::label('longitude', 'Longitude: ') }}
-        {{ $company->latitude }}
+        {{ $company->longitude }}
     </p>
 </div>

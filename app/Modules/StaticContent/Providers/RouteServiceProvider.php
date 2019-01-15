@@ -57,6 +57,76 @@ class RouteServiceProvider extends ServiceProvider
             return $staticContent;
         });
 
+        Route::bind('who_we_are', function ($value) {
+            try {
+                $staticContent = StaticContent::where('id', (int)$value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('who-we-are');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('who-we-are');
+                throw $exception;
+            }
+            return $staticContent;
+        });
+
+        Route::bind('our_vision', function ($value) {
+            try {
+                $staticContent = StaticContent::where('id', (int)$value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('our-vision');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('our-vision');
+                throw $exception;
+            }
+            return $staticContent;
+        });
+
+        Route::bind('help', function ($value) {
+            try {
+                $staticContent = StaticContent::where('id', (int)$value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('help');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('help');
+                throw $exception;
+            }
+            return $staticContent;
+        });
+
+        Route::bind('term', function ($value) {
+            try {
+                $staticContent = StaticContent::where('id', (int)$value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('term');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('term');
+                throw $exception;
+            }
+            return $staticContent;
+        });
+
+        Route::bind('privacy_policy', function ($value) {
+            try {
+                $staticContent = StaticContent::where('id', (int)$value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('privacy-policy');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('privacy-policy');
+                throw $exception;
+            }
+            return $staticContent;
+        });
+
         Route::bind('social_link', function ($value) {
             try {
                 $socialLink = SocialLink::where('id', (int)$value)->firstOrFail();

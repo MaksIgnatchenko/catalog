@@ -300,6 +300,7 @@
     @if ($errors->has('work_days'))
         <div class="text-red">{{ $errors->first('work_days') }}</div>
     @endif
+        <div class="text-red">{{ $errors->first('work_days.*') }}</div>
 </div>
 
 <!-- Latitude Field -->
@@ -330,6 +331,20 @@
 </div>
 
 <script>
+
+    {{--var imageSizeLimit = {{ config('image.company_images_max_size') }}--}}
+
+    {{--function imageSizeLimitter(element) {--}}
+        {{--element.onchange = function () {--}}
+            {{--var limit = +imageSizeLimit * 1000;--}}
+            {{--console.log(limit);--}}
+            {{--if (this.files[0].size > limit) {--}}
+                {{--alert("The image should be no more than " + limit / 1000 + "Kb");--}}
+                {{--this.value = '';--}}
+            {{--}--}}
+        {{--}--}}
+    {{--}--}}
+
     $(".btn-success").click(function(){
         var imagesCount = $('.increment').length;
         var parent = $(this).parent().parent().find('.images-paren-div');
@@ -339,10 +354,13 @@
             // clean image field value
             html.children().eq(1).val('');
             parent.append(html);
+            // imageSizeLimitter(html);
         } else {
             alert('You can add up to 10 images at a time.');
         }
     });
+
+
 
     $("body").on("click",".btn-danger",function(){
         var parentChildrenCount = $(this).parent().parent().children().length;
@@ -360,6 +378,7 @@
         var isWorkCheckbox = $(this);
         handleTimeInputs($(this));
     });
+
 
     function handleTimeInputs(isWorkDayCheckbox) {
         var from = isWorkDayCheckbox.parent().siblings().eq(0).children().first();

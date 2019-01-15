@@ -62,4 +62,19 @@ class StoreAdminCompanyRequest extends FormRequest
             'longitude' => 'numeric|between:-180,180',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        $defaultMessages = parent::messages();
+        $otherMessages = [
+            'work_days.*.from.*' => 'Invalid time format',
+            'work_days.*.to.*' => 'Invalid time format',
+        ];
+        return array_merge($otherMessages, $defaultMessages);
+    }
 }
