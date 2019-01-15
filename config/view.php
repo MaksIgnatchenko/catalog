@@ -18,6 +18,9 @@ return [
         app_path('Modules/Admins/Resources/views'),
         app_path('Modules/Advertisement/Resources/views'),
         app_path('Modules/Companies/Resources/views'),
+        app_path('Modules/Permissions/Resources/views'),
+        app_path('Modules/Supervisors/Resources/views'),
+        app_path('Modules/StaticContent/Resources/views'),
     ],
 
     /*

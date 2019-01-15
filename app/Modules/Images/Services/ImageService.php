@@ -7,6 +7,8 @@
 namespace App\Modules\Images\Services;
 
 use App\Modules\Advertisement\Enums\ImageFormatsEnum;
+use App\Modules\Advertisement\Jobs\MakeResponsiveImages;
+use App\Modules\Images\Enums\DisplayRatioEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +28,11 @@ class ImageService
      */
     private $settings;
 
+    /**
+     * ImageService constructor.
+     * @param UploadedFile $image
+     * @param ImageSettingsInterface $settings
+     */
     public function  __construct(UploadedFile $image, ImageSettingsInterface $settings)
     {
         $this->originImage = $image;
@@ -47,7 +54,11 @@ class ImageService
         } else {
             $image = $this->image->encode($this->settings->getFormat());
         }
-        return $this->saveImage($fileName, $image);
+        $url = $this->saveImage($fileName, $image);
+//        if ($this->settings->isRequireDifferentSizes() && $this->image) {
+//            $this->makeResponsiveImages($url, $this->settings->getResponsiveRatios());
+//        }
+        return $url;
     }
 
     /**
@@ -65,7 +76,7 @@ class ImageService
      */
     private function saveImage(string $fileName, \Intervention\Image\Image $image) : string
     {
-        $fileName = $this->settings->getPath() . '/' . $fileName;
+        $fileName = $this->getFullName($fileName);
         Storage::put($fileName, $image);
         return $fileName;
     }
@@ -90,4 +101,23 @@ class ImageService
         return ImageManagerStatic::canvas($width, $height);
     }
 
+    /**
+     * @param string $imageName
+     * @param array $ratios
+     */
+    private function makeResponsiveImages(string $imageName, array $ratios) : void
+    {
+        foreach ($ratios as $ratio) {
+            MakeResponsiveImages::dispatch($imageName, $ratio);
+        }
+    }
+
+    /**
+     * @param $fileName
+     * @return string
+     */
+    private function getFullName($fileName) : string
+    {
+        return $this->settings->getPath() . '/' . $fileName;
+    }
 }

@@ -8,6 +8,7 @@ namespace App\Modules\Advertisement\Services\ImageSettings;
 
 
 use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
+use App\Modules\Images\Enums\DisplayRatioEnum;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsInterface;
 
 class AdBackgroundImageSettings implements ImageSettingsInterface
@@ -16,6 +17,7 @@ class AdBackgroundImageSettings implements ImageSettingsInterface
     private $ration;
     private $format;
     private $imageType;
+    private $responsiveRatios;
 
 
     public function __construct()
@@ -24,6 +26,7 @@ class AdBackgroundImageSettings implements ImageSettingsInterface
         $this->ration = config('image.ad_background_image_ratio');
         $this->format =config('image.ad_background_image_format');
         $this->imageType = AdblockPositionsEnum::BACKGROUND;
+        $this->responsiveRatios = DisplayRatioEnum::getAvailable();
     }
 
     /**
@@ -56,5 +59,21 @@ class AdBackgroundImageSettings implements ImageSettingsInterface
     public function getImageType(): ?string
     {
         return $this->imageType ?? null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequireDifferentSizes(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResponsiveRatios() : array
+    {
+        return $this->responsiveRatios;
     }
 }

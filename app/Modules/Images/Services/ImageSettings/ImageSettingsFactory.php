@@ -17,6 +17,12 @@ use App\Modules\Companies\Services\ImageSettings\CompanyTeamImageSettings;
 
 class ImageSettingsFactory
 {
+    /**
+     * Get instance of specific image settings.
+     *
+     * @param string $position
+     * @return ImageSettingsInterface
+     */
     public static function getInstance(string $position) : ImageSettingsInterface
     {
         switch ($position) {

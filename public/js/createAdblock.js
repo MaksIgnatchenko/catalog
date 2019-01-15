@@ -12,6 +12,5 @@ jQuery(function($){
             alert("The image should be no more than 5MB");
             this.value = '';
         }
-        ;
     }
-})
+});

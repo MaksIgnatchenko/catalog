@@ -21,6 +21,18 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
     /**
+     * CompanyController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('permission:index_companies')->only('index');
+        $this->middleware('permission:read_companies')->only('show');
+        $this->middleware('permission:create_companies')->only(['create', 'store']);
+        $this->middleware('permission:edit_companies')->only(['edit', 'update']);
+        $this->middleware('permission:delete_companies')->only('destroy');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param CompanyDataTable $companyDataTable
@@ -30,6 +42,18 @@ class CompanyController extends Controller
     {
         return $companyDataTable->render('company.index');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Company $company
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Company $company)
+    {
+        return view('company.show', ['company' => $company]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -106,4 +130,5 @@ class CompanyController extends Controller
         $company->delete();
         return redirect()->route('company.index');
     }
+
 }

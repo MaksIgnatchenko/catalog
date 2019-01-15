@@ -43,7 +43,6 @@ class Image extends Model
      */
     public function delete()
     {
-        dd('hi');
         Storage::delete($this->url);
         return parent::delete();
     }

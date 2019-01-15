@@ -1,13 +1,20 @@
+@permission('read_categories')
 <div class='btn-group'>
     <a href="{{ route('type.show', $id) }}" class='btn btn-primary'>
         <i class="glyphicon glyphicon-eye-open"></i>
     </a>
 </div>
+@endpermission
+
+@permission('edit_categories')
 <div class='btn-group'>
     <a href="{{ route('type.edit', $id) }}" class='btn btn-primary'>
         <i class="glyphicon glyphicon-edit"></i>
     </a>
 </div>
+@endpermission
+
+@permission('delete_categories')
 <div class='btn-group'>
     <a href="#" class='btn btn-danger'
        onclick="document.getElementById('delete-type-{{$id}}-button').click()">
@@ -20,3 +27,4 @@
         <i class="glyphicon glyphicon-remove"></i>
     </a>
 </div>
+@endpermission

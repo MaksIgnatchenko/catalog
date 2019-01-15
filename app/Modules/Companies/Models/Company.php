@@ -9,8 +9,8 @@ namespace App\Modules\Companies\Models;
 use App\Modules\Admins\Models\Category;
 use App\Modules\Admins\Models\Speciality;
 use App\Modules\Admins\Models\Type;
-use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
 use App\Modules\Companies\Enums\CompanyStatusEnum;
+use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
 use App\Modules\Geography\Models\GeographyCity;
 use App\Modules\Geography\Models\GeographyCountry;
 use App\Modules\Images\Models\Image;
@@ -58,6 +58,8 @@ class Company extends Model
         'about_us',
         'our_services',
         'work_days',
+        'website',
+        'phones',
     ];
 
     /**
@@ -67,6 +69,7 @@ class Company extends Model
      */
     protected $casts = [
         'work_days' => 'array',
+        'phones' => 'array',
     ];
 
     public $images;
@@ -90,6 +93,22 @@ class Company extends Model
         $imageSettings = ImageSettingsFactory::getInstance(CompanyImagePositionsEnum::LOGO);
         $imageService = new ImageService($value, $imageSettings);
         $this->attributes['logo'] = $imageService->getUrl();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getCompanyImagesAttribute()
+    {
+        return $this->images()->where('type', CompanyImagePositionsEnum::COMPANY_IMAGE)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getTeamImagesAttribute()
+    {
+        return $this->images()->where('type', CompanyImagePositionsEnum::TEAM_IMAGE)->get();
     }
 
     /**

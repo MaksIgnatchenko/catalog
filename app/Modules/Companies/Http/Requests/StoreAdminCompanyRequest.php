@@ -34,6 +34,9 @@ class StoreAdminCompanyRequest extends FormRequest
         return [
             'name' => 'required|string|min:1|max:100|unique:companies,name',
             'email' => 'required|email|min:5|max:100|unique:companies,email',
+            'website' => 'url|max:255',
+            'phones' => 'array',
+            'phones.*' => 'numeric|digits_between:1,20',
             'password' => 'required|string|min:6|max:50,confirmed',
             'password_confirmation' => 'required|string|max:50|same:password',
             'country_id' => 'required|integer|exists:geography_countries,id',

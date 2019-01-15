@@ -147,6 +147,19 @@ body {
     box-shadow: inset 0 2px 3px rgba(0,0,0,.2), 0 0 0 3px rgba(250, 251, 255, 0.71);
 }
 
+.arabic_input {
+    unicode-bidi:bidi-override;
+    direction: RTL;
+}
+
+.color-blue {
+    color: #3097d1;
+}
+
+.color-red {
+    color: #aa4a24;
+}
+
 #company-images {
     background-image: linear-gradient(to right, #f0faff, #ffffff);
     margin: 10px 0;
@@ -155,5 +168,15 @@ body {
 #company-team-images {
     background-image: linear-gradient(to right, #faf0ff, #ffffff);
     margin: 10px 0;
+}
+
+.schedule-table {
+    width: 100%;
+    border: black solid 1px;
+}
+
+.schedule-table td {
+    border: black solid 1px;
+    text-align: center;
 }
 

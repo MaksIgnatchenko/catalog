@@ -56,4 +56,12 @@ class CompanyLogoImageSettings implements ImageSettingsInterface
         return $this->imageType ?? null;
     }
 
+    /**
+     * @return bool
+     */
+    public function isRequireDifferentSizes(): bool
+    {
+        return false;
+    }
+
 }

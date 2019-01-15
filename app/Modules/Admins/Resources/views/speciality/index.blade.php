@@ -10,7 +10,9 @@
         <div class="clearfix"></div>
         <div class="box">
             <div class="box-body">
-                <a href="{{route('speciality.create')}}" class="btn btn-primary pull-right create-article">Create new speciality</a>
+                @permission('create_categories')
+                    <a href="{{route('speciality.create')}}" class="btn btn-primary pull-right create-article">Create new speciality</a>
+                @endpermission
                 @include('speciality.table')
             </div>
         </div>

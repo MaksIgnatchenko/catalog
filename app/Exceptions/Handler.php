@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use App\Modules\Admins\Exceptions\NoSuchModelException;
+use App\Modules\StaticContent\Exceptions\ActiveContentException;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -55,6 +56,10 @@ class Handler extends ExceptionHandler
             $entityName = $exception->getModel();
             flash('No such ' . $entityName)->error();
             return redirect('/' . $entityName);
+        }
+        if ($exception instanceof ActiveContentException) {
+            flash($exception->getMessage())->error();
+            return redirect()->back();
         }
         return parent::render($request, $exception);
     }

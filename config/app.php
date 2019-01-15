@@ -181,6 +181,10 @@ return [
         App\Modules\Advertisement\Providers\AdvertisementServiceProvider::class,
         App\Modules\Companies\Providers\RouteServiceProvider::class,
         App\Modules\Companies\Providers\CompanyServiceProvider::class,
+        App\Modules\Permissions\Providers\RouteServiceProvider::class,
+        App\Modules\Supervisors\Providers\RouteServiceProvider::class,
+        App\Modules\StaticContent\Providers\RouteServiceProvider::class,
+        App\Modules\StaticContent\Providers\StaticContentServiceProvider::class
 
     ],
 
@@ -234,6 +238,11 @@ return [
         'CheckCompanyStatus' => \App\Modules\Companies\Helpers\CheckCompanyStatus::class,
         'CompanyEditOperations' => App\Modules\Companies\Helpers\CompanyEditOperations::class,
         'CompanyEditOperationsEnum' => App\Modules\Companies\Enums\CompanyEditOperationsEnum::class,
+        'CustomUrl' => \App\Helpers\CustomUrl::class,
+        'LanguagesEnum' => \App\Modules\Languages\Enums\LanguagesEnum::class,
+        'StaticContentStatusEnum' => \App\Modules\StaticContent\Enums\StaticContentStatusEnum::class,
+        'ImageTag' => \App\Modules\Images\Helpers\ImageTag::class,
+        'Schedule' => \App\Modules\Companies\Helpers\Schedule::class,
     ],
 
 ];

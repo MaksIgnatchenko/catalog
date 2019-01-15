@@ -12,6 +12,14 @@ use App\Modules\Admins\Http\Controllers\SpecialityController;
 use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
 use App\Modules\Companies\Http\Controllers\Admin\CompanyController;
+use App\Modules\Permissions\Http\Controllers\RoleController;
+use App\Modules\StaticContent\Http\Controllers\HelpController;
+use App\Modules\StaticContent\Http\Controllers\OurVisionController;
+use App\Modules\StaticContent\Http\Controllers\PrivacyPolicyController;
+use App\Modules\StaticContent\Http\Controllers\SocialLinkController;
+use App\Modules\StaticContent\Http\Controllers\TermController;
+use App\Modules\StaticContent\Http\Controllers\WhoWeAreController;
+use App\Modules\Supervisors\Http\Controllers\SupervisorController;
 use Illuminate\Support\Facades\Request;
 
 class ActiveLink
@@ -61,21 +69,9 @@ class ActiveLink
      */
     public static function checkManagement(): bool
     {
-        $controller = self::getControllerInstance();
-
-        if ($controller instanceof CategoryController) {
-            return true;
-        }
-
-        if ($controller instanceof SpecialityController) {
-            return true;
-        }
-
-        if ($controller instanceof TypeController) {
-            return true;
-        }
-
-        return false;
+        return self::checkCategory() ||
+            self::checkSpeciality() ||
+            self::checkType();
     }
 
     /**
@@ -97,6 +93,99 @@ class ActiveLink
 
 		return $controller instanceof CompanyController;
 	}
+
+    /**
+     * @return bool
+     */
+    public static function checkRole(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof RoleController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkSupervisor(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof SupervisorController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkWhoWeAre(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof WhoWeAreController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkOurVision(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof OurVisionController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkHelp(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof HelpController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkTerm(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof TermController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkPrivacyPolicy(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof PrivacyPolicyController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkSocialLink(): bool
+    {
+        $controller = self::getControllerInstance();
+
+        return $controller instanceof SocialLinkController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkStaticContent(): bool
+    {
+        return self::checkWhoWeAre() ||
+            self::checkOurVision() ||
+            self::checkTerm() ||
+            self::checkPrivacyPolicy() ||
+            self::checkHelp() ||
+            self::checkSocialLink();
+    }
 
     /**
      * @return mixed

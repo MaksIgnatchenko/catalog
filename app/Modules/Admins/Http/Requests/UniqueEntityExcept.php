@@ -9,11 +9,13 @@ namespace App\Modules\Admins\Http\Requests;
 trait UniqueEntityExcept
 {
     /**
+     * @param int $segmentNumber
      * @return int
      */
-    public function exceptId() : int
+    public function exceptId(int $segmentNumber = 1) : int
     {
-        $paramName = $this->segment(1);
-        return $this->route($paramName)->id;
+        $segmentValues = $this->segments();
+
+        return $segmentValues[$segmentNumber];
     }
 }

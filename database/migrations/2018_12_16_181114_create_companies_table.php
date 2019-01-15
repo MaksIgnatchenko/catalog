@@ -33,6 +33,8 @@ class CreateCompaniesTable extends Migration
             $table->decimal('latitude', 10, 8)->default(0);
             $table->decimal('longitude', 11, 8)->default(0);
             $table->json('work_days');
+            $table->json('phones');
+            $table->string('website');
             $table->timestamps();
         });
     }
