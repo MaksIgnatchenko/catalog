@@ -6,14 +6,14 @@
 
 namespace App\Helpers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class CustomUrl
 {
     public static function getFull(string $url)
     {
         if (strpos($url, 'http') === false) {
-            $scheme = \Illuminate\Support\Facades\Request::secure() ? 'https://' : 'http://';
+            $scheme = Request::secure() ? 'https://' : 'http://';
             return $scheme . $url;
         }
         return $url;

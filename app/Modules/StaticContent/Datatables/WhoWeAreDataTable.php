@@ -38,9 +38,6 @@ class WhoWeAreDataTable extends DataTable
                 }
                 return "<div class style='color:#aa4a24'>" . $query->status . "</div>";
             })
-//            ->setRowClass(function ($query) {
-//                return $query->status === 'active' ? 'alert-success' : 'alert-warning';
-//            })
             ->rawColumns(['action', 'status']);
     }
 

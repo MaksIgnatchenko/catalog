@@ -10,10 +10,6 @@ Route::middleware(['auth:admin'])->group(function() {
     Route::resource('category', 'CategoryController');
     Route::resource('speciality', 'SpecialityController');
     Route::resource('type', 'TypeController');
-    Route::get('test', function() {
-        $role = \App\Modules\Permissions\Models\Role::first();
-        dd($role->permissions);
-    });
 });
 
 Route::get('/login', 'LoginController@showLoginForm')->name('login')->middleware('guest:admin');

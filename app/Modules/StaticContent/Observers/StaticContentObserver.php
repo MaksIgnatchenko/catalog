@@ -36,18 +36,20 @@ class StaticContentObserver
      */
     public function handleStatus(StaticContent $content) : void
     {
-        $status = $content->getDirty()['status'];
-        switch ($status) {
-            case StaticContentStatusEnum::ACTIVE :
-                StaticContent::where('content_type', $content->content_type)
-                    ->update(['status' => StaticContentStatusEnum::BLOCK]);
-                break;
-            case StaticContentStatusEnum::BLOCK :
-                $this->checkActiveContent($content);
-                StaticContent::where('content_type', $content->content_type)
-                    ->update(['status' => StaticContentStatusEnum::BLOCK]);
+        $status = $content->getDirty()['status'] ?? null;
+        if ($status) {
+            switch ($status) {
+                case StaticContentStatusEnum::ACTIVE :
+                    StaticContent::where('content_type', $content->content_type)
+                        ->update(['status' => StaticContentStatusEnum::BLOCK]);
+                    break;
+                case StaticContentStatusEnum::BLOCK :
+                    $this->checkActiveContent($content);
+                    StaticContent::where('content_type', $content->content_type)
+                        ->update(['status' => StaticContentStatusEnum::BLOCK]);
+            }
+            $content->status = $status;
         }
-        $content->status = $status;
     }
 
     /**

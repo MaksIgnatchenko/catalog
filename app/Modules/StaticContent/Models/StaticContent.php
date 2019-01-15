@@ -75,6 +75,51 @@ class StaticContent extends Model
     }
 
     /**
+     * Scope a query to only include popular users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOurVision(Builder $query) : Builder
+    {
+        return $query->where('content_type',ContentTypeEnum::OUR_VISION);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHelp(Builder $query) : Builder
+    {
+        return $query->where('content_type',ContentTypeEnum::HELP);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeTermsAndConditions(Builder $query) : Builder
+    {
+        return $query->where('content_type',ContentTypeEnum::TERMS_AND_CONDITIONS);
+    }
+
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePrivacyPolicy(Builder $query) : Builder
+    {
+        return $query->where('content_type',ContentTypeEnum::PRIVACY_POLICY);
+    }
+
+    /**
      * Check is status active.
      *
      * @return bool

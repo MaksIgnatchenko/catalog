@@ -20,6 +20,50 @@
     @endif
 </div>
 
+<!-- Phone Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('phones[0]', 'Phone 1: ') }}
+        {!! Form::text('phones[0]', null, ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('phones.0'))
+        <div class="text-red">{{ 'Incorrect phone number' }}</div>
+    @endif
+</div>
+
+<!-- Phone Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('phones[1]', 'Phone 2: ') }}
+        {!! Form::text('phones[1]', null, ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('phones.1'))
+        <div class="text-red">{{ 'Incorrect phone number' }}</div>
+    @endif
+</div>
+
+<!-- Phone Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('phones[2]', 'Phone 3: ') }}
+        {!! Form::text('phones[2]', null, ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('phones.2'))
+        <div class="text-red">{{ 'Incorrect phone number' }}</div>
+    @endif
+</div>
+
+<!-- Website Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('website', 'Website: ') }}
+        {!! Form::text('website', null, ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('website'))
+        <div class="text-red">{{ $errors->first('website') }}</div>
+    @endif
+</div>
+
 <!-- Password Field -->
 <div class="form-group">
     <p>

@@ -50,6 +50,14 @@ class CompanyImageSettings implements ImageSettingsInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isRequireDifferentSizes(): bool
+    {
+        return false;
+    }
+
+    /**
      * @return string|null
      */
     public function getImageType(): ?string

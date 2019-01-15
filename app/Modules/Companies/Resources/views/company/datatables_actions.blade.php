@@ -1,3 +1,12 @@
+@permission('read_companies')
+<div class='btn-group'>
+    <a href="{{ route('company.show', $id) }}" class='btn btn-primary'>
+        <i class="glyphicon glyphicon-eye-open"></i>
+    </a>
+</div>
+@endpermission
+
+@permission('edit_companies')
 @if(CheckCompanyStatus::isActive($status))
     <div class='btn-group'>
         <a href="{{ route('company.edit', [$id, 'operation' => CompanyEditOperationsEnum::CHANGE_STATUS, 'newStatus' => \App\Modules\Companies\Enums\CompanyStatusEnum::BLOCK]) }}" class='btn btn-primary'>
@@ -35,7 +44,9 @@
         <i class="glyphicon glyphicon-wrench"></i>
     </a>
 </div>
+@endpermission
 
+@permission('delete_companies')
 <div class='btn-group'>
     <a href="#" class='btn btn-danger'
        onclick="document.getElementById('delete-{{$id}}-button').click()">
@@ -48,3 +59,4 @@
         <i class="glyphicon glyphicon-remove"></i>
     </a>
 </div>
+@endpermission

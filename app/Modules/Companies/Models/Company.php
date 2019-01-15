@@ -58,6 +58,8 @@ class Company extends Model
         'about_us',
         'our_services',
         'work_days',
+        'website',
+        'phones',
     ];
 
     /**
@@ -67,6 +69,7 @@ class Company extends Model
      */
     protected $casts = [
         'work_days' => 'array',
+        'phones' => 'array',
     ];
 
     public $images;
@@ -90,6 +93,22 @@ class Company extends Model
         $imageSettings = ImageSettingsFactory::getInstance(CompanyImagePositionsEnum::LOGO);
         $imageService = new ImageService($value, $imageSettings);
         $this->attributes['logo'] = $imageService->getUrl();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getCompanyImagesAttribute()
+    {
+        return $this->images()->where('type', CompanyImagePositionsEnum::COMPANY_IMAGE)->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getTeamImagesAttribute()
+    {
+        return $this->images()->where('type', CompanyImagePositionsEnum::TEAM_IMAGE)->get();
     }
 
     /**

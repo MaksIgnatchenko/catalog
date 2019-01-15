@@ -170,3 +170,13 @@ body {
     margin: 10px 0;
 }
 
+.schedule-table {
+    width: 100%;
+    border: black solid 1px;
+}
+
+.schedule-table td {
+    border: black solid 1px;
+    text-align: center;
+}
+

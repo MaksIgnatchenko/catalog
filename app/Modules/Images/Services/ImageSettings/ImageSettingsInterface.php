@@ -32,4 +32,9 @@ interface ImageSettingsInterface
      * @return string|null
      */
     public function getImageType() : ?string;
+
+    /**
+     * @return bool
+     */
+    public function isRequireDifferentSizes() : bool;
 }

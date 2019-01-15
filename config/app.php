@@ -241,6 +241,8 @@ return [
         'CustomUrl' => \App\Helpers\CustomUrl::class,
         'LanguagesEnum' => \App\Modules\Languages\Enums\LanguagesEnum::class,
         'StaticContentStatusEnum' => \App\Modules\StaticContent\Enums\StaticContentStatusEnum::class,
+        'ImageTag' => \App\Modules\Images\Helpers\ImageTag::class,
+        'Schedule' => \App\Modules\Companies\Helpers\Schedule::class,
     ],
 
 ];

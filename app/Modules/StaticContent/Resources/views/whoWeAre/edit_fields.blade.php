@@ -39,7 +39,7 @@
 @endif
 
 <!-- HIDDEN CONTENT TYPE Field -->
-{{ Form::hidden('content_type', 'who_we_are') }}
+{{ Form::hidden('content_type', \App\Modules\StaticContent\Enums\ContentTypeEnum::WHO_WE_ARE) }}
 
 
 <!-- Submit Field -->

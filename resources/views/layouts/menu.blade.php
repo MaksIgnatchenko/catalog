@@ -58,6 +58,21 @@
         <li class="{{ActiveLink::checkWhoWeAre() ? 'active' : ''}}">
             <a href="{{route('who-we-are.index')}}"><i class="fa {{ActiveLink::checkWhoWeAre() ? 'fa-circle' : 'fa-circle-o'}}"></i>Who we are</a>
         </li>
+        <li class="{{ActiveLink::checkOurVision() ? 'active' : ''}}">
+            <a href="{{route('our-vision.index')}}"><i class="fa {{ActiveLink::checkOurVision() ? 'fa-circle' : 'fa-circle-o'}}"></i>Our vision</a>
+        </li>
+        <li class="{{ActiveLink::checkTerm() ? 'active' : ''}}">
+            <a href="{{route('term.index')}}"><i class="fa {{ActiveLink::checkTerm() ? 'fa-circle' : 'fa-circle-o'}}"></i>Terms and conditions</a>
+        </li>
+        <li class="{{ActiveLink::checkPrivacyPolicy() ? 'active' : ''}}">
+            <a href="{{route('privacy-policy.index')}}"><i class="fa {{ActiveLink::checkPrivacyPolicy() ? 'fa-circle' : 'fa-circle-o'}}"></i>Privacy policy</a>
+        </li>
+        <li class="{{ActiveLink::checkHelp() ? 'active' : ''}}">
+            <a href="{{route('help.index')}}"><i class="fa {{ActiveLink::checkHelp() ? 'fa-circle' : 'fa-circle-o'}}"></i>Help</a>
+        </li>
+        <li class="{{ActiveLink::checkSocialLink() ? 'active' : ''}}">
+            <a href="{{route('social-link.index')}}"><i class="fa {{ActiveLink::checkSocialLink() ? 'fa-circle' : 'fa-circle-o'}}"></i>Social Links</a>
+        </li>
     </ul>
 </li>
 @endpermission
