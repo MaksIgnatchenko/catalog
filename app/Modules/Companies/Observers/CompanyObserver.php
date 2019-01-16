@@ -78,7 +78,7 @@ class CompanyObserver
      */
     private function saveCompanyImages(Company $company, string $imagePosition) : void
     {
-        if ($incomingImages = $company->images[$imagePosition]) {
+        if ($incomingImages = $company->images[$imagePosition] ?? null) {
             $images = [];
             foreach ($company->images[$imagePosition] as $image) {
                 $imageSettings = ImageSettingsFactory::getInstance($imagePosition);

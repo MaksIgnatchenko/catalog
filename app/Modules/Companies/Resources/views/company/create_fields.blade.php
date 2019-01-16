@@ -195,7 +195,7 @@
 </div>
 
 <!-- Logo Field -->
-<div class="form-group">
+<div class="form-group image-field">
     <p>
         {{ Form::label('logo', 'Logo: ') }}
     </p>
@@ -209,7 +209,7 @@
 <div id="company-images">
     <h3>Company images</h3>
     <div class="images-paren-div">
-        <div id="company-image-field" class="increment company-image-field form-group">
+        <div id="company-image-field" class="increment company-image-field form-group image-field">
             <p>
                 {{ Form::label('company_image', 'Company image: ') }}
             </p>
@@ -223,15 +223,15 @@
 </div>
 
 
-@if ($errors->has('company_image'))
-    <div class="text-red">{{ $errors->first('company_image') }}</div>
+@if ($errors->has('company_image.*'))
+    <div class="text-red">'The company image must be an image of types:jpeg, png</div>
 @endif
 
 <!-- Company Team image Field -->
 <div id="company-team-images">
     <h3>Team images</h3>
     <div class="images-paren-div">
-        <div class="increment company-image-field form-group">
+        <div class="increment company-image-field form-group image-field">
             <p>
                 {{ Form::label('company_team_image', 'Team image: ') }}
             </p>
@@ -244,8 +244,8 @@
     </div>
 </div>
 
-@if ($errors->has('company_team_image'))
-    <div class="text-red">{{ $errors->first('company_team_image') }}</div>
+@if ($errors->has('company_team_image.*'))
+    <div class="text-red">'The team image must be an image of types:jpeg, png</div>
 @endif
 
 <!-- About us Field -->
@@ -332,18 +332,18 @@
 
 <script>
 
-    {{--var imageSizeLimit = {{ config('image.company_images_max_size') }}--}}
+    var imageSizeLimit = {{ config('image.company_images_max_size') }} * 1024;
 
-    {{--function imageSizeLimitter(element) {--}}
-        {{--element.onchange = function () {--}}
-            {{--var limit = +imageSizeLimit * 1000;--}}
-            {{--console.log(limit);--}}
-            {{--if (this.files[0].size > limit) {--}}
-                {{--alert("The image should be no more than " + limit / 1000 + "Kb");--}}
-                {{--this.value = '';--}}
-            {{--}--}}
-        {{--}--}}
-    {{--}--}}
+    $('.image-field').each(function() {
+        $(this).children().eq(1).change(imageSizeLimitter);
+    })
+
+    function imageSizeLimitter() {
+        if (this.files[0].size > imageSizeLimit) {
+            alert("The image should be no more than " + imageSizeLimit / 1024 + "Kb");
+            this.value = '';
+        }
+    }
 
     $(".btn-success").click(function(){
         var imagesCount = $('.increment').length;
@@ -352,9 +352,10 @@
         if (imagesCount < 10) {
             var html = clonedBlock.clone();
             // clean image field value
-            html.children().eq(1).val('');
+            var uploadField = html.children().eq(1);
+            uploadField.val('');
             parent.append(html);
-            // imageSizeLimitter(html);
+            uploadField.change(imageSizeLimitter);
         } else {
             alert('You can add up to 10 images at a time.');
         }
