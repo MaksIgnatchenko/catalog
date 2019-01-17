@@ -20,6 +20,7 @@ class CompanyServiceProvider extends ServiceProvider
     public function boot()
     {
         Company::observe(CompanyObserver::class);
+        $this->loadViewsFrom(base_path() . '/app/Modules/Companies/Resources/views', 'company');
     }
 
 }

@@ -9,4 +9,5 @@ namespace App\Helpers;
 class SubDomain
 {
     public const ADMIN = 'admin.';
+    public const COMPANY = 'company.';
 }

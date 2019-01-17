@@ -25,6 +25,15 @@ class RouteServiceProvider extends ServiceProvider
     protected $adminNamespace = 'App\Modules\Companies\Http\Controllers\Admin';
 
     /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $companyNamespace = 'App\Modules\Companies\Http\Controllers\Company';
+
+    /**
      * Define the routes for the application.
      *
      * @return void
@@ -32,6 +41,7 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->adminMap();
+        $this->companyMap();
     }
 
     /**
@@ -46,6 +56,14 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'auth:admin'])
             ->namespace($this->adminNamespace)
             ->group(__DIR__ . './../Routes/admin.php');
+    }
+
+    public function companyMap()
+    {
+        Route::domain(SubDomain::COMPANY . config('app.url'))
+            ->middleware(['web'])
+            ->namespace($this->companyNamespace)
+            ->group(__DIR__ . './../Routes/company.php');
     }
 
     public function boot()

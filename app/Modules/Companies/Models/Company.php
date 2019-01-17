@@ -18,13 +18,15 @@ use App\Modules\Images\Services\ImageService;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
 
-class Company extends Model
+class Company extends Authenticatable
 {
+
     /**
      * The table associated with the model.
      *
@@ -74,12 +76,36 @@ class Company extends Model
 
     public $images;
 
+    /**
+     * Set the password.
+     *
+     * @param  string  $password
+     * @return void
+     */
+    public function setPasswordAttribute(string $password = null): void
+    {
+        if ($password) {
+            $this->attributes['password'] = Hash::make($password);
+        }
+    }
 
+    /**
+     * Set the company image.
+     *
+     * @param  array  $value
+     * @return void
+     */
     public function setCompanyImageAttribute(array $value)
     {
         $this->images[CompanyImagePositionsEnum::COMPANY_IMAGE] = $value;
     }
 
+    /**
+     * Set the team image.
+     *
+     * @param  array  $value
+     * @return void
+     */
     public function setCompanyTeamImageAttribute(array $value)
     {
         $this->images[CompanyImagePositionsEnum::TEAM_IMAGE] = $value;

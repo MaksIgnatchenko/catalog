@@ -115,10 +115,10 @@
 </div>
 
 <!-- Company image Field -->
-<h3>Team images</h3>
+<h3>Company images</h3>
 <div>
     <p>
-        {{ Form::label('company_team_image', 'Company image: ') }}
+        {{ Form::label('company_image', 'Company image: ') }}
     </p>
     <ul class="company-images__list">
         @foreach($company->company_images as $image)
