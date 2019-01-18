@@ -20,7 +20,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo;
+
+    /**
+     * LoginController constructor.
+     */
+    public function __construct()
+    {
+        $this->redirectTo = route('admin');
+    }
 
     /**
      * @return mixed
@@ -52,6 +60,16 @@ class LoginController extends Controller
     public function username()
     {
         return 'email';
+    }
+
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('admin::auth.login');
     }
 
 }

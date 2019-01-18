@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
     public function adminMap()
     {
         Route::domain(SubDomain::ADMIN . config('app.url'))
-            ->middleware('web')
+            ->middleware(['web'])
             ->namespace($this->adminNamespace)
             ->group(__DIR__ . './../Routes/admin.php');
     }

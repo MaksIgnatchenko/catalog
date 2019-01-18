@@ -14,6 +14,6 @@ class DashboardController extends Controller
     public function __invoke()
     {
         $statistic = new HomeDashboardDto();
-        return view('home')->with('statistic', $statistic);
+        return view('admin::home')->with('statistic', $statistic);
     }
 }

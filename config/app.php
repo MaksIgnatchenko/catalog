@@ -184,7 +184,8 @@ return [
         App\Modules\Permissions\Providers\RouteServiceProvider::class,
         App\Modules\Supervisors\Providers\RouteServiceProvider::class,
         App\Modules\StaticContent\Providers\RouteServiceProvider::class,
-        App\Modules\StaticContent\Providers\StaticContentServiceProvider::class
+        App\Modules\StaticContent\Providers\StaticContentServiceProvider::class,
+        App\Modules\Admins\Providers\AdminServiceProvider::class,
 
     ],
 

@@ -43,5 +43,13 @@ class CompanyOwner extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new MailResetPasswordNotification($token));
     }
+
+    /**
+     * Get the company associated with the company owner.
+     */
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
 }
 

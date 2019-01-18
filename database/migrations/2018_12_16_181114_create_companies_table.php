@@ -16,6 +16,7 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
+            $table->unsignedInteger('company_owner_id')->unique();
             $table->unsignedInteger('country_id');
             $table->unsignedInteger('city_id');
             $table->unsignedInteger('category_id');
@@ -26,8 +27,6 @@ class CreateCompaniesTable extends Migration
             $table->unsignedInteger('team_images_limit');
             $table->string('status');
             $table->date('date_change_status')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
             $table->text('about_us');
             $table->text('our_services');
             $table->decimal('latitude', 10, 8)->default(0);

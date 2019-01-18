@@ -6,10 +6,13 @@
 
 //Route::resource('company', 'CompanyController');
 
-Route::middleware(['auth:company'])->group(function() {
-    Route::get('/', function () {
-        return 'x';
-    })->name('company')->middleware('verified');
+Route::middleware(['auth:company', 'verified'])->group(function() {
+    Route::get('/', 'DashboardController')->name('company');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('companyLogout');
+    Route::get('/test', function() {
+        $companyOwner = \Illuminate\Support\Facades\Auth::user();
+        return $companyOwner->company;
+    });
 });
 
 Route::get('/login', 'Auth\LoginController@showLoginForm')->name('companyLogin')->middleware('guest:company');

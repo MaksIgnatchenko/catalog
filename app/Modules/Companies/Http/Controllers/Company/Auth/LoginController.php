@@ -20,7 +20,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo;
+
+    /**
+     * LoginController constructor.
+     */
+    public function __construct()
+    {
+        $this->redirectTo = route('company');
+    }
 
     /**
      * @return mixed
@@ -43,7 +51,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect()->route('login');
+        return redirect()->route('companyLogin');
     }
 
     /**

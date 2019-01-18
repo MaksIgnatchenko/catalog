@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
                     $route = 'company';
                     break;
                 default:
-                    $route = 'admin';
+                    $route = 'company';
             }
             return redirect()->route($route);
         }
