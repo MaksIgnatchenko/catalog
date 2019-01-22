@@ -31,13 +31,13 @@ class Schedule
             $table .= $day['name'];
             $table .= '</td>';
 
-            if ($companySchedule[$day['name']]['from'] ?? null) {
+            if ($companySchedule[$day['abbreviation']]['from'] ?? null) {
                 $table .= '<td width=35%>';
-                $table .= $companySchedule[$day['name']]['from'];
+                $table .= $companySchedule[$day['abbreviation']]['from'];
                 $table .= '</td>';
 
                 $table .= '<td width=35%>';
-                $table .= $companySchedule[$day['name']]['to'];
+                $table .= $companySchedule[$day['abbreviation']]['to'];
                 $table .= '</td>';
             } else {
                 $table .= '<td colspan="2">';

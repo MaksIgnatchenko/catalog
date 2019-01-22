@@ -7,11 +7,18 @@
 //Route::resource('company', 'CompanyController');
 
 Route::middleware(['auth:company', 'verified'])->group(function() {
-    Route::get('/', 'DashboardController')->name('company');
     Route::post('/logout', 'Auth\LoginController@logout')->name('companyLogout');
-    Route::get('/test', function() {
-        $companyOwner = \Illuminate\Support\Facades\Auth::user();
-        return $companyOwner->company;
+
+    Route::middleware(['hasCompany'])->group(function() {
+        Route::get('/', 'DashboardController')->name('company');
+        Route::get('/company', 'CompanyController@show')->name('my-company.show');
+        Route::get('/company/edit', 'CompanyController@edit')->name('my-company.edit');
+        Route::put('/company/update', 'CompanyController@update')->name('my-company.update');
+    });
+
+    Route::middleware(['doesNotHaveCompany'])->group(function() {
+        Route::get('/company/create', 'CompanyController@create')->name('my-company.create');
+        Route::post('/company/create', 'CompanyController@store')->name('my-company.store');
     });
 });
 

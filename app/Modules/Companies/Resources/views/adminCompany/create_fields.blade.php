@@ -9,6 +9,17 @@
     @endif
 </div>
 
+<!-- Email Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('email', 'Email: ') }}
+        {!! Form::text('email', null, ['class' => 'form-control', 'maxlength' => 50]) !!}
+    </p>
+    @if ($errors->has('email'))
+        <div class="text-red">{{ $errors->first('email') }}</div>
+    @endif
+</div>
+
 <!-- Phone Field -->
 <div class="form-group">
     <p>
@@ -53,12 +64,65 @@
     @endif
 </div>
 
+<!-- Password Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('password', 'Password: ') }}
+        {!! Form::password('password', ['placeholder'=>'Password', 'class'=>'form-control', 'maxlength' => 50, 'autocomplete' => 'off']) !!}
+    </p>
+    @if ($errors->has('password'))
+        <div class="text-red">{{ $errors->first('password') }}</div>
+    @endif
+</div>
+
+<!-- Password confirmation Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('password_confirmation', 'Password confirmation: ') }}
+        {!! Form::password('password_confirmation', ['placeholder'=>'Password', 'class'=>'form-control', 'maxlength' => 50, 'autocomplete' => 'off']) !!}
+    </p>
+    @if ($errors->has('password_confirmation'))
+        <div class="text-red">{{ $errors->first('password_confirmation') }}</div>
+    @endif
+</div>
+
+
+<!-- Status Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('status1', 'Company status: ') }}
+    </p>
+    {!! Form::select('status', $dto->getStatuses(), ['class' => 'form-control'], ['placeholder' => 'Select company status']) !!}
+    @if ($errors->has('status'))
+        <div class="text-red">{{ $errors->first('status') }}</div>
+    @endif
+</div>
+
+<!-- IsNow Field -->
+<div class="form-group">
+    <p>
+        {!! Form::checkbox('isNow', true, false, ['id' => 'isNow', 'class' => 'custom-checkbox']) !!}
+        {{ Form::label('isNow', 'Now' . ': ') }}
+    </p>
+</div>
+
+<!-- Change status date Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('date_change_status', 'Date for change status: ') }}
+        {!! Form::text('date_change_status', null, ['id' => 'dateField', 'class' => 'form-control', 'autocomplete' => 'off']) !!}
+    </p>
+    @if ($errors->has('date_change_status'))
+        <div class="text-red">{{ $errors->first('date_change_status') }}</div>
+    @endif
+</div>
+
 <!-- Country Field -->
 <div class="form-group">
     <p>
         {{ Form::label('country', 'Country: ') }}
     </p>
-    {!! Form::select('country_id', $dto->getCountries(), $dto->getCompanyCountryId, ['class' => 'form-control'], null) !!}
+    {!! Form::select('country_id', $dto->getCountries(), ['class' => 'form-control'], ['placeholder' => 'Select country']) !!}
     @if ($errors->has('country_id'))
         <div class="text-red">{{ $errors->first('country_id') }}</div>
     @endif
@@ -108,6 +172,28 @@
     @endif
 </div>
 
+<!-- Company's images limit Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('company_images_limit', 'Company\'s images limit: ') }}
+        {!! Form::text('company_images_limit', $dto->getDefaultCompanyImagesLimit(), ['class' => 'form-control', 'maxlength' => 20]) !!}
+    </p>
+    @if ($errors->has('company_images_limit'))
+        <div class="text-red">{{ $errors->first('company_images_limit') }}</div>
+    @endif
+</div>
+
+<!-- Team's images limit Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('team_images_limit', 'Team\'s images limit: ') }}
+        {!! Form::text('team_images_limit', $dto->getDefaultTeamImagesLimit(), ['class' => 'form-control', 'maxlength' => 20]) !!}
+    </p>
+    @if ($errors->has('team_images_limit'))
+        <div class="text-red">{{ $errors->first('team_images_limit') }}</div>
+    @endif
+</div>
+
 <!-- Logo Field -->
 <div class="form-group image-field">
     <p>
@@ -135,6 +221,7 @@
         <button class="btn btn-success" type="button">Add new company image</button>
     </div>
 </div>
+
 
 @if ($errors->has('company_image.*'))
     <div class="text-red">'The company image must be an image of types:jpeg, png</div>
@@ -243,10 +330,6 @@
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
 </div>
 
-<div>
-    {{ print_r($errors->all()) }}
-</div>
-
 <script>
 
     var imageSizeLimit = {{ config('image.company_images_max_size') }} * 1024;
@@ -310,12 +393,37 @@
         }
     }
 
+    var datePicker;
+    var options= {
+        format: 'mm/dd/yyyy',
+        todayHighlight: true,
+        autoclose: true,
+    };
+    jQuery(function($){
+        datePicker = $('#dateField').datepicker(options);
+    });
+
     var timeOptions = {
         'timeFormat' : 'H:i'
     };
 
     jQuery(function($){
         timePicker = $('.time-field').timepicker(timeOptions);
+    });
+
+    var isNowCheckbox = $('#isNow');
+
+    if (isNowCheckbox.attr('checked')) {
+        $('#dateField').attr('disabled', 'disabled');
+    }
+
+    isNowCheckbox.click(function(){
+        console.log(this);
+        if(this.checked == true){
+            $('#dateField').attr('disabled', 'disabled');
+        } else {
+            $('#dateField').removeAttr('disabled');
+        }
     });
 
     var categorySelect = $('select[name=category_id]');

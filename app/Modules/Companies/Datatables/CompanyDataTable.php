@@ -32,7 +32,7 @@ class CompanyDataTable extends DataTable
             ->editColumn('status', function ($company) {
                 return ucfirst(str_replace('_', ' ', $company->status));
             })
-            ->addColumn('action', 'company.datatables_actions');
+            ->addColumn('action', 'adminCompany.datatables_actions');
     }
 
     /**
@@ -51,7 +51,7 @@ class CompanyDataTable extends DataTable
                 $query->where('type', CompanyImagePositionsEnum::TEAM_IMAGE);
             },
         ])
-            ->with(['category', 'speciality', 'type', 'country', 'city'])
+            ->with(['category', 'speciality', 'type', 'country', 'city', 'companyOwner'])
             ->newQuery();
     }
 
@@ -141,7 +141,7 @@ class CompanyDataTable extends DataTable
                 'searchable' => false,
             ],
             [
-                'data' => 'email',
+                'data' => 'company_owner.email',
                 'title' => 'Email',
                 'width' => '10%',
                 'orderable' => false,

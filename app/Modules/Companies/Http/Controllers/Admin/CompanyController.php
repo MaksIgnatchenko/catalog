@@ -15,8 +15,10 @@ use App\Modules\Companies\Http\Requests\EditAdminCompanyRequest;
 use App\Modules\Companies\Http\Requests\StoreAdminCompanyRequest;
 use App\Modules\Companies\Http\Requests\UpdateAdminCompanyRequest;
 use App\Modules\Companies\Models\Company;
+use App\Modules\Companies\Models\CompanyOwner;
 use App\Modules\Geography\Services\GeographyServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CompanyController extends Controller
 {
@@ -40,7 +42,7 @@ class CompanyController extends Controller
      */
     public function index(CompanyDataTable $companyDataTable)
     {
-        return $companyDataTable->render('company.index');
+        return $companyDataTable->render('adminCompany.index');
     }
 
     /**
@@ -51,7 +53,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        return view('company.show', ['company' => $company]);
+        return view('adminCompany.show', ['company' => $company]);
     }
 
 
@@ -76,7 +78,7 @@ class CompanyController extends Controller
         }
         $dto = new AdminCompanyDTO($countries, $categories, $statuses);
 
-        return view('company.create', ['dto' => $dto]);
+        return view('adminCompany.create', ['dto' => $dto]);
     }
 
     /**
@@ -87,8 +89,14 @@ class CompanyController extends Controller
      */
     public function store(StoreAdminCompanyRequest $request)
     {
+        $companyOwner = app()[CompanyOwner::class];
+        $companyOwner->password = Hash::make($request->password);
+        $companyOwner->email = $request->email;
+        $companyOwner->save();
+
         $company = app()[Company::class];
         $company->fill($request->all());
+        $company->company_owner_id = $companyOwner->id;
         $company->save();
         return redirect()->route('company.index');
     }
@@ -115,7 +123,7 @@ class CompanyController extends Controller
      */
     public function edit(EditAdminCompanyRequest $request, Company $company)
     {
-        return view('company.edit', ['company' => $company, 'operation' => $request->operation, 'newStatus' => $request->newStatus]);
+        return view('adminCompany.edit', ['company' => $company, 'operation' => $request->operation, 'newStatus' => $request->newStatus]);
     }
 
     /**

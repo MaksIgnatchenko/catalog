@@ -6,6 +6,14 @@
     </p>
 </div>
 
+<!-- Email Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('email', 'Email: ') }}
+        {{ $company->companyOwner->email }}
+    </p>
+</div>
+
 @foreach($company->phones as $phone)
     <!-- Phone Field -->
     <div class="form-group">

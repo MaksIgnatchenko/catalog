@@ -7,10 +7,11 @@
 namespace App\Modules\Companies\Http\Controllers\Company;
 
 
+use App\Http\Controllers\Controller;
 use App\Modules\Companies\DTO\CompanyDashboardDTO;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController
+class DashboardController extends Controller
 {
     public function __invoke()
     {

@@ -30,7 +30,7 @@
 @endpermission
 
 @permission('index_companies')
-    <li class="{{ActiveLink::checkCompany() ? 'active' : ''}}">
+    <li class="{{ActiveLink::checkAdminCompany() ? 'active' : ''}}">
         <a href="{{route('company.index')}}"><i class="fa fa-building"></i> <span>Companies</span></a>
     </li>
 @endpermission

@@ -6,12 +6,14 @@
 
 namespace App\Modules\Admins\Helpers;
 
+use App\Http\Controllers\Controller;
 use App\Modules\Admins\Http\Controllers\CategoryController;
 use App\Modules\Admins\Http\Controllers\DashboardController;
 use App\Modules\Admins\Http\Controllers\SpecialityController;
 use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
-use App\Modules\Companies\Http\Controllers\Admin\CompanyController;
+use App\Modules\Companies\Http\Controllers\Admin\CompanyController as AdminCompanyController;
+use App\Modules\Companies\Http\Controllers\Company\CompanyController;
 use App\Modules\Permissions\Http\Controllers\RoleController;
 use App\Modules\StaticContent\Http\Controllers\HelpController;
 use App\Modules\StaticContent\Http\Controllers\OurVisionController;
@@ -87,11 +89,11 @@ class ActiveLink
 	/**
 	 * @return bool
 	 */
-	public static function checkCompany(): bool
+	public static function checkAdminCompany(): bool
 	{
 		$controller = self::getControllerInstance();
 
-		return $controller instanceof CompanyController;
+		return $controller instanceof AdminCompanyController;
 	}
 
     /**
@@ -188,10 +190,42 @@ class ActiveLink
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public static function getControllerInstance()
+    public static function checkCompany() : bool
+    {
+        return self::getControllerInstance() instanceof CompanyController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkCompanyShow() : bool
+    {
+        return 'my-company.show' === self::getRouteName();
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkCompanyEdit() : bool
+    {
+        return 'my-company.edit' === self::getRouteName();
+    }
+
+    /**
+     * @return Controller
+     */
+    public static function getControllerInstance() : Controller
     {
         return Request::route()->getController();
+    }
+
+    /**
+     * @return string
+     */
+    public static function getRouteName() : string
+    {
+        return Request::route()->getName();
     }
 }

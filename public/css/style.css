@@ -199,3 +199,20 @@ body {
     max-width: 100%;
     max-height: 250px;
 }
+
+.company-images__item button{
+    display: block;
+    max-width: 100%;
+    max-height: 250px;
+}
+
+.company-logo-image img{
+    max-width: 100%;
+    max-height: 250px;
+}
+
+.company-logo-image button{
+    display: block;
+    max-width: 100%;
+    max-height: 250px;
+}

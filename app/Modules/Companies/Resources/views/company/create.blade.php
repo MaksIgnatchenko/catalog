@@ -1,16 +1,16 @@
-@extends('layouts.app')
-@section('title', 'Create new company')
+@extends('layouts.company_app')
+@section('title', 'Register company')
 @section('content')
     <section class="content">
         <div class="clearfix"></div>
 
         @include('flash::message')
-        {!! Form::open(['route' => 'company.store', 'method' => 'POST', 'files' => true]) !!}
+        {!! Form::open(['route' => 'my-company.store', 'method' => 'POST', 'files' => true]) !!}
         <div class="row">
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Create new company</h3>
+                        <h3 class="box-title">Register company</h3>
                     </div>
                     <div class="box-body">
                         @include('company.create_fields')

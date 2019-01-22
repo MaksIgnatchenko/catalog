@@ -35,6 +35,7 @@ class CreateCompaniesTable extends Migration
             $table->json('phones');
             $table->string('website');
             $table->timestamps();
+            $table->foreign('company_owner_id')->references('id')->on('company_owners')->onDelete('cascade');
         });
     }
 

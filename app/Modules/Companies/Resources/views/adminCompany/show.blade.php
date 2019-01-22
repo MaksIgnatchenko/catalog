@@ -1,5 +1,5 @@
-@extends('layouts.company_app')
-@section('title', 'Company info')
+@extends('layouts.app')
+@section('title', 'Company details')
 @section('content')
 
     <div class="content">
@@ -18,7 +18,7 @@
                         <h3 class="box-title">Company info</h3>
                     </div>
                     <div class="box-body">
-                        @include('company.show_fields')
+                        @include('adminCompany.show_fields')
                     </div>
                 </div>
             </div>

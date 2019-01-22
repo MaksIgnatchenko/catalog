@@ -1,24 +1,19 @@
-@extends('layouts.company_app')
-@section('title', 'Company info')
+@extends('layouts.app')
+@section('title', 'Create new company')
 @section('content')
-
     <section class="content">
-
         <div class="clearfix"></div>
 
         @include('flash::message')
-        {!! Form::open(['route' => ['my-company.update', $dto->getCompanyId()], 'method' => 'PUT', 'files' => true, 'id' => 'company-edit-form']) !!}
-        <div class="clearfix"></div>
-
+        {!! Form::open(['route' => 'company.store', 'method' => 'POST', 'files' => true]) !!}
         <div class="row">
-
             <div class="col-md-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Company info</h3>
+                        <h3 class="box-title">Create new company</h3>
                     </div>
                     <div class="box-body">
-                        @include('company.edit_fields')
+                        @include('adminCompany.create_fields')
                     </div>
                 </div>
             </div>
@@ -33,4 +28,3 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 @endsection
-

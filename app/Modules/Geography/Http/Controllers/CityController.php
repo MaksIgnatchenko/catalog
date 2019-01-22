@@ -27,7 +27,8 @@ class CityController extends Controller
         try {
             $cities = $geographyService
                 ->getCitiesFromCountry($countryId, ['geography_cities.id', 'geography_cities.name'])
-                ->pluck('name', 'id');
+                ->pluck('name', 'id')
+                ->sort();
         } catch (ModelNotFoundException | QueryException $e) {
             return ResponseBuilder::error(ApiCode::NO_SUCH_COUNTRY);
         }

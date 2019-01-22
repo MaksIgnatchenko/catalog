@@ -41,6 +41,7 @@ class Company extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'company_owner_id',
         'country_id',
         'city_id',
         'category_id',
@@ -53,8 +54,6 @@ class Company extends Authenticatable
         'team_images_limit',
         'date_change_status',
         'status',
-        'email',
-        'password',
         'latitude',
         'longitude',
         'about_us',
@@ -76,18 +75,6 @@ class Company extends Authenticatable
 
     public $images;
 
-    /**
-     * Set the password.
-     *
-     * @param  string  $password
-     * @return void
-     */
-    public function setPasswordAttribute(string $password = null): void
-    {
-        if ($password) {
-            $this->attributes['password'] = Hash::make($password);
-        }
-    }
 
     /**
      * Set the company image.
@@ -183,6 +170,16 @@ class Company extends Authenticatable
     public function city()  : BelongsTo
     {
         return $this->belongsTo(GeographyCity::class);
+    }
+
+    /**
+     * Get the companyOwner associated with the company.
+     *
+     * @return BelongsTo
+     */
+    public function companyOwner() : BelongsTo
+    {
+        return $this->belongsTo(CompanyOwner::class);
     }
 
     /**

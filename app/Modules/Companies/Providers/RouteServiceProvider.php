@@ -70,9 +70,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('company', function($value) {
+        Route::bind('company', function ($value) {
             try {
-                $company = Company::where('id', (int) $value)->firstOrFail();
+                $company = Company::with(['category', 'speciality', 'type', 'country', 'city', 'companyOwner'])
+                    ->where('id', (int)$value)->firstOrFail();
             } catch (ModelNotFoundException $exception) {
                 $exception->setModel('company');
                 throw $exception;

@@ -13,7 +13,7 @@
                 @permission('create_companies')
                     <a href="{{route('company.create')}}" class="btn btn-primary pull-right create-article">Create new company</a>
                 @endpermission
-                @include('company.table')
+                @include('adminCompany.table')
             </div>
         </div>
     </div>

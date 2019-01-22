@@ -29,6 +29,8 @@ class CompanyObserver
         $companyStatusChanger = new CompanyStatusChanger($attributes);
         $statusData = $companyStatusChanger->getReplacementData();
         $company->fill(array_merge($statusData));
+        $company->company_images_limit = config('company.default_company_images_limit');
+        $company->team_images_limit = config('company.default_team_images_limit');
     }
 
     /**
@@ -104,3 +106,4 @@ class CompanyObserver
         return $image;
     }
 }
+
