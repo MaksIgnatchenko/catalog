@@ -69,9 +69,17 @@ class CompanyObserver
     public function updating(Company $company) : void
     {
         $changedAttributes = $company->getDirty();
+
+        if ($changedAttributes['logo'] ?? null) {
+            Storage::delete($company->getOriginal('logo'));
+        }
+
         $companyStatusChanger = new CompanyStatusChanger($changedAttributes);
         $statusData = $companyStatusChanger->getReplacementData();
         $company->fill(array_merge($statusData));
+        $this->deleteCompanyImages($company);
+        $this->saveCompanyImages($company, CompanyImagePositionsEnum::COMPANY_IMAGE);
+        $this->saveCompanyImages($company, CompanyImagePositionsEnum::TEAM_IMAGE);
     }
 
     /**
@@ -104,6 +112,17 @@ class CompanyObserver
                 'type' => $imageService->getImageType(),
             ]);
         return $image;
+    }
+
+    /**
+     * @param Company $company
+     */
+    private function deleteCompanyImages(Company $company) : void
+    {
+        $ids = $company->imagesForDeletion;
+        $images = $company->images()->whereIn('id', $ids)->get(['id', 'url']);
+        Storage::delete($images->pluck('url')->toArray());
+        Image::whereIn('id', $images->pluck('id')->toArray())->delete();
     }
 }
 

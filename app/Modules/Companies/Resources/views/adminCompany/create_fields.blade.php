@@ -325,6 +325,61 @@
     @endif
 </div>
 
+<!-- Company images capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_company_capture', 'Company images capture: ') }}
+        {!! Form::text('our_company_capture', $dto->getDefaultOurCompanyCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_company_capture'))
+        <div class="text-red">{{ $errors->first('our_company_capture') }}</div>
+    @endif
+</div>
+
+<!-- About us capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('about_us_capture', 'About as capture: ') }}
+        {!! Form::text('about_us_capture', $dto->getDefaultAboutAsCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_company_capture'))
+        <div class="text-red">{{ $errors->first('about_us_capture') }}</div>
+    @endif
+</div>
+
+<!-- Our services capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_services_capture', 'Our services capture: ') }}
+        {!! Form::text('our_services_capture', $dto->getDefaultOurServicesCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_services_capture'))
+        <div class="text-red">{{ $errors->first('our_services_capture') }}</div>
+    @endif
+</div>
+
+<!-- Our team capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_team_capture', 'Team images capture: ') }}
+        {!! Form::text('our_team_capture', $dto->getDefaultOurTeamCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_team_capture'))
+        <div class="text-red">{{ $errors->first('our_team_capture') }}</div>
+    @endif
+</div>
+
+<!-- Booking an appointment capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('booking_an_appointment_capture', 'Booking an appointment capture: ') }}
+        {!! Form::text('booking_an_appointment_capture', $dto->getDefaultBookingAnAppointmentCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('booking_an_appointment_capture'))
+        <div class="text-red">{{ $errors->first('booking_an_appointment_capture') }}</div>
+    @endif
+</div>
+
 <!-- Submit Field -->
 <div class="form-group text-right">
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}

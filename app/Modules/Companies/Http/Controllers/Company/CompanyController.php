@@ -76,6 +76,7 @@ class CompanyController extends Controller
             'team_images_limit',
             'status',
             'date_change_status',
+            'date_change_status',
         ]));
         $company->status = CompanyStatusEnum::BLOCK;
         $company->company_owner_id = Auth::id();
@@ -87,13 +88,19 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateMyCompanyRequest $request
-     * @param Company $company
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateMyCompanyRequest $request, Company $company)
+    public function update(UpdateMyCompanyRequest $request)
     {
-        $company->update($request->only(['status', 'company_images_limit', 'team_images_limit', 'date_change_status']));
-        return redirect()->route('company.index');
+        $company = Auth::user()->company;
+        $company->update($request->except([
+            'status',
+            'company_images_limit',
+            'team_images_limit',
+            'date_change_status'
+
+        ]));
+        return redirect()->route('my-company.show');
     }
 
     /**
@@ -114,18 +121,17 @@ class CompanyController extends Controller
         $dto = new MyCompanyEditDTO($company, $countries, $categories);
         return view('company.edit', ['dto' => $dto]);
     }
-//
-//    /**
-//     * Remove the specified resource from storage.
-//     *
-//     * @param Company $company
-//     * @return \Illuminate\Http\RedirectResponse
-//     * @throws \Exception
-//     */
-//    public function destroy(Company $company)
-//    {
-//        $company->delete();
-//        return redirect()->route('company.index');
-//    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy()
+    {
+        Auth::user()->company->delete();
+        return redirect()->route('my-company.create');
+    }
 
 }

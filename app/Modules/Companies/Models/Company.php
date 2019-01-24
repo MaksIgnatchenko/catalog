@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Company extends Authenticatable
 {
@@ -61,6 +62,14 @@ class Company extends Authenticatable
         'work_days',
         'website',
         'phones',
+        'our_company_capture',
+        'about_us_capture',
+        'our_services_capture',
+        'our_team_capture',
+        'booking_an_appointment_capture',
+        'delete_company_images',
+        'delete_team_images',
+        'delete_company_logo',
     ];
 
     /**
@@ -73,8 +82,37 @@ class Company extends Authenticatable
         'phones' => 'array',
     ];
 
+    /**
+     * @var array
+     */
     public $images;
 
+    /**
+     * @var
+     */
+    public $imagesForDeletion = [];
+
+    /**
+     * Set the company images ids for deletion.
+     *
+     * @param  array  $value
+     * @return void
+     */
+    public function setDeleteTeamImagesAttribute(array $value = [])
+    {
+        $this->imagesForDeletion = array_merge($this->imagesForDeletion, $value);
+    }
+
+    /**
+     * Set the company images ids for deletion.
+     *
+     * @param  array  $value
+     * @return void
+     */
+    public function setDeleteCompanyImagesAttribute(array $value = [])
+    {
+        $this->imagesForDeletion = array_merge($this->imagesForDeletion, $value);
+    }
 
     /**
      * Set the company image.

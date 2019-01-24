@@ -99,7 +99,7 @@
 </div>
 
 <!-- Logo Field -->
-<div class="form-group">
+<div class="form-group company-logo-image">
     <p>
         {{ Form::label('logo', 'Logo: ') }}
     </p>
@@ -175,5 +175,45 @@
     <p>
         {{ Form::label('longitude', 'Longitude: ') }}
         {{ $company->longitude }}
+    </p>
+</div>
+
+<!-- Company images capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_company_capture', 'Company images capture: ') }}
+        {{ $company->our_company_capture }}
+    </p>
+</div>
+
+<!-- About us capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('about_us_capture', 'About as capture: ') }}
+        {{ $company->about_us_capture }}
+    </p>
+</div>
+
+<!-- Our services capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_services_capture', 'Our services capture: ') }}
+        {{ $company->our_services_capture }}
+    </p>
+</div>
+
+<!-- Our team capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_team_capture', 'Team images capture: ') }}
+        {{ $company->our_team_capture }}
+    </p>
+</div>
+
+<!-- Booking an appointment capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('booking_an_appointment_capture', 'Booking an appointment capture: ') }}
+        {{ $company->booking_an_appointment_capture }}
     </p>
 </div>

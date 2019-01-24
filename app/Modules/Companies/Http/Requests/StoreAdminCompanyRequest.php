@@ -18,7 +18,8 @@ class StoreAdminCompanyRequest extends StoreCompanyRequestAbstract
      */
     public function rules()
     {
-        return [
+        $rules = [
+            'name' => 'required|string|min:1|max:100|unique:companies,name',
             'email' => 'required|email|min:5|max:100|unique:company_owners,email',
             'password' => 'required|string|min:6|max:50,confirmed',
             'password_confirmation' => 'required|string|max:50|same:password',
@@ -27,17 +28,7 @@ class StoreAdminCompanyRequest extends StoreCompanyRequestAbstract
             'status' => [ 'required', 'string', 'max:100', Rule::in(CompanyStatusEnum::getBasicStatuses())],
             'date_change_status' => 'date|after_or_equal:today',
         ];
-    }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        $parentRules = parent::messages();
-
-        return array_merge($parentRules, $this->rules());
+        return array_merge(parent::rules(), $rules);
     }
 }

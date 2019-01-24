@@ -7,6 +7,7 @@
 namespace App\Modules\Companies\DTO;
 
 use App\Helpers\FieldPrettyName;
+use App\Modules\Companies\Enums\CompanyCaptureEnum;
 use App\Modules\Companies\Models\Company;
 use App\Modules\Companies\Services\WeekDays;
 use Illuminate\Support\Collection;
@@ -293,5 +294,85 @@ class MyCompanyEditDTO
     private function getCompanyWorkDays() : array
     {
         return $this->company->work_days;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOurCompanyCapture() : string
+    {
+        return CompanyCaptureEnum::OUR_COMPANY;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultAboutAsCapture() : string
+    {
+        return CompanyCaptureEnum::ABOUT_AS;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOurServicesCapture() : string
+    {
+        return CompanyCaptureEnum::OUR_SERVICES;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOurTeamCapture() : string
+    {
+        return CompanyCaptureEnum::OUR_TEAM;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultBookingAnAppointmentCapture() : string
+    {
+        return CompanyCaptureEnum::BOOKING_AN_APPOINTMENT;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOurCompanyCapture() : string
+    {
+        return $this->company->our_company_capture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutAsCapture() : string
+    {
+        return $this->company->about_us_capture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOurServicesCapture() : string
+    {
+        return $this->company->our_services_capture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOurTeamCapture() : string
+    {
+        return $this->company->our_team_capture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBookingAnAppointmentCapture() : string
+    {
+        return $this->company->booking_an_appointment_capture;
     }
 }

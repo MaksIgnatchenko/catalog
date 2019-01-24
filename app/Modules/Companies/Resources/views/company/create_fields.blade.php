@@ -58,7 +58,7 @@
     <p>
         {{ Form::label('country', 'Country: ') }}
     </p>
-    {!! Form::select('country_id', $dto->getCountries(), $dto->getCompanyCountryId, ['class' => 'form-control'], null) !!}
+    {!! Form::select('country_id', $dto->getCountries(), ['class' => 'form-control'], ['placeholder' => 'Select country']) !!}
     @if ($errors->has('country_id'))
         <div class="text-red">{{ $errors->first('country_id') }}</div>
     @endif
@@ -74,6 +74,7 @@
         <div class="text-red">{{ $errors->first('city_id') }}</div>
     @endif
 </div>
+
 
 <!-- Category Field -->
 <div class="form-group">
@@ -238,13 +239,92 @@
     @endif
 </div>
 
+<!-- Company images capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_company_capture', 'Company images capture: ') }}
+        {!! Form::text('our_company_capture', $dto->getDefaultOurCompanyCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_company_capture'))
+        <div class="text-red">{{ $errors->first('our_company_capture') }}</div>
+    @endif
+</div>
+
+<!-- About us capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('about_us_capture', 'About as capture: ') }}
+        {!! Form::text('about_us_capture', $dto->getDefaultAboutAsCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_company_capture'))
+        <div class="text-red">{{ $errors->first('about_us_capture') }}</div>
+    @endif
+</div>
+
+<!-- Our services capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_services_capture', 'Our services capture: ') }}
+        {!! Form::text('our_services_capture', $dto->getDefaultOurServicesCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_services_capture'))
+        <div class="text-red">{{ $errors->first('our_services_capture') }}</div>
+    @endif
+</div>
+
+<!-- Our team capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_team_capture', 'Team images capture: ') }}
+        {!! Form::text('our_team_capture', $dto->getDefaultOurTeamCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_team_capture'))
+        <div class="text-red">{{ $errors->first('our_team_capture') }}</div>
+    @endif
+</div>
+
+<!-- Booking an appointment capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('booking_an_appointment_capture', 'Booking an appointment capture: ') }}
+        {!! Form::text('booking_an_appointment_capture', $dto->getDefaultBookingAnAppointmentCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('booking_an_appointment_capture'))
+        <div class="text-red">{{ $errors->first('booking_an_appointment_capture') }}</div>
+    @endif
+</div>
+
+<div class="form-group">
+    <h3>
+        Terms and conditions
+    </h3>
+    <div>
+        {{ $dto->getTermsAndConditions() }}
+    </div>
+    {!! Form::checkbox('terms_accept', true, false, ['id' => 'terms_accept', 'class' => 'custom-checkbox time-checkbox']) !!}
+    {{ Form::label('terms_accept', 'I agree with terms and conditions') }}
+    @if ($errors->has('terms_accept'))
+        <div class="text-red">{{ $errors->first('terms_accept') }}</div>
+    @endif
+</div>
+
+<div class="form-group">
+    <h3>
+        Privacy policy
+    </h3>
+    <div>
+        {{ $dto->getPrivacyPolicy() }}
+    </div>
+    {!! Form::checkbox('policy_accept', true, false, ['id' => 'policy_accept', 'class' => 'custom-checkbox time-checkbox']) !!}
+    {{ Form::label('policy_accept', 'I agree with privacy policy') }}
+    @if ($errors->has('policy_accept'))
+        <div class="text-red">{{ $errors->first('policy_accept') }}</div>
+    @endif
+</div>
+
 <!-- Submit Field -->
 <div class="form-group text-right">
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
-</div>
-
-<div>
-    {{ print_r($errors->all()) }}
 </div>
 
 <script>
@@ -310,12 +390,37 @@
         }
     }
 
+    var datePicker;
+    var options= {
+        format: 'mm/dd/yyyy',
+        todayHighlight: true,
+        autoclose: true,
+    };
+    jQuery(function($){
+        datePicker = $('#dateField').datepicker(options);
+    });
+
     var timeOptions = {
         'timeFormat' : 'H:i'
     };
 
     jQuery(function($){
         timePicker = $('.time-field').timepicker(timeOptions);
+    });
+
+    var isNowCheckbox = $('#isNow');
+
+    if (isNowCheckbox.attr('checked')) {
+        $('#dateField').attr('disabled', 'disabled');
+    }
+
+    isNowCheckbox.click(function(){
+        console.log(this);
+        if(this.checked == true){
+            $('#dateField').attr('disabled', 'disabled');
+        } else {
+            $('#dateField').removeAttr('disabled');
+        }
     });
 
     var categorySelect = $('select[name=category_id]');

@@ -138,5 +138,4 @@ class CompanyController extends Controller
         $company->delete();
         return redirect()->route('company.index');
     }
-
 }

@@ -9,11 +9,15 @@
 Route::middleware(['auth:company', 'verified'])->group(function() {
     Route::post('/logout', 'Auth\LoginController@logout')->name('companyLogout');
 
+    Route::get('account', 'CompanyOwnerController@edit')->name('account.edit');
+    Route::put('account', 'CompanyOwnerController@update')->name('account.update');
+
     Route::middleware(['hasCompany'])->group(function() {
         Route::get('/', 'DashboardController')->name('company');
         Route::get('/company', 'CompanyController@show')->name('my-company.show');
         Route::get('/company/edit', 'CompanyController@edit')->name('my-company.edit');
         Route::put('/company/update', 'CompanyController@update')->name('my-company.update');
+        Route::delete('/company/delete', 'CompanyController@destroy')->name('my-company.destroy');
     });
 
     Route::middleware(['doesNotHaveCompany'])->group(function() {

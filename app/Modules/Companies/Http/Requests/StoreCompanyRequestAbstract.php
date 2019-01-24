@@ -30,7 +30,6 @@ class StoreCompanyRequestAbstract extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:1|max:100|unique:companies,name',
             'website' => 'url|max:255',
             'phones' => 'array',
             'phones.*' => 'numeric|digits_between:1,20',
@@ -51,6 +50,11 @@ class StoreCompanyRequestAbstract extends FormRequest
             'work_days.*.to' => 'date_format:H:i',
             'latitude' => 'numeric|between:-90,90',
             'longitude' => 'numeric|between:-180,180',
+            'our_company_capture' => 'string|max:25',
+            'about_us_capture' => 'string|max:25',
+            'our_services_capture' => 'string|max:25',
+            'our_team_capture' => 'string|max:25',
+            'booking_an_appointment_capture' => 'string|max:25',
         ];
     }
 

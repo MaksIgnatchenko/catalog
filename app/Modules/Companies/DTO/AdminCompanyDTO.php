@@ -6,7 +6,9 @@
 
 namespace App\Modules\Companies\DTO;
 
+use App\Modules\Companies\Enums\CompanyCaptureEnum;
 use App\Modules\Companies\Services\WeekDays;
+use App\Modules\StaticContent\Models\StaticContent;
 
 class AdminCompanyDTO
 {
@@ -132,5 +134,61 @@ class AdminCompanyDTO
     public function getWeekDays() : array
     {
         return $this->weekDays;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOurCompanyCapture() : string
+    {
+        return CompanyCaptureEnum::OUR_COMPANY;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultAboutAsCapture() : string
+    {
+        return CompanyCaptureEnum::ABOUT_AS;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOurServicesCapture() : string
+    {
+        return CompanyCaptureEnum::OUR_SERVICES;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultOurTeamCapture() : string
+    {
+        return CompanyCaptureEnum::OUR_TEAM;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultBookingAnAppointmentCapture() : string
+    {
+        return CompanyCaptureEnum::BOOKING_AN_APPOINTMENT;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTermsAndConditions() : string
+    {
+        return StaticContent::termsAndConditions()->active()->first()->payload ?? '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrivacyPolicy() : string
+    {
+        return StaticContent::privacyPolicy()->active()->first()->payload ?? '';
     }
 }

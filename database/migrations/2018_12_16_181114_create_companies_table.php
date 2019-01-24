@@ -34,6 +34,11 @@ class CreateCompaniesTable extends Migration
             $table->json('work_days');
             $table->json('phones');
             $table->string('website');
+            $table->string('our_company_capture')->nullable();
+            $table->string('about_us_capture')->nullable();
+            $table->string('our_services_capture')->nullable();
+            $table->string('our_team_capture')->nullable();
+            $table->string('booking_an_appointment_capture')->nullable();
             $table->timestamps();
             $table->foreign('company_owner_id')->references('id')->on('company_owners')->onDelete('cascade');
         });

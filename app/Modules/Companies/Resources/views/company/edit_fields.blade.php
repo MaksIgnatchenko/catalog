@@ -138,12 +138,18 @@
 </div>
 
 <!-- Logo Field -->
-<div class="form-group company-logo-image">
+<div class="form-group company-logo-image" id="logo-container">
     <p>
         {{ Form::label('logo', 'Logo: ') }}
     </p>
-        {!!  ImageTag::get(CustomUrl::getFull(Storage::url($dto->getCompanyLogo())), []) !!}
+    @if($dto->getCompanyLogo())
+        {!!  ImageTag::get(CustomUrl::getFull(Storage::url($dto->getCompanyLogo())), ['id' => 'hasLogo']) !!}
         <button class="btn btn-danger delete-company-logo" type="button">Remove</button>
+    @endif
+    {{--<div id="company-logo-field">        --}}
+        {{--{{ Form::label('logo', 'New Logo: ') }}--}}
+        {{--{!! Form::file('logo', false, ['class' => 'form-control company-logo']) !!}--}}
+    {{--</div>--}}
     @if ($errors->has('logo'))
         <div class="text-red">{{ $errors->first('logo') }}</div>
     @endif
@@ -182,8 +188,16 @@
     </div>
 </div>
 
+@if ($errors->has('company_image'))
+    <div class="text-red">You have exceeded the maximum count of company images</div>
+@endif
+
+@if ($errors->has('company_image.*'))
+    <div class="text-red">The team image must be an image of types:jpeg, png</div>
+@endif
+
 <!-- Team image Field -->
-<h3>Company images</h3>
+<h3>Team images</h3>
 <div>
     <p>
         {{ Form::label('company_team_image', 'Team image: ') }}
@@ -215,8 +229,12 @@
     </div>
 </div>
 
+@if ($errors->has('company_team_image'))
+    <div class="text-red">You have exceeded the maximum count of team images</div>
+@endif
+
 @if ($errors->has('company_team_image.*'))
-    <div class="text-red">'The team image must be an image of types:jpeg, png</div>
+    <div class="text-red">The team image must be an image of types:jpeg, png</div>
 @endif
 
 <!-- About us Field -->
@@ -233,11 +251,11 @@
 <!-- Our services Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('about_us', 'About us: ') }}
+        {{ Form::label('our_services', 'Our services: ') }}
     </p>
-    {!! Form::textarea('about_us', $dto->getOurServices(), ['class' => 'form-control', 'maxlength' => 10000]) !!}
-    @if ($errors->has('about_us'))
-        <div class="text-red">{{ $errors->first('about_us') }}</div>
+    {!! Form::textarea('our_services', $dto->getOurServices(), ['class' => 'form-control', 'maxlength' => 10000]) !!}
+    @if ($errors->has('our_services'))
+        <div class="text-red">{{ $errors->first('our_services') }}</div>
     @endif
 </div>
 
@@ -293,6 +311,61 @@
     </p>
     @if ($errors->has('longitude'))
         <div class="text-red">{{ $errors->first('longitude') }}</div>
+    @endif
+</div>
+
+<!-- Company images capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_company_capture', 'Company images capture: ') }}
+        {!! Form::text('our_company_capture', $dto->getOurCompanyCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_company_capture'))
+        <div class="text-red">{{ $errors->first('our_company_capture') }}</div>
+    @endif
+</div>
+
+<!-- About us capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('about_us_capture', 'About as capture: ') }}
+        {!! Form::text('about_us_capture', $dto->getAboutAsCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_company_capture'))
+        <div class="text-red">{{ $errors->first('about_us_capture') }}</div>
+    @endif
+</div>
+
+<!-- Our services capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_services_capture', 'Our services capture: ') }}
+        {!! Form::text('our_services_capture', $dto->getOurServicesCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_services_capture'))
+        <div class="text-red">{{ $errors->first('our_services_capture') }}</div>
+    @endif
+</div>
+
+<!-- Our team capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('our_team_capture', 'Team images capture: ') }}
+        {!! Form::text('our_team_capture', $dto->getOurTeamCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('our_team_capture'))
+        <div class="text-red">{{ $errors->first('our_team_capture') }}</div>
+    @endif
+</div>
+
+<!-- Booking an appointment capture -->
+<div class="form-group">
+    <p>
+        {{ Form::label('booking_an_appointment_capture', 'Booking an appointment capture: ') }}
+        {!! Form::text('booking_an_appointment_capture', $dto->getBookingAnAppointmentCapture(), ['class' => 'form-control', 'maxlength' => 25]) !!}
+    </p>
+    @if ($errors->has('booking_an_appointment_capture'))
+        <div class="text-red">{{ $errors->first('booking_an_appointment_capture') }}</div>
     @endif
 </div>
 
@@ -354,15 +427,35 @@
             var action = 'Restore';
             var hiddenInput = $("<input>");
             hiddenInput.attr('type', 'hidden');
-            hiddenInput.attr('name', 'delete-company-image[' + imageId + ']');
+            hiddenInput.attr('name', 'delete_company_images[' + imageId + ']');
             hiddenInput.attr('id', 'delete-company-image-' + imageId);
-            hiddenInput.val(true);
+            hiddenInput.val(imageId);
             $('#company-edit-form').append(hiddenInput);
         }
         button.removeClass(classForRemoving).addClass(classForAdding);
         button.text(action);
         button.attr('action', action);
     });
+
+    var hasLogo = $('#hasLogo');
+    if (!hasLogo) {
+        toggleLogoField('expandLogoField')
+    }
+
+    function toggleLogoField(action) {
+        if (action === 'expandLogoField') {
+            let label = $("<label for=\"logo\">New Logo: </label>");
+            let logoField = $("<input>");
+            logoField.attr('type', 'file');
+            logoField.attr('name', 'logo');
+            logoField.attr('id', 'company-logo-field');
+            $("#logo-container").append(label, logoField);
+
+        } else {
+            $("#company-logo-field").prev().remove();
+            $("#company-logo-field").remove();
+        }
+    }
 
     $("body").on("click",".delete-company-logo",function() {
         var button = $(this);
@@ -371,17 +464,13 @@
             var classForRemoving = 'btn-success';
             var classForAdding = 'btn-danger';
             var action = 'Remove';
-            $('#delete-company-logo').remove();
+            toggleLogoField('rollUp');
         } else {
             var classForRemoving = 'btn-danger';
             var classForAdding = 'btn-success';
             var action = 'Restore';
-            var hiddenInput = $("<input>");
-            hiddenInput.attr('type', 'hidden');
-            hiddenInput.attr('name', 'delete-company-logo');
-            hiddenInput.attr('id', 'delete-company-logo');
-            hiddenInput.val(true);
-            $('#company-edit-form').append(hiddenInput);
+            toggleLogoField('expandLogoField');
+
         }
         button.removeClass(classForRemoving).addClass(classForAdding);
         button.text(action);
@@ -403,9 +492,9 @@
             var action = 'Restore';
             var hiddenInput = $("<input>");
             hiddenInput.attr('type', 'hidden');
-            hiddenInput.attr('name', 'delete-team-image[' + imageId + ']');
+            hiddenInput.attr('name', 'delete_team_images[' + imageId + ']');
             hiddenInput.attr('id', 'delete-team-image-' + imageId);
-            hiddenInput.val(true);
+            hiddenInput.val(imageId);
             $('#company-edit-form').append(hiddenInput);
         }
         button.removeClass(classForRemoving).addClass(classForAdding);

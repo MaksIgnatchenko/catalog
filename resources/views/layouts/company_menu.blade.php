@@ -20,4 +20,7 @@
     </ul>
 </li>
 
+<li class="{{ActiveLink::checkAccount() ? 'active' : ''}}">
+    <a href="{{route('account.edit')}}"><i class="fa fa-user"></i> <span>Account settings</span></a>
+</li>
 

@@ -6,14 +6,21 @@
 
 namespace App\Modules\Companies\Http\Requests;
 
-use App\Modules\Companies\Rules\WorkDaysRule;
-use App\Modules\Companies\Rules\WorldCountRule;
+use App\Helpers\PostgresConstraints;
+use App\Modules\Companies\Enums\CompanyImagePositionsEnum;
+use App\Modules\Companies\Models\Company;
+use App\Modules\Companies\Rules\CheckImageLimitRule;
 use App\Modules\Company\Http\Requests\UniqueEntityExcept;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class UpdateMyCompanyRequest extends FormRequest
+class UpdateMyCompanyRequest extends StoreCompanyRequestAbstract
 {
     use UniqueEntityExcept;
+
+    /**
+     * @var
+     */
+    private $company;
 
     /**
      * Determine if the user is authorized to make this request.
@@ -32,43 +39,88 @@ class UpdateMyCompanyRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
+            'company_image' => [
+                'array',
+                new CheckImageLimitRule(
+                    $this->getDeletingImagesCount(CompanyImagePositionsEnum::COMPANY_IMAGE),
+                    $this->getCurrentImagesCount(CompanyImagePositionsEnum::COMPANY_IMAGE),
+                    $this->getImagesCountLimit(CompanyImagePositionsEnum::COMPANY_IMAGE)
+                )
+            ],
+            'company_team_image' => [
+                'array',
+                new CheckImageLimitRule(
+                    $this->getDeletingImagesCount(CompanyImagePositionsEnum::TEAM_IMAGE),
+                    $this->getCurrentImagesCount(CompanyImagePositionsEnum::TEAM_IMAGE),
+                    $this->getImagesCountLimit(CompanyImagePositionsEnum::TEAM_IMAGE)
+                )
+            ],
             'name' => 'required|string|min:1|max:100|unique:companies,name,' . $this->exceptId(),
-            'website' => 'url|max:255',
-            'phones' => 'array',
-            'phones.*' => 'numeric|digits_between:1,20',
-            'country_id' => 'required|integer|exists:geography_countries,id',
-            'city_id' => 'required|integer|exists:geography_cities,id',
-            'category_id' => 'required|integer|exists:categories,id',
-            'speciality_id' => 'required|integer|exists:specialities,id',
-            'type_id' => 'required|integer|exists:types,id',
-            'company_image' => 'array',
-            'company_image.*' => 'image|mimes:jpeg,png|max:' . config('image.company_images_max_size'),
-            'company_team_image' => 'array',
-            'company_team_image.*' => 'image|mimes:jpeg,png|max:' . config('image.company_images_max_size'),
-            'logo' => 'image|mimes:jpeg,png|max:' . config('image.company_logo_max_size'),
-            'about_us' => ['required', 'string', new WorldCountRule(config('company.min_word_count_about_us'))],
-            'our_services' => ['required', 'string', new WorldCountRule(config('company.min_word_count_our_services'))],
-            'work_days' => ['required', 'array', 'max:7', new WorkDaysRule()],
-            'work_days.*.from' => 'date_format:H:i',
-            'work_days.*.to' => 'date_format:H:i',
-            'latitude' => 'numeric|between:-90,90',
-            'longitude' => 'numeric|between:-180,180',
+            'delete_company_images' => 'array',
+            'delete_company_images.*' => 'integer|min:1|max:' . PostgresConstraints::MAX_ID_VALUE . ',',
+            'delete_team_images' => 'array',
+            'delete_team_images.*' => 'integer|min:1|max:' . PostgresConstraints::MAX_ID_VALUE . ',',
         ];
+        return array_merge(parent::rules(), $rules);
     }
 
     /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
+     * @return Company
      */
-    public function messages()
+    public function getCompany()
     {
-        $defaultMessages = parent::messages();
-        $otherMessages = [
-            'work_days.*.from.*' => 'Invalid time format',
-            'work_days.*.to.*' => 'Invalid time format',
-        ];
-        return array_merge($otherMessages, $defaultMessages);
+        if (!$this->company) {
+            $this->company = Auth::user()
+                ->company()
+                ->with('images')
+                ->withCount([
+                    'images as companyImagesCount' => function ($query) {
+                        $query->where('type', CompanyImagePositionsEnum::COMPANY_IMAGE);
+                    },
+                    'images as teamImagesCount' => function ($query) {
+                        $query->where('type', CompanyImagePositionsEnum::TEAM_IMAGE);
+                    }])
+                ->first();
+        }
+        return $this->company;
+    }
+
+    private function getDeletingImagesCount(string $imageType) : int
+    {
+        switch ($imageType) {
+            case CompanyImagePositionsEnum::COMPANY_IMAGE :
+                return count($this->delete_company_images ?? []);
+            case CompanyImagePositionsEnum::TEAM_IMAGE :
+                return count($this->delete_team_images ?? []);
+        }
+    }
+
+    /**
+     * @param string $imageType
+     * @return int
+     */
+    private function getCurrentImagesCount(string $imageType) : int
+    {
+        switch ($imageType) {
+            case CompanyImagePositionsEnum::COMPANY_IMAGE :
+                return $this->getCompany()->companyImagesCount ?? 0;
+            case CompanyImagePositionsEnum::TEAM_IMAGE :
+                return $this->getCompany()->teamImagesCount ?? 0;
+        }
+    }
+
+    /**
+     * @param string $imageType
+     * @return int
+     */
+    private function getImagesCountLimit(string $imageType) : int
+    {
+        switch ($imageType) {
+            case CompanyImagePositionsEnum::COMPANY_IMAGE :
+                return $this->getCompany()->company_images_limit ?? 0;
+            case CompanyImagePositionsEnum::TEAM_IMAGE :
+                return $this->getCompany()->team_images_limit ?? 0;
+        }
     }
 }

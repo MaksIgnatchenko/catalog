@@ -14,6 +14,7 @@ use App\Modules\Admins\Http\Controllers\TypeController;
 use App\Modules\Advertisement\Http\Controllers\AdblockController;
 use App\Modules\Companies\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Modules\Companies\Http\Controllers\Company\CompanyController;
+use App\Modules\Companies\Http\Controllers\Company\CompanyOwnerController;
 use App\Modules\Permissions\Http\Controllers\RoleController;
 use App\Modules\StaticContent\Http\Controllers\HelpController;
 use App\Modules\StaticContent\Http\Controllers\OurVisionController;
@@ -195,6 +196,12 @@ class ActiveLink
     public static function checkCompany() : bool
     {
         return self::getControllerInstance() instanceof CompanyController;
+    }
+
+
+    public static function checkAccount() : bool
+    {
+        return self::getControllerInstance() instanceof CompanyOwnerController;
     }
 
     /**
