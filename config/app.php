@@ -186,6 +186,9 @@ return [
         App\Modules\StaticContent\Providers\RouteServiceProvider::class,
         App\Modules\StaticContent\Providers\StaticContentServiceProvider::class,
         App\Modules\Admins\Providers\AdminServiceProvider::class,
+        App\Modules\Messages\Providers\RouteServiceProvider::class,
+        App\Modules\Companies\Providers\MessageServiceProvider::class,
+        App\Modules\Files\Providers\RouteServiceProvider::class,
 
     ],
 

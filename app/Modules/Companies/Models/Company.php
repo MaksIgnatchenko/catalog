@@ -16,6 +16,7 @@ use App\Modules\Geography\Models\GeographyCountry;
 use App\Modules\Images\Models\Image;
 use App\Modules\Images\Services\ImageService;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
+use App\Modules\Messages\Models\Message;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -221,6 +222,22 @@ class Company extends Authenticatable
     }
 
     /**
+     * Get all of the companies messages.
+     */
+    public function incomingMessages()
+    {
+        return $this->morphMany(Message::class, 'recipientable');
+    }
+
+    /**
+     * Get all of the companies messages.
+     */
+    public function outgoingMessages()
+    {
+        return $this->morphMany(Message::class, 'senderable');
+    }
+
+    /**
      * Scope a query to only include users of a given type.
      *
      * @param  \Illuminate\Database\Eloquent\Builder $query
@@ -251,6 +268,14 @@ class Company extends Authenticatable
     public function scopeChangeStatusToday(Builder $query) : Builder
     {
         return $query->where('date_change_status', Carbon::today()->toDateString());
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone() : string
+    {
+        return $this->phones[0] ?? '';
     }
 }
 

@@ -1,3 +1,9 @@
+<div class='btn-group'>
+    <a href="{{ route('adminOutgoingMessages.create', $id) }}" class='btn btn-primary'>
+        <i class="glyphicon glyphicon-envelope"></i>
+    </a>
+</div>
+
 @permission('read_companies')
 <div class='btn-group'>
     <a href="{{ route('company.show', $id) }}" class='btn btn-primary'>

@@ -21,6 +21,7 @@ return [
         app_path('Modules/Permissions/Resources/views'),
         app_path('Modules/Supervisors/Resources/views'),
         app_path('Modules/StaticContent/Resources/views'),
+        app_path('Modules/Messages/Resources/views'),
     ],
 
     /*

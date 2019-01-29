@@ -6,6 +6,7 @@
 
 namespace App\Modules\Admins\Models;
 
+use App\Modules\Messages\Models\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
@@ -25,6 +26,22 @@ class Admin extends Authenticatable
         'password',
         'email',
     ];
+
+    /**
+     * Get all of the admins messages.
+     */
+    public function incomingMessages()
+    {
+        return $this->morphMany(Message::class, 'recipientable');
+    }
+
+    /**
+     * Get all of the admins messages.
+     */
+    public function outgoingMessages()
+    {
+        return $this->morphMany(Message::class, 'senderable');
+    }
 
     /**
      * @param string $password

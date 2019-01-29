@@ -15,6 +15,9 @@ use App\Modules\Advertisement\Http\Controllers\AdblockController;
 use App\Modules\Companies\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 use App\Modules\Companies\Http\Controllers\Company\CompanyController;
 use App\Modules\Companies\Http\Controllers\Company\CompanyOwnerController;
+use App\Modules\Messages\Http\Company\Controllers\IncomingMessagesController;
+use App\Modules\Messages\Http\Company\Controllers\OutgoingMessagesController;
+use App\Modules\Messages\Http\Controllers\IncomingMessagesControllerAbstract;
 use App\Modules\Permissions\Http\Controllers\RoleController;
 use App\Modules\StaticContent\Http\Controllers\HelpController;
 use App\Modules\StaticContent\Http\Controllers\OurVisionController;
@@ -198,11 +201,64 @@ class ActiveLink
         return self::getControllerInstance() instanceof CompanyController;
     }
 
-
+    /**
+     * @return bool
+     */
     public static function checkAccount() : bool
     {
         return self::getControllerInstance() instanceof CompanyOwnerController;
     }
+
+    /**
+     * @return bool
+     */
+    public static function checkCompanyIncomingMessagesController() : bool
+    {
+        return self::getControllerInstance() instanceof IncomingMessagesController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkCompanyOutgoingMessagesController() : bool
+    {
+        return self::getControllerInstance() instanceof OutgoingMessagesController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkCompanyMessages(): bool
+    {
+        return self::checkCompanyIncomingMessagesController() ||
+            self::checkCompanyOutgoingMessagesController();
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkAdminIncomingMessagesController() : bool
+    {
+        return self::getControllerInstance() instanceof \App\Modules\Messages\Http\Admin\Controllers\IncomingMessagesController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkAdminOutgoingMessagesController() : bool
+    {
+        return self::getControllerInstance() instanceof \App\Modules\Messages\Http\Admin\Controllers\OutgoingMessagesController;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function checkAdminMessages(): bool
+    {
+        return self::checkAdminIncomingMessagesController() ||
+            self::checkAdminOutgoingMessagesController();
+    }
+
 
     /**
      * @return bool

@@ -76,3 +76,22 @@
     </ul>
 </li>
 @endpermission
+
+<li class="treeview {{ActiveLink::checkAdminMessages() ? 'active' : ''}}">
+    <a href="#" class="treeview-toggle"><i class="fa fa-envelope"></i><span>Messages</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-{{ActiveLink::checkAdminMessages() ? 'right' : 'down'}} pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{{ActiveLink::checkCompanyIncomingMessagesController() ? 'active' : ''}}">
+            <a href="{{route('adminIncomingMessages.index')}}"><i class="fa {{ActiveLink::checkAdminIncomingMessagesController() ? 'fa-circle' : 'fa-circle-o'}}"></i>Incoming messages</a>
+        </li>
+    </ul>
+    <ul class="treeview-menu">
+        <li class="{{ActiveLink::checkCompanyOutgoingMessagesController() ? 'active' : ''}}">
+            <a href="{{route('adminOutgoingMessages.index')}}"><i class="fa {{ActiveLink::checkAdminOutgoingMessagesController() ? 'fa-circle' : 'fa-circle-o'}}"></i>Outgoing messages</a>
+        </li>
+    </ul>
+</li>
+

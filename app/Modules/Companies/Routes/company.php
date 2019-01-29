@@ -4,8 +4,6 @@
  *
  */
 
-//Route::resource('company', 'CompanyController');
-
 Route::middleware(['auth:company', 'verified'])->group(function() {
     Route::post('/logout', 'Auth\LoginController@logout')->name('companyLogout');
 
