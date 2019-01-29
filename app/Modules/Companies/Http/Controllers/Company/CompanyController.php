@@ -16,6 +16,7 @@ use App\Modules\Companies\Http\Requests\StoreMyCompanyRequest;
 use App\Modules\Companies\Http\Requests\UpdateMyCompanyRequest;
 use App\Modules\Companies\Models\Company;
 use App\Modules\Geography\Services\GeographyServiceInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller

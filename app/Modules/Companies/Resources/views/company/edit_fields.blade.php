@@ -146,10 +146,6 @@
         {!!  ImageTag::get(CustomUrl::getFull(Storage::url($dto->getCompanyLogo())), ['id' => 'hasLogo']) !!}
         <button class="btn btn-danger delete-company-logo" type="button">Remove</button>
     @endif
-    {{--<div id="company-logo-field">        --}}
-        {{--{{ Form::label('logo', 'New Logo: ') }}--}}
-        {{--{!! Form::file('logo', false, ['class' => 'form-control company-logo']) !!}--}}
-    {{--</div>--}}
     @if ($errors->has('logo'))
         <div class="text-red">{{ $errors->first('logo') }}</div>
     @endif
@@ -184,7 +180,7 @@
         </div>
     </div>
     <div class="input-group-btn">
-        <button class="btn btn-success" type="button">Add new company image</button>
+        <button class="btn btn-success add-button" type="button">Add new company image</button>
     </div>
 </div>
 
@@ -193,7 +189,7 @@
 @endif
 
 @if ($errors->has('company_image.*'))
-    <div class="text-red">The team image must be an image of types:jpeg, png</div>
+    <div class="text-red">The company image must be an image of types:jpeg, png</div>
 @endif
 
 <!-- Team image Field -->
@@ -221,11 +217,11 @@
                 {{ Form::label('company_team_image', 'Team image: ') }}
             </p>
             {!! Form::file('company_team_image[]', false, ['class' => 'form-control company-image']) !!}
-            <button class="btn btn-danger" type="button">Remove</button>
+            <button class="btn btn-danger delete-team-image-field" type="button">Remove</button>
         </div>
     </div>
     <div class="input-group-btn">
-        <button class="btn btn-success" type="button">Add new team image</button>
+        <button class="btn btn-success add-button" type="button">Add new team image</button>
     </div>
 </div>
 
@@ -374,6 +370,9 @@
     {!! Form::submit('Save', ['class' => 'btn btn-success']) !!}
 </div>
 
+<link rel="stylesheet" type="text/css" href="{{ asset('css/jquery.timepicker.css') }}">
+<script type="text/javascript" src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
+
 <script>
 
     var imageSizeLimit = {{ config('image.company_images_max_size') }} * 1024;
@@ -384,12 +383,12 @@
 
     function imageSizeLimitter() {
         if (this.files[0].size > imageSizeLimit) {
-            alert("The image should be no more than " + imageSizeLimit / 1024 + "Kb");
+            alert("The image should be no more than " + imageSizeLimit / (1024 * 1024) + "Mb");
             this.value = '';
         }
     }
 
-    $(".btn-success").click(function(){
+    $(".add-button").click(function(){
         var imagesCount = $('.increment').length;
         var parent = $(this).parent().parent().find('.images-paren-div');
         var clonedBlock = parent.children().first();
@@ -406,6 +405,13 @@
     });
 
     $("body").on("click",".delete-company-image-field",function(){
+        var parentChildrenCount = $(this).parent().parent().children().length;
+        if (parentChildrenCount > 1) {
+            $(this).parent().remove();
+        }
+    });
+
+    $("body").on("click",".delete-team-image-field",function(){
         var parentChildrenCount = $(this).parent().parent().children().length;
         if (parentChildrenCount > 1) {
             $(this).parent().remove();
@@ -598,12 +604,10 @@
     }
 
     $(".time-checkbox").each(function() {
-        var isWorkCheckbox = $(this);
         handleTimeInputs($(this));
     });
 
     $(".time-checkbox").click(function(){
-        var isWorkCheckbox = $(this);
         handleTimeInputs($(this));
     });
 
@@ -625,6 +629,6 @@
     };
 
     jQuery(function($){
-        timePicker = $('.time-field').timepicker(timeOptions);
+        let timePicker = $('.time-field').timepicker(timeOptions);
     });
 </script>

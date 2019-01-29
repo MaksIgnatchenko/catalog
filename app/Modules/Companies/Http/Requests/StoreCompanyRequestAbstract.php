@@ -39,9 +39,9 @@ class StoreCompanyRequestAbstract extends FormRequest
             'speciality_id' => 'required|integer|exists:specialities,id',
             'type_id' => 'required|integer|exists:types,id',
             'company_image' => 'array',
-            'company_image.*' => 'image|mimes:jpeg,png|max:' . config('image.company_images_max_size'),
+            'company_image.*' => 'image|mimes:jpg,jpeg,png|max:' . config('image.company_images_max_size'),
             'company_team_image' => 'array',
-            'company_team_image.*' => 'image|mimes:jpeg,png|max:' . config('image.company_images_max_size'),
+            'company_team_image.*' => 'image|mimes:jpg,jpeg,png|max:' . config('image.company_images_max_size'),
             'logo' => 'image|mimes:jpeg,png|max:' . config('image.company_logo_max_size'),
             'about_us' => ['required', 'string', new WorldCountRule(config('company.min_word_count_about_us'))],
             'our_services' => ['required', 'string', new WorldCountRule(config('company.min_word_count_our_services'))],
@@ -70,6 +70,6 @@ class StoreCompanyRequestAbstract extends FormRequest
             'work_days.*.from.*' => 'Invalid time format',
             'work_days.*.to.*' => 'Invalid time format',
         ];
-        return array_merge($otherMessages, $defaultMessages);
+        return array_merge($defaultMessages, $otherMessages);
     }
 }

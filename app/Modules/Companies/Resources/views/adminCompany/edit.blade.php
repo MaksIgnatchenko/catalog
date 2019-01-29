@@ -8,7 +8,7 @@
         <div class="clearfix"></div>
 
         @include('flash::message')
-        {!! Form::open(['route' => ['adminCompany.update', $company->id], 'method' => 'PUT']) !!}
+        {!! Form::open(['route' => ['company.update', $company->id], 'method' => 'PUT']) !!}
         <div class="row">
             <div class="col-md-12">
 

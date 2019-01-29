@@ -18,9 +18,9 @@ class CompanyEditOperations
     public static function getViewName(string $operation = null) : string
     {
         if (CompanyEditOperationsEnum::CHANGE_STATUS === $operation) {
-            return 'company.status_edit_fields';
+            return 'adminCompany.status_edit_fields';
         }
-        return 'company.edit_fields';
+        return 'adminCompany.edit_fields';
     }
 
     /**

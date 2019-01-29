@@ -22,6 +22,7 @@
         </div>
         <div class="clearfix"></div>
 
+        {!! Form::open(['route' => ['my-company.update'], 'method' => 'PUT', 'files' => true]) !!}
         <div class="row">
 
             <div class="col-md-12">
