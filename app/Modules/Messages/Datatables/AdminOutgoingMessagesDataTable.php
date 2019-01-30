@@ -26,8 +26,8 @@ class AdminOutgoingMessagesDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-            ->addColumn('sender_name', function ($message) {
-                return $message->recipientable->name;
+            ->editColumn('name', function ($message) {
+                return $message->name;
             })
             ->addColumn('action', 'admin.outgoingMessage.datatables_actions');
 
@@ -71,8 +71,8 @@ class AdminOutgoingMessagesDataTable extends DataTable
     {
         return [
             [
-                'name' => 'sender_name',
-                'data' => 'sender_name',
+                'name' => 'name',
+                'data' => 'name',
                 'title' => 'Name',
                 'width' => '25%',
             ],

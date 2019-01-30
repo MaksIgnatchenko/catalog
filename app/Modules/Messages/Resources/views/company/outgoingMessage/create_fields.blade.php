@@ -1,3 +1,36 @@
+<!-- Name Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('name', 'Full name: ') }}
+        {!! Form::text('name', $dto->getSenderName(), ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('name'))
+        <div class="text-red">{{ $errors->first('name') }}</div>
+    @endif
+</div>
+
+<!-- Phone Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('phone', 'Phone: ') }}
+        {!! Form::text('phone', $dto->getSenderPhone(), ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('phone'))
+        <div class="text-red">{{ $errors->first('phone') }}</div>
+    @endif
+</div>
+
+<!-- Email Field -->
+<div class="form-group">
+    <p>
+        {{ Form::label('email', 'Email: ') }}
+        {!! Form::text('email', $dto->getSenderEmail(), ['class' => 'form-control', 'maxlength' => 100]) !!}
+    </p>
+    @if ($errors->has('email'))
+        <div class="text-red">{{ $errors->first('email') }}</div>
+    @endif
+</div>
+
 <!-- Purpose Field -->
 <div class="form-group">
     <p>

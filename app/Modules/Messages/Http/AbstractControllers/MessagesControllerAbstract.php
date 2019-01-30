@@ -12,13 +12,15 @@ use App\Modules\Messages\Models\Message;
 
 abstract class MessagesControllerAbstract extends Controller
 {
+    /**
+     * @var string
+     */
     protected $viewDir;
-    protected $recipientType;
+
+    /**
+     * @var string
+     */
     protected $indexRouteName;
-//    public function index(CompanyIncomingMessagesDataTable $dataTable)
-//    {
-//        return $dataTable->render($this->viewDir . '.index');
-//    }
 
     /**
      * @param Message $message
@@ -29,7 +31,6 @@ abstract class MessagesControllerAbstract extends Controller
         $dto = new ShowMessageDTO($message);
         return view($this->viewDir . '.show', ['dto' => $dto]);
     }
-
 
     /**
      * Remove the specified resource from storage.

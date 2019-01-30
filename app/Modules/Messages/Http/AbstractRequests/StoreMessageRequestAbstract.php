@@ -30,6 +30,9 @@ abstract class StoreMessageRequestAbstract extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required|string|max:100',
+            'phone' => 'required|numeric|digits_between:1,20',
+            'email' => 'required|email|max:100',
             'purpose' => ['required', 'string', 'min:3', 'max:20', Rule::in(MessagePurposeEnum::getAvailable())],
             'message' => 'string|max:10000',
             'file' => 'max:' . config('app_config.file_max_size'),

@@ -17,6 +17,8 @@ use App\Modules\Images\Models\Image;
 use App\Modules\Images\Services\ImageService;
 use App\Modules\Images\Services\ImageSettings\ImageSettingsFactory;
 use App\Modules\Messages\Models\Message;
+use App\Modules\Messages\Services\MessageSender\Interfaces\Recipientable;
+use App\Modules\Messages\Services\MessageSender\Interfaces\Senderable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,7 +28,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class Company extends Authenticatable
+class Company extends Authenticatable  implements Senderable, Recipientable
 {
 
     /**
@@ -56,8 +58,7 @@ class Company extends Authenticatable
         'team_images_limit',
         'date_change_status',
         'status',
-        'latitude',
-        'longitude',
+        'location_link',
         'about_us',
         'our_services',
         'work_days',

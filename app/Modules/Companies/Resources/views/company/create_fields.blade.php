@@ -217,25 +217,14 @@
         <div class="text-red">{{ $errors->first('work_days.*') }}</div>
 </div>
 
-<!-- Latitude Field -->
+<!-- Location Field -->
 <div class="form-group">
     <p>
-        {{ Form::label('latitude', 'Latitude: ') }}
-        {!! Form::text('latitude', null, ['class' => 'form-control', 'maxlength' => 20]) !!}
+        {{ Form::label('location_link', 'Link to google map location: ') }}
+        {!! Form::text('location_link', null, ['class' => 'form-control', 'maxlength' => 255]) !!}
     </p>
-    @if ($errors->has('latitude'))
-        <div class="text-red">{{ $errors->first('latitude') }}</div>
-    @endif
-</div>
-
-<!-- Longitude Field -->
-<div class="form-group">
-    <p>
-        {{ Form::label('longitude', 'Longitude: ') }}
-        {!! Form::text('longitude', null, ['class' => 'form-control', 'maxlength' => 20]) !!}
-    </p>
-    @if ($errors->has('longitude'))
-        <div class="text-red">{{ $errors->first('longitude') }}</div>
+    @if ($errors->has('location_link'))
+        <div class="text-red">{{ $errors->first('location_link') }}</div>
     @endif
 </div>
 

@@ -170,21 +170,15 @@
     </div>
 </div>
 
-<!-- Latitude Field -->
-<div class="form-group">
-    <p>
-        {{ Form::label('latitude', 'Latitude: ') }}
-        {{ $company->latitude }}
-    </p>
-</div>
-
-<!-- Longitude Field -->
-<div class="form-group">
-    <p>
-        {{ Form::label('longitude', 'Longitude: ') }}
-        {{ $company->longitude }}
-    </p>
-</div>
+@if($company->location_link)
+    <!-- Location Field -->
+    <div class="form-group">
+        <p>
+            {{ Form::label('latitude', 'Latitude: ') }}
+            {{ Html::link($company->location_link, 'Show company location', ['target' => '_blank']) }}
+        </p>
+    </div>
+@endif
 
 <!-- Company images capture -->
 <div class="form-group">

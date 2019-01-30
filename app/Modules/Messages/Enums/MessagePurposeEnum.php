@@ -11,6 +11,7 @@ class MessagePurposeEnum
     public const ADVERTISING = 'advertising';
     public const MARKETING = 'marketing';
     public const OTHER = 'other';
+    public const BOOKING = 'booking';
 
     /**
      * @return array
@@ -20,7 +21,17 @@ class MessagePurposeEnum
         return [
             self::ADVERTISING,
             self::MARKETING,
-            self::OTHER
+            self::OTHER,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAvailableForBooking() : array
+    {
+        return [
+            self::BOOKING,
         ];
     }
 }

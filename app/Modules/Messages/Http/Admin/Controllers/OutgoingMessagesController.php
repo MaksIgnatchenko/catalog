@@ -8,10 +8,11 @@ namespace App\Modules\Messages\Http\Admin\Controllers;
 
 use App\Modules\Companies\Models\Company;
 use App\Modules\Messages\DataTables\AdminOutgoingMessagesDataTable;
-use App\Modules\Messages\DTO\CreateMessageDTO;
+use App\Modules\Messages\DTO\CreateAdminMessageDTO;
 use App\Modules\Messages\Http\AbstractControllers\MessagesControllerAbstract;
 use App\Modules\Messages\Http\Admin\Requests\StoreMessageAdminRequest;
 use App\Modules\Messages\Models\Message;
+use App\Modules\Messages\Services\MessageSender\Factories\MessageSenderFactory;
 use Illuminate\Support\Facades\Auth;
 
 class OutgoingMessagesController extends MessagesControllerAbstract
@@ -19,7 +20,6 @@ class OutgoingMessagesController extends MessagesControllerAbstract
     public function __construct()
     {
         $this->viewDir = 'admin.outgoingMessage';
-        $this->recipientType = Company::class;
         $this->indexRouteName = 'adminOutgoingMessages.index';
     }
 
@@ -38,7 +38,8 @@ class OutgoingMessagesController extends MessagesControllerAbstract
      */
     public function create(int $id)
     {
-        $dto = new CreateMessageDTO($id);
+        $sender = Auth::user();
+        $dto = new CreateAdminMessageDTO($sender, $id);
         return view($this->viewDir . '.create', ['dto' => $dto]);
     }
 
@@ -49,13 +50,9 @@ class OutgoingMessagesController extends MessagesControllerAbstract
     public function store(StoreMessageAdminRequest $request)
     {
         $sender = Auth::user();
-        $message = app()[Message::class];
-        $message->fill($request->all());
-        $message->recipientable_type = $this->recipientType;
-        $message->email = $sender->email;
-        // TODO admin phone number?
-        $message->phone = '11111111111';
-        $sender->outgoingMessages()->save($message);
+        $recipient = Company::find($request->recipientable_id);
+        $messageSender = MessageSenderFactory::getInstance($sender, $recipient, $request->all());
+        $messageSender->send();
         return redirect()->route($this->indexRouteName);
     }
 }

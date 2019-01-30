@@ -39,17 +39,16 @@ class StoreCompanyRequestAbstract extends FormRequest
             'speciality_id' => 'required|integer|exists:specialities,id',
             'type_id' => 'required|integer|exists:types,id',
             'company_image' => 'array',
-            'company_image.*' => 'image|mimes:jpeg,png|max:' . config('image.company_images_max_size'),
+            'company_image.*' => 'image|mimes:jpg,jpeg,png|max:' . config('image.company_images_max_size'),
             'company_team_image' => 'array',
-            'company_team_image.*' => 'image|mimes:jpeg,png|max:' . config('image.company_images_max_size'),
+            'company_team_image.*' => 'image|mimes:jpg,jpeg,png|max:' . config('image.company_images_max_size'),
             'logo' => 'image|mimes:jpeg,png|max:' . config('image.company_logo_max_size'),
             'about_us' => ['required', 'string', new WorldCountRule(config('company.min_word_count_about_us'))],
             'our_services' => ['required', 'string', new WorldCountRule(config('company.min_word_count_our_services'))],
             'work_days' => ['required', 'array', 'max:7', new WorkDaysRule()],
             'work_days.*.from' => 'date_format:H:i',
             'work_days.*.to' => 'date_format:H:i',
-            'latitude' => 'numeric|between:-90,90',
-            'longitude' => 'numeric|between:-180,180',
+            'location_link' => 'url|max:255',
             'our_company_capture' => 'string|max:25',
             'about_us_capture' => 'string|max:25',
             'our_services_capture' => 'string|max:25',
@@ -70,6 +69,6 @@ class StoreCompanyRequestAbstract extends FormRequest
             'work_days.*.from.*' => 'Invalid time format',
             'work_days.*.to.*' => 'Invalid time format',
         ];
-        return array_merge($otherMessages, $defaultMessages);
+        return array_merge($defaultMessages, $otherMessages);
     }
 }

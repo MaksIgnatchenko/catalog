@@ -26,11 +26,11 @@ class AdminIncomingMessagesDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-            ->addColumn('sender_type', function ($message) {
+            ->editColumn('senderable_type', function ($message) {
                 return SenderPrettyTypeName::transform($message->senderable_type);
             })
-            ->addColumn('sender_name', function ($message) {
-                return $message->senderable->name;
+            ->editColumn('name', function ($message) {
+                return $message->senderable->name ?? $message->name;
             })
             ->addColumn('action', 'admin.incomingMessage.datatables_actions');
 
@@ -74,14 +74,14 @@ class AdminIncomingMessagesDataTable extends DataTable
     {
         return [
             [
-                'name' => 'sender_type',
-                'data' => 'sender_type',
+                'name' => 'senderable_type',
+                'data' => 'senderable_type',
                 'title' => 'Sender type',
                 'width' => '25%',
             ],
             [
-                'name' => 'sender_name',
-                'data' => 'sender_name',
+                'name' => 'name',
+                'data' => 'name',
                 'title' => 'Name',
                 'width' => '25%',
             ],

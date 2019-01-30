@@ -172,7 +172,7 @@ return [
 //        App\Providers\AppServiceProvider::class,
 //        App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
-//        App\Providers\EventServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
 //        App\Providers\RouteServiceProvider::class,
         App\Modules\Admins\Providers\RouteServiceProvider::class,
         App\Modules\Advertisement\Providers\RouteServiceProvider::class,
@@ -186,10 +186,10 @@ return [
         App\Modules\StaticContent\Providers\RouteServiceProvider::class,
         App\Modules\StaticContent\Providers\StaticContentServiceProvider::class,
         App\Modules\Admins\Providers\AdminServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
         App\Modules\Messages\Providers\RouteServiceProvider::class,
         App\Modules\Companies\Providers\MessageServiceProvider::class,
         App\Modules\Files\Providers\RouteServiceProvider::class,
-
     ],
 
     /*
@@ -247,6 +247,7 @@ return [
         'StaticContentStatusEnum' => \App\Modules\StaticContent\Enums\StaticContentStatusEnum::class,
         'ImageTag' => \App\Modules\Images\Helpers\ImageTag::class,
         'Schedule' => \App\Modules\Companies\Helpers\Schedule::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

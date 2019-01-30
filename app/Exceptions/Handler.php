@@ -53,9 +53,8 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof ModelNotFoundException) {
-            $entityName = $exception->getModel();
-            flash('No such ' . $entityName)->error();
-            return redirect('/' . $entityName);
+            flash('No such message')->error();
+            return redirect()->back();
         }
         if ($exception instanceof ActiveContentException) {
             flash($exception->getMessage())->error();

@@ -7,6 +7,7 @@
 namespace App\Modules\Messages\Models;
 
 use App\Modules\Admins\Models\Admin;
+use App\Modules\Companies\Models\Company;
 use App\Modules\Files\Models\File;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,7 @@ class Message extends Model
         'recipientable_id',
         'recipientable_type',
         'purpose',
+        'name',
         'email',
         'phone',
         'referred_time',
@@ -79,7 +81,7 @@ class Message extends Model
      */
     public function scopeCompanyIncoming(Builder $query, int $id) : Builder
     {
-        return $query->where('recipientable_id', $id);
+        return $query->where('recipientable_id', $id)->where('recipientable_type', Company::class);
     }
 
     /**
@@ -91,7 +93,7 @@ class Message extends Model
      */
     public function scopeCompanyOutgoing(Builder $query, int $id) : Builder
     {
-        return $query->where('senderable_id', $id);
+        return $query->where('senderable_id', $id)->where('senderable_type', Company::class);
     }
 
     /**

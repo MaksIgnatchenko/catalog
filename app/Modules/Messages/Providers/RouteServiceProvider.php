@@ -8,6 +8,7 @@ namespace App\Modules\Messages\Providers;
 
 use App\Helpers\SubDomain;
 use App\Modules\Companies\Models\Company;
+use App\Modules\Messages\Models\Message;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -34,6 +35,15 @@ class RouteServiceProvider extends ServiceProvider
     protected $companyNamespace = 'App\Modules\Messages\Http\Company\Controllers';
 
     /**
+     * This namespace is applied to your controller routes.
+     *
+     * In addition, it is set as the URL generator's root namespace.
+     *
+     * @var string
+     */
+    protected $publicNamespace = 'App\Modules\Messages\Http\PublicSite\Controllers';
+
+    /**
      * Define the routes for the application.
      *
      * @return void
@@ -42,6 +52,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->adminMap();
         $this->companyMap();
+        $this->publicMap();
     }
 
     /**
@@ -71,6 +82,15 @@ class RouteServiceProvider extends ServiceProvider
             ->group(__DIR__ . './../Routes/company.php');
     }
 
+    public function publicMap()
+    {
+        Route::middleware([
+            'web',
+            ])
+            ->namespace($this->publicNamespace)
+            ->group(__DIR__ . './../Routes/public.php');
+    }
+
     public function boot()
     {
         parent::boot();
@@ -78,7 +98,21 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('company', function ($value) {
             try {
                 $company = Company::with(['category', 'speciality', 'type', 'country', 'city', 'companyOwner'])
-                    ->where('id', (int)$value)->firstOrFail();
+                    ->where('id', (int) $value)->firstOrFail();
+            } catch (ModelNotFoundException $exception) {
+                $exception->setModel('company');
+                throw $exception;
+            } catch (QueryException $exception) {
+                $exception = new ModelNotFoundException();
+                $exception->setModel('company');
+                throw $exception;
+            }
+            return $company;
+        });
+
+        Route::bind('message', function ($value) {
+            try {
+                $company = Message::where('id', (int) $value)->first();
             } catch (ModelNotFoundException $exception) {
                 $exception->setModel('company');
                 throw $exception;

@@ -40,15 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-
         'company' => [
             'driver' => 'session',
             'provider' => 'companies',
+        ],
+        'visitor' => [
+            'driver' => 'session',
+            'provider' => 'visitors',
         ],
     ],
 
@@ -74,10 +76,13 @@ return [
             'driver' => 'eloquent',
             'model' => \App\Modules\Admins\Models\Admin::class,
         ],
-
         'companies' => [
             'driver' => 'eloquent',
             'model' => \App\Modules\Companies\Models\CompanyOwner::class,
+        ],
+        'visitors' => [
+            'driver' => 'eloquent',
+            'model' => \App\Modules\Visitors\Model\Visitor::class,
         ],
     ],
 
@@ -102,9 +107,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
-
         'companies' => [
             'provider' => 'companies',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+        'visitors' => [
+            'provider' => 'visitors',
             'table' => 'password_resets',
             'expire' => 60,
         ],

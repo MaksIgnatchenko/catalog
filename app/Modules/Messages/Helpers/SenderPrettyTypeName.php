@@ -8,6 +8,7 @@ namespace App\Modules\Messages\Helpers;
 
 use App\Modules\Admins\Models\Admin;
 use App\Modules\Companies\Models\Company;
+use App\Modules\Visitors\Model\Visitor;
 
 class SenderPrettyTypeName
 {
@@ -22,6 +23,8 @@ class SenderPrettyTypeName
                 return 'Admin';
             case Company::class :
                 return 'Company';
+            case Visitor::class :
+                return 'Visitor';
         }
     }
 

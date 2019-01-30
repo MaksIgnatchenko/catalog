@@ -38,7 +38,7 @@ class CompanyIncomingMessagesDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-            ->addColumn('sender_type', function ($message) {
+            ->editColumn('senderable_type', function ($message) {
                 return SenderPrettyTypeName::transform($message->senderable_type);
             })
             ->addColumn('action', 'company.incomingMessage.datatables_actions');
@@ -83,8 +83,8 @@ class CompanyIncomingMessagesDataTable extends DataTable
     {
         return [
             [
-                'name' => 'sender_type',
-                'data' => 'sender_type',
+                'name' => 'senderable_type',
+                'data' => 'senderable_type',
                 'title' => 'Sender type',
                 'width' => '25%',
             ],

@@ -7,12 +7,14 @@
 namespace App\Modules\Admins\Models;
 
 use App\Modules\Messages\Models\Message;
+use App\Modules\Messages\Services\MessageSender\Interfaces\Recipientable;
+use App\Modules\Messages\Services\MessageSender\Interfaces\Senderable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laratrust\Traits\LaratrustUserTrait;
 
-class Admin extends Authenticatable
+class Admin extends Authenticatable implements Senderable, Recipientable
 {
     use LaratrustUserTrait;
 
