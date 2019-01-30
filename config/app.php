@@ -186,6 +186,7 @@ return [
         App\Modules\StaticContent\Providers\RouteServiceProvider::class,
         App\Modules\StaticContent\Providers\StaticContentServiceProvider::class,
         App\Modules\Admins\Providers\AdminServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
     ],
 
@@ -244,6 +245,7 @@ return [
         'StaticContentStatusEnum' => \App\Modules\StaticContent\Enums\StaticContentStatusEnum::class,
         'ImageTag' => \App\Modules\Images\Helpers\ImageTag::class,
         'Schedule' => \App\Modules\Companies\Helpers\Schedule::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

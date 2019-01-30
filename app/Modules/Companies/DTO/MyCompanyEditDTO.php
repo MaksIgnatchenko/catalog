@@ -245,11 +245,11 @@ class MyCompanyEditDTO
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getCompanyLongitude() : ?float
+    public function getCompanyLocationLink() : ?string
     {
-        return $this->company->longitude;
+        return $this->company->location_link;
     }
 
     /**

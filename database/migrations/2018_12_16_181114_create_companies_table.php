@@ -29,8 +29,7 @@ class CreateCompaniesTable extends Migration
             $table->date('date_change_status')->nullable();
             $table->text('about_us');
             $table->text('our_services');
-            $table->decimal('latitude', 10, 8)->default(0);
-            $table->decimal('longitude', 11, 8)->default(0);
+            $table->string('location_link')->nullable();
             $table->json('work_days');
             $table->json('phones');
             $table->string('website');

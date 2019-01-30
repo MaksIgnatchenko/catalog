@@ -134,5 +134,4 @@ class CompanyController extends Controller
         Auth::user()->company->delete();
         return redirect()->route('my-company.create');
     }
-
 }
