@@ -52,6 +52,26 @@ class PermissionsTableSeeder extends Seeder
                 'description' => 'Permission for delete ' . $entity,
             ];
         }
+        $permissions[] = [
+            'name' => 'index_messages',
+            'display_name' => 'Show list of messages',
+            'description' => 'Permission for show list of messages',
+        ];
+        $permissions[] = [
+            'name' => 'create_messages',
+            'display_name' => 'Send messages',
+            'description' => 'Permission for send messages',
+        ];
+        $permissions[] = [
+            'name' => 'read_messages',
+            'display_name' => 'Read messages',
+            'description' => 'Permission for read any message',
+        ];
+        $permissions[] = [
+            'name' => 'delete_messages',
+            'display_name' => 'Delete messages',
+            'description' => 'Permission for delete any message',
+        ];
         DB::table('permissions')->insert($permissions);
     }
 }

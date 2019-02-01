@@ -10,4 +10,9 @@ return [
      */
     'file_max_size' => 15 * 1024,
 
+    /**
+     *
+     */
+    'companies_count_per_page' => 20,
+
 ];

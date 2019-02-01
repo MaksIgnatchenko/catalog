@@ -220,3 +220,25 @@ body {
 #company-logo {
     margin-top: 10px;
 }
+
+.custom-dropdown {
+    min-width : auto !important;
+}
+
+.custom-dropdown::after {
+    content: '';
+    display: table;
+    clear: both;
+    /*left: auto;*/
+    /*right: 5px;*/
+    float: none;
+    padding: 0;
+    background-color: transparent !important;
+}
+
+.custom-dropdown-item {
+    min-width : auto !important;
+    margin-top: 5px;
+    margin-left: 0 !important;
+    /*display: block;*/
+}

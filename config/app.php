@@ -190,6 +190,7 @@ return [
         App\Modules\Messages\Providers\RouteServiceProvider::class,
         App\Modules\Companies\Providers\MessageServiceProvider::class,
         App\Modules\Files\Providers\RouteServiceProvider::class,
+        App\Modules\Visitors\Providers\RouteServiceProvider::class,
     ],
 
     /*

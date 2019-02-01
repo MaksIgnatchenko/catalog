@@ -77,6 +77,7 @@
 </li>
 @endpermission
 
+@permission('index_messages')
 <li class="treeview {{ActiveLink::checkAdminMessages() ? 'active' : ''}}">
     <a href="#" class="treeview-toggle"><i class="fa fa-envelope"></i><span>Messages</span>
         <span class="pull-right-container">
@@ -94,4 +95,4 @@
         </li>
     </ul>
 </li>
-
+@endpermission

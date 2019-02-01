@@ -145,6 +145,7 @@ class CompanyDataTable extends DataTable
                 'title' => 'Email',
                 'width' => '10%',
                 'orderable' => false,
+                'searchable' => false,
             ],
         ];
     }

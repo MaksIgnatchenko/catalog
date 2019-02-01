@@ -23,6 +23,14 @@ class GeographyService implements GeographyServiceInterface
     }
 
     /**
+     * @return GeographyCountry[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getCountriesHaveCompanies(): Collection
+    {
+        return GeographyCountry::with('companies')->has('companies')->get();
+    }
+
+    /**
      * @param $id
      *
      * @return GeographyCountry

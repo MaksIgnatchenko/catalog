@@ -20,10 +20,6 @@
     </ul>
 </li>
 
-<li class="{{ActiveLink::checkAccount() ? 'active' : ''}}">
-    <a href="{{route('account.edit')}}"><i class="fa fa-user"></i> <span>Account settings</span></a>
-</li>
-
 <li class="treeview {{ActiveLink::checkCompanyMessages() ? 'active' : ''}}">
     <a href="#" class="treeview-toggle"><i class="fa fa-envelope"></i><span>Messages</span>
         <span class="pull-right-container">

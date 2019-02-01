@@ -88,6 +88,8 @@ class CompanyOutgoingMessagesDataTable extends DataTable
                 'data' => 'send_to',
                 'title' => 'Send to',
                 'width' => '25%',
+                'searchable' => false,
+                'orderable' => false,
             ],
             [
                 'name' => 'purpose',

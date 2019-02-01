@@ -12,10 +12,16 @@ class CompanyOwnersTableSeeder extends Seeder
 {
     public function run()
     {
-        $companyOwner = app()[\App\Modules\Companies\Models\CompanyOwner::class];
-        $companyOwner->email = 'foecunditate@gmail.com';
-        $companyOwner->password = Hash::make('password');
-        $companyOwner->save();
+        $verifiedDate = \Carbon\Carbon::now()->toDateTimeString();
+        $companyOwners = [];
+        for ($i = 0; $i < 200; $i++) {
+            $companyOwners[] = [
+                'email' => str_random(5) . '@gmail.com',
+                'password' => Hash::make('password'),
+                'email_verified_at' => $verifiedDate,
+            ];
+        }
+        DB::table('company_owners')->insert($companyOwners);
     }
 }
 

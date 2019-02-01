@@ -6,6 +6,7 @@
 
 namespace App\Modules\Geography\Models;
 
+use App\Modules\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 
 class GeographyCountry extends Model implements GeographyInterface
@@ -29,5 +30,10 @@ class GeographyCountry extends Model implements GeographyInterface
     public function cities()
     {
         return $this->hasManyThrough(GeographyCity::class, GeographyState::class, 'country_id', 'state_id',  'id', 'id');
+    }
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class, 'country_id');
     }
 }
