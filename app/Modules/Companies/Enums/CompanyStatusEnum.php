@@ -30,6 +30,17 @@ class CompanyStatusEnum
     /**
      * @return array
      */
+    public  static function getActiveStatuses() : array
+    {
+        return [
+            self::ACTIVE,
+            self::WAITING_FOR_BLOCK,
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public static function getBasicStatuses() : array
     {
         return [

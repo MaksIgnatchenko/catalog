@@ -89,7 +89,7 @@ class AdminCompanyDTO
     }
 
     /**
-     * @return array]
+     * @return array
      */
     public function getCountries() : array
     {

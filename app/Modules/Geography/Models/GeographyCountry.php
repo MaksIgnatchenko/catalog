@@ -27,11 +27,17 @@ class GeographyCountry extends Model implements GeographyInterface
         return $this->sortname;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
     public function cities()
     {
         return $this->hasManyThrough(GeographyCity::class, GeographyState::class, 'country_id', 'state_id',  'id', 'id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function companies()
     {
         return $this->hasMany(Company::class, 'country_id');

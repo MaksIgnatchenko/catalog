@@ -27,7 +27,7 @@ class GeographyService implements GeographyServiceInterface
      */
     public function getCountriesHaveCompanies(): Collection
     {
-        return GeographyCountry::with('companies')->has('companies')->get();
+        return GeographyCountry::has('companies')->get(['id', 'name']);
     }
 
     /**
@@ -68,10 +68,26 @@ class GeographyService implements GeographyServiceInterface
         return GeographyState::all();
     }
 
+    /**
+     * @param int $countryId
+     * @param array $fields
+     * @return Collection
+     */
     public function getCitiesFromCountry(int $countryId, array $fields = []): Collection
     {
         $country = $this->getCountryById($countryId);
         return $country->cities()->get($fields);
+    }
+
+    /**
+     * @param int $countryId
+     * @param array $fields
+     * @return Collection
+     */
+    public function getCitiesHaveCompaniesFromCountry(int $countryId, array $fields = []): Collection
+    {
+        $country = $this->getCountryById($countryId);
+        return $country->cities()->has('companies')->get($fields);
     }
 
     /**

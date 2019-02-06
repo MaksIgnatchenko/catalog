@@ -9,28 +9,39 @@ namespace App\Modules\Geography\Http\Controllers;
 use App\Helpers\ApiCode;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
-use App\Modules\Geography\Http\Requests\GetCitiesRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use MarcinOrlowski\ResponseBuilder\ResponseBuilder;
 
 class CityController extends Controller
 {
     /**
-     * @param GetCitiesRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-	public function getFromCountry(GetCitiesRequest $request) : JsonResponse
+	public function getFromCountry(Request $request) : JsonResponse
 	{
-	    $countryId = $request->country;
-        $geographyService = app()[\App\Modules\Geography\Services\GeographyServiceInterface::class];
-        try {
-            $cities = $geographyService
-                ->getCitiesFromCountry($countryId, ['geography_cities.id', 'geography_cities.name'])
-                ->pluck('name', 'id')
-                ->sort();
-        } catch (ModelNotFoundException | QueryException $e) {
-            return ResponseBuilder::error(ApiCode::NO_SUCH_COUNTRY);
+	    $countryId = $request->get('country');
+	    if ($countryId) {
+            $geographyService = app()[\App\Modules\Geography\Services\GeographyServiceInterface::class];
+            try {
+                if ($request->get('with-companies')) {
+                    $cities = $geographyService
+                        ->getCitiesHaveCompaniesFromCountry($countryId, ['geography_cities.id', 'geography_cities.name'])
+                        ->pluck('name', 'id')
+                        ->sort();
+                } else {
+                    $cities = $geographyService
+                        ->getCitiesFromCountry($countryId, ['geography_cities.id', 'geography_cities.name'])
+                        ->pluck('name', 'id')
+                        ->sort();
+                }
+            } catch (ModelNotFoundException | QueryException $e) {
+                return ResponseBuilder::error(ApiCode::NO_SUCH_COUNTRY);
+            }
+        } else {
+	        $cities = [];
         }
         return response()->json($cities);
 	}

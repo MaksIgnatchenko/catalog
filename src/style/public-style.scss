@@ -1,0 +1,13 @@
+@import "helpers/variables";
+@import "helpers/mixins";
+
+@import "global/normalize";
+@import "global/fonts";
+@import "global/base";
+
+@import "components/humburger";
+@import "components/select";
+@import "components/popup";
+
+@import "sections/header";
+@import "sections/main-page";

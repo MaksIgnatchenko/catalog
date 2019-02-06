@@ -29,7 +29,7 @@ class SearchCompaniesByWordService implements SearchCompaniesServiceInterface
      */
     public function __construct(array $data, int $resultsPerPage)
     {
-        $this->word = $data['search'];
+        $this->word = $data['main-search'];
         $this->resultsPerPage = $resultsPerPage;
     }
 
@@ -38,9 +38,11 @@ class SearchCompaniesByWordService implements SearchCompaniesServiceInterface
      */
     public function search(): Paginator
     {
-        $companies = Company::whereHas('country', function ($query) {
-            $query->where('name', 'like', "%{$this->word}%");
-        })
+        $companies = Company::active()
+            ->where('name', 'like', "%{$this->word}%")
+            ->orWhereHas('country', function ($query) {
+                $query->where('name', 'like', "%{$this->word}%");
+            })
             ->orWhereHas('city', function ($query) {
                 $query->where('name', 'like', "%{$this->word}%");
             })

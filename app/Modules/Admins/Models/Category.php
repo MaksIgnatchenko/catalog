@@ -6,6 +6,7 @@
 
 namespace App\Modules\Admins\Models;
 
+use App\Modules\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -35,5 +36,13 @@ class Category extends Model
     public function specialities() : HasMany
     {
         return $this->hasMany(Speciality::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function companies() : HasMany
+    {
+        return $this->hasMany(Company::class, 'category_id');
     }
 }

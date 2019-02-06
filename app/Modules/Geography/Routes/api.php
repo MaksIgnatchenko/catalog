@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/countries', 'CountryController@getCountryList');
 
-Route::get('/cities/{country}', 'CityController@getFromCountry');
+Route::get('/cities', 'CityController@getFromCountry');
+
 
 

@@ -404,7 +404,6 @@
     }
 
     isNowCheckbox.click(function(){
-        console.log(this);
         if(this.checked == true){
             $('#dateField').attr('disabled', 'disabled');
         } else {
@@ -420,17 +419,18 @@
     var citySelect = $('select[name=city_id]');
 
     @if( count($errors) > 0 && old('category_id'))
-        getDependsOptions(categorySelect[0].value, '/api/specialities/', specialitySelect, "{{ old('speciality_id') }}")
+        getDependsOptions({ 'category' : categorySelect[0].value}, '/api/specialities/', specialitySelect, "{{ old('speciality_id') }}")
     @endif
 
     @if( count($errors) > 0 && old('speciality_id'))
-        getDependsOptions({{ old('speciality_id') }}, '/api/types/', typeSelect, "{{ old('type_id') }}")
+        var oldSepcialityValue = {{ old('speciality_id') }}
+        getDependsOptions({'speciality' : oldSepcialityValue}, '/api/types/', typeSelect, "{{ old('type_id') }}")
     @endif
 
     categorySelect.change('change', function() {
         var selectValue = this.value;
         if(selectValue) {
-            getDependsOptions(selectValue, '/api/specialities/', specialitySelect);
+            getDependsOptions({ 'category' : selectValue}, '/api/specialities/', specialitySelect);
         } else {
             cleanSelect(specialitySelect);
         }
@@ -439,7 +439,7 @@
     specialitySelect.change('change', function() {
         var selectValue = this.value;
         if(selectValue) {
-            getDependsOptions(selectValue, '/api/types/', typeSelect);
+            getDependsOptions({ 'speciality' : selectValue }, '/api/types/', typeSelect);
         } else {
             cleanSelect(typeSelect);
         }
@@ -447,14 +447,14 @@
 
     @if( count($errors) > 0 && old('country_id'))
         if (countrySelect[0].value) {
-            getDependsOptions(countrySelect[0].value, '/api/cities/', citySelect, "{{ old('city_id') }}")
+            getDependsOptions({ 'country' : countrySelect[0].value }, '/api/cities/', citySelect, "{{ old('city_id') }}")
         }
     @endif
 
     countrySelect.change('change', function() {
         var selectValue = this.value;
         if(selectValue) {
-            getDependsOptions(selectValue, '/api/cities/', citySelect);
+            getDependsOptions({ 'country' : selectValue }, '/api/cities/', citySelect);
         } else {
             cleanSelect(citySelect);
         }
@@ -473,9 +473,10 @@
         select.children().not(':first').remove().end();
     }
 
-    function getDependsOptions(mainOption, url, dependSelect, selectedKey) {
+    function getDependsOptions(query, url, dependSelect, selectedKey) {
+        var params = $.param(query);
         $.ajax({
-            url: url + mainOption,
+            url: url + '?' + params,
             cache: false,
             type: 'GET',
             headers: {

@@ -13,29 +13,34 @@ use Illuminate\Pagination\Paginator;
 class SearchCompaniesByFilterService implements SearchCompaniesServiceInterface
 {
     /**
-     * @var string
+     * @var int|null
      */
     private $country;
 
     /**
-     * @var string
+     * @var int|null
      */
     private $city;
 
     /**
-     * @var string
+     * @var int|null
      */
     private $category;
 
     /**
-     * @var string
+     * @var int|null
      */
     private $speciality;
 
     /**
-     * @var string
+     * @var int|null
      */
     private $type;
+
+    /**
+     * @var array
+     */
+    private $filters;
 
     /**
      * @var int
@@ -49,12 +54,13 @@ class SearchCompaniesByFilterService implements SearchCompaniesServiceInterface
      */
     public function __construct(array $data, int $resultsPerPage)
     {
-        $this->country = $data['country'] ?? '';
-        $this->city = $data['city'] ?? '';
-        $this->category = $data['category'] ?? '';
-        $this->speciality = $data['speciality'] ?? '';
-        $this->type = $data['type'] ?? '';
+        $this->country = $data['country'] ?? null;
+        $this->city = $data['city'] ?? null;
+        $this->category = $data['category'] ?? null;
+        $this->speciality = $data['speciality'] ?? null;
+        $this->type = $data['type'] ?? null;
         $this->resultsPerPage = $resultsPerPage;
+        $this->filters = $this->getFilters();
     }
 
     /**
@@ -62,22 +68,33 @@ class SearchCompaniesByFilterService implements SearchCompaniesServiceInterface
      */
     public function search(): Paginator
     {
-        $companies = Company::whereHas('country', function ($query) {
-            $query->where('name', 'like', "%{$this->country}%");
-        })
-            ->orWhereHas('city', function ($query) {
-                $query->where('name', 'like', "%{$this->city}%");
-            })
-            ->orWhereHas('category', function ($query) {
-                $query->where('name', 'like', "%{$this->category}%");
-            })
-            ->orWhereHas('speciality', function ($query) {
-                $query->where('name', 'like', "%{$this->speciality}%");
-            })
-            ->orWhereHas('type', function ($query) {
-                $query->where('name', 'like', "%{$this->type}%");
-            })
+        $companies = Company::active()
+            ->where($this->filters)
             ->simplePaginate($this->resultsPerPage);
         return $companies;
+    }
+
+    /**
+     * @return array
+     */
+    private function getFilters() : array
+    {
+        $filters = [];
+        if ($this->country) {
+            $filters[] = ['country_id', $this->country];
+        }
+        if ($this->city) {
+            $filters[] = ['city_id', $this->city];
+        }
+        if ($this->category) {
+            $filters[] = ['category_id', $this->category];
+        }
+        if ($this->speciality) {
+            $filters[] = ['speciality_id', $this->speciality];
+        }
+        if ($this->type) {
+            $filters[] = ['type_id', $this->type];
+        }
+        return $filters;
     }
 }

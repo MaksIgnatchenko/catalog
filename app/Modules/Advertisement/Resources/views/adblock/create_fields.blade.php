@@ -111,13 +111,13 @@
         var citySelect = $('select[name=city_id]');
 
         @if( count($errors) > 0 && old('type'))
-            getDependsOptions(typeSelect[0].value, '/api/positions/', positionSelect, "{{ old('position') }}")
+            getDependsOptions({'type' : typeSelect[0].value}, '/api/positions', positionSelect, "{{ old('position') }}")
         @endif
 
         typeSelect.change('change', function() {
             var selectValue = this.value;
             if(selectValue) {
-                getDependsOptions(selectValue, '/api/positions/', positionSelect);
+                getDependsOptions({'type' : selectValue}, '/api/positions', positionSelect);
             } else {
                 cleanSelect(positionSelect);
             }
@@ -125,14 +125,14 @@
 
         @if( count($errors) > 0 && old('country_id'))
             if (countrySelect[0].value) {
-                getDependsOptions(countrySelect[0].value, '/api/cities/', citySelect, "{{ old('city_id') }}")
+                getDependsOptions({'country' : countrySelect[0].value}, '/api/cities', citySelect, "{{ old('city_id') }}")
             }
         @endif
 
         countrySelect.change('change', function() {
             var selectValue = this.value;
             if(selectValue) {
-                getDependsOptions(selectValue, '/api/cities/', citySelect);
+                getDependsOptions({'country' : selectValue}, '/api/cities', citySelect);
             } else {
                 cleanSelect(citySelect);
             }
@@ -151,9 +151,10 @@
             select.children().not(':first').remove().end();
         }
 
-        function getDependsOptions(mainOption, url, dependSelect, selectedKey) {
+        function getDependsOptions(query, url, dependSelect, selectedKey) {
+            var params = $.param(query);
             $.ajax({
-                url: url + mainOption,
+                url: url + '?' + params,
                 cache: false,
                 type: 'GET',
                 headers: {

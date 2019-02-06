@@ -272,6 +272,15 @@ class Company extends Authenticatable  implements Senderable, Recipientable
     }
 
     /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public  function  scopeActive(Builder $query) : Builder
+    {
+        return $query->whereIn('status', CompanyStatusEnum::getActiveStatuses());
+    }
+
+    /**
      * @return string
      */
     public function getPhone() : string

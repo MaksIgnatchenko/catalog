@@ -506,45 +506,47 @@
 
     @if( count($errors) > 0 && old('country_id'))
         if (countrySelect[0].value) {
-            getDependsOptions(countrySelect[0].value, '/api/cities/', citySelect, {{ old('city_id') }})
+            getDependsOptions({ 'country' : countrySelect[0].value }, '/api/cities', citySelect, {{ old('city_id') }})
         }
     @endif
 
     if (countrySelect[0].value) {
-        getDependsOptions(countrySelect[0].value, '/api/cities/', citySelect, {{ $dto->getCompanyCityId() }})
+        getDependsOptions({ 'country' : countrySelect[0].value }, '/api/cities', citySelect, {{ $dto->getCompanyCityId() }})
     }
 
     countrySelect.change('change', function() {
         var selectValue = this.value;
         if(selectValue) {
-            getDependsOptions(selectValue, '/api/cities/', citySelect);
+            getDependsOptions({ 'country' : selectValue }, '/api/cities', citySelect);
         } else {
             cleanSelect(citySelect);
         }
     });
 
     if (categorySelect[0].value) {
-        $.when(getDependsOptions(categorySelect[0].value, '/api/specialities/', specialitySelect, {{ $dto->getCompanySpecialityId() }}))
-            .then(getDependsOptions({{ $dto->getCompanySpecialityId() }}, '/api/types/', typeSelect, {{ $dto->getCompanyTypeId() }}));
+        var specialityValue = {{ $dto->getCompanySpecialityId() }};
+        $.when(getDependsOptions({ 'category' : categorySelect[0].value }, '/api/specialities', specialitySelect, {{ $dto->getCompanySpecialityId() }}))
+            .then(getDependsOptions({ 'speciality' : specialityValue }, '/api/types', typeSelect, {{ $dto->getCompanyTypeId() }}));
     }
 
     @if( count($errors) > 0 && old('category_id'))
-        getDependsOptions(categorySelect[0].value, '/api/specialities/', specialitySelect, {{ old('speciality_id') }})
+        getDependsOptions({ 'category' : categorySelect[0].value }, '/api/specialities', specialitySelect, {{ old('speciality_id') }})
     @endif
 
 
     if (specialitySelect[0].value) {
-        getDependsOptions(specialitySelect[0].value, '/api/specialities/', specialitySelect, {{ $dto->getCompanyTypeId() }})
+        getDependsOptions({ 'speciality' : specialitySelect[0].value}, '/api/specialities', specialitySelect, {{ $dto->getCompanyTypeId() }})
     }
 
     @if( count($errors) > 0 && old('speciality_id'))
-        getDependsOptions({{ old('speciality_id') }}, '/api/types/', typeSelect, "{{ old('type_id') }}")
+        var specialityValue = {{ old('speciality_id') }};
+        getDependsOptions({ 'speciality' : specialityValue }, '/api/types', typeSelect, "{{ old('type_id') }}")
     @endif
 
     categorySelect.change('change', function() {
         var selectValue = this.value;
         if(selectValue) {
-            getDependsOptions(selectValue, '/api/specialities/', specialitySelect);
+            getDependsOptions({ 'category' : selectValue }, '/api/specialities', specialitySelect);
         } else {
             cleanSelect(specialitySelect);
         }
@@ -553,7 +555,7 @@
     specialitySelect.change('change', function() {
         var selectValue = this.value;
         if(selectValue) {
-            getDependsOptions(selectValue, '/api/types/', typeSelect);
+            getDependsOptions({ 'speciality' : selectValue }, '/api/types', typeSelect);
         } else {
             cleanSelect(typeSelect);
         }
@@ -572,9 +574,10 @@
         select.children().not(':first').remove().end();
     }
 
-    function getDependsOptions(mainOption, url, dependSelect, selectedKey) {
+    function getDependsOptions(query, url, dependSelect, selectedKey) {
+        var params = $.param(query);
         $.ajax({
-            url: url + mainOption,
+            url: url + '?' + params,
             cache: false,
             type: 'GET',
             headers: {

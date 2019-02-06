@@ -4,8 +4,8 @@
  *
  */
 
-Route::get('/specialities/{category}', 'SpecialityController@getFromCategory');
-Route::get('/types/{speciality}', 'TypeController@getFromSpeciality');
+Route::get('/specialities', 'SpecialityController@getFromCategory');
+Route::get('/types', 'TypeController@getFromSpeciality');
 
 
 

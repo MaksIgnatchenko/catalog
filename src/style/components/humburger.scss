@@ -1,0 +1,42 @@
+.humburger {
+  position: relative;
+  width: toRem(26);
+  height: toRem(18);
+  padding: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  &__line {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-left: toRem(-1);
+    display: inline-block;
+    width: 100%;
+    height: toRem(2);
+    background-color: $color-prime;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: toRem(2);
+      background-color: $color-prime;
+    }
+
+    &::before {
+      top: toRem(-7);
+    }
+
+    &::after {
+      top: toRem(7);
+    }
+  }
+}

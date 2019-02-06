@@ -8,6 +8,7 @@ namespace App\Modules\Visitors\Services\SearchCompanies\Factories;
 
 
 use App\Modules\Visitors\Services\SearchCompanies\Exceptions\IncorrectSearchCompaniesDataException;
+use App\Modules\Visitors\Services\SearchCompanies\Implementations\SearchAllCompaniesService;
 use App\Modules\Visitors\Services\SearchCompanies\Implementations\SearchCompaniesByFilterService;
 use App\Modules\Visitors\Services\SearchCompanies\Implementations\SearchCompaniesByWordService;
 use App\Modules\Visitors\Services\SearchCompanies\Interfaces\SearchCompaniesServiceInterface;
@@ -18,7 +19,6 @@ class SearchCompaniesServiceFactory
      * @param array $data
      * @param int $resultsPerPage
      * @return SearchCompaniesServiceInterface
-     * @throws IncorrectSearchCompaniesDataException
      */
     public static function getInstance(array $data, int $resultsPerPage) : SearchCompaniesServiceInterface
     {
@@ -30,7 +30,7 @@ class SearchCompaniesServiceFactory
             return new SearchCompaniesByFilterService($data, $resultsPerPage);
         }
 
-        throw new IncorrectSearchCompaniesDataException();
+        return new SearchAllCompaniesService($data, $resultsPerPage);
     }
 
     /**
@@ -39,7 +39,7 @@ class SearchCompaniesServiceFactory
      */
     private static function checkWordExistence(array $data) : bool
     {
-        return $data['search'] ?? false;
+        return $data['main-search'] ?? false;
     }
 
     /**

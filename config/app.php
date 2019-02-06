@@ -191,6 +191,8 @@ return [
         App\Modules\Companies\Providers\MessageServiceProvider::class,
         App\Modules\Files\Providers\RouteServiceProvider::class,
         App\Modules\Visitors\Providers\RouteServiceProvider::class,
+        App\Modules\Visitors\Providers\VisitorServiceProvider::class,
+        \Eduardokum\LaravelMailAutoEmbed\ServiceProvider::class,
     ],
 
     /*

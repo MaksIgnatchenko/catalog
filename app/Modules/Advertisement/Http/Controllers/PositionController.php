@@ -9,18 +9,19 @@ namespace App\Modules\Advertisement\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Advertisement\Enums\AdblockPositionsEnum;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
     /**
-     * @param string $type
+     * @param Request $request
      * @return JsonResponse
      */
-    public function getAvailablePositions(string $type = null) : JsonResponse
+    public function getAvailablePositions(Request $request) : JsonResponse
     {
         $positions = [];
-        if ($type) {
-            $adPositions = AdblockPositionsEnum::getPositions($type);
+        if ($request->type) {
+            $adPositions = AdblockPositionsEnum::getPositions($request->type);
             $positions = [];
             foreach ($adPositions as $position) {
                 $positions[$position] = $position;

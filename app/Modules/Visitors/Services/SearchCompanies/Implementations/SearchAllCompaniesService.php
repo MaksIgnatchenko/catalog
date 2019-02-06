@@ -1,0 +1,45 @@
+<?php
+/**
+ * Created by Maksym Ignatchenko, Appus Studio LP on 01.02.19
+ *
+ */
+
+namespace App\Modules\Visitors\Services\SearchCompanies\Implementations;
+
+use App\Modules\Companies\Models\Company;
+use App\Modules\Visitors\Services\SearchCompanies\Interfaces\SearchCompaniesServiceInterface;
+use Illuminate\Pagination\Paginator;
+
+class SearchAllCompaniesService implements SearchCompaniesServiceInterface
+{
+    /**
+     * @var string|null
+     */
+    private $word;
+
+    /**
+     * @var int
+     */
+    private $resultsPerPage;
+
+    /**
+     * SearchCompaniesByWordService constructor.
+     * @param array $data
+     * @param int $resultsPerPage
+     */
+    public function __construct(array $data, int $resultsPerPage)
+    {
+        $this->word = $data['main-search'] ?? null;
+        $this->resultsPerPage = $resultsPerPage;
+    }
+
+    /**
+     * @return Paginator
+     */
+    public function search(): Paginator
+    {
+        return Company::active()
+            ->simplePaginate($this->resultsPerPage);
+    }
+
+}

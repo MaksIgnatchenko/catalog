@@ -6,8 +6,10 @@
 
 namespace App\Modules\Admins\Models;
 
+use App\Modules\Companies\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Type extends Model
 {
@@ -35,5 +37,13 @@ class Type extends Model
     public function speciality() : BelongsTo
     {
         return $this->belongsTo(Speciality::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function companies() : HasMany
+    {
+        return $this->hasMany(Company::class, 'type_id');
     }
 }
