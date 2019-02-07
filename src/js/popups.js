@@ -3,16 +3,21 @@
         loginPopup = document.getElementById('js-login-popup'),
         regBtn = document.getElementById('js-registration'),
         regPopup = document.getElementById('js-reg-popup'),
-        logoutBtn = document.getElementById('js-logout'),
-        logoutRoute = document.getElementById('logoutRoute');
+        verifyPopup = document.getElementById('js-verify-popup'),
+        isShouldVerifyEmail = document.getElementById('userShouldVerifyEmail'),
+        verifyPopupCloseBtn = document.getElementById('verifyPopupCloseBtn'),
+        jsLogout = document.getElementById('js-logout');
+
 
     let closeBtn = $('.popup-btn-cl');
 
-    loginBtn.addEventListener('click', function(event) {
-        event.preventDefault();
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function(event) {
+            event.preventDefault();
 
-        $(loginPopup).fadeIn();
-    });
+            $(loginPopup).fadeIn();
+        });
+    }
 
     regBtn.addEventListener('click', function(event) {
         event.preventDefault();
@@ -32,8 +37,11 @@
         });
     });
 
-    logoutBtn.addEventListener('click', function(event) {
+    if (isShouldVerifyEmail) {
+        $(verifyPopup).fadeIn();
+    }
 
+    verifyPopupCloseBtn.addEventListener('click', function() {
+        $(jsLogout).click();
     });
-
 })(jQuery);

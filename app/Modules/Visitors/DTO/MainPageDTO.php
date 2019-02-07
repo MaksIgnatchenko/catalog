@@ -6,6 +6,8 @@
 
 namespace App\Modules\Visitors\DTO;
 
+use Illuminate\Support\Facades\Auth;
+
 class MainPageDTO
 {
     /**
@@ -63,5 +65,16 @@ class MainPageDTO
     public function getCategories() : array
     {
         return $this->categories;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUserEmail() : ?string
+    {
+        if ($user = Auth::guard('visitor')->user()) {
+            return $user->email;
+        }
+        return null;
     }
 }

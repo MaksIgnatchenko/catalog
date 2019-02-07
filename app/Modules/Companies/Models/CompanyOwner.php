@@ -7,7 +7,7 @@
 namespace App\Modules\Companies\Models;
 
 use App\Modules\Companies\Notifications\MailResetPasswordNotification;
-use App\Modules\Visitors\Notifications\VerifyEmailNotification;
+use App\Modules\Companies\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;

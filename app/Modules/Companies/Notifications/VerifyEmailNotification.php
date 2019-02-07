@@ -4,7 +4,7 @@
  *
  */
 
-namespace App\Modules\Visitors\Notifications;
+namespace App\Modules\Companies\Notifications;
 
 use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail as VerifyEmailBase;
@@ -42,7 +42,7 @@ class VerifyEmailNotification extends VerifyEmailBase implements ShouldQueue
     protected function verificationUrl($notifiable)
     {
         return URL::temporarySignedRoute(
-            'visitorVerification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+            'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
         );
     }
 }

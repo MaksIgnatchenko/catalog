@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/public-style.css">
 </head>
 <body class="main-page">
-{{ Auth::guard('visitor')->user()->name }}
+    {{ print_r($errors->all()) }}
     @auth('visitor')
         @if(!Auth::guard('visitor')->user()->hasVerifiedEmail())
             {!! Form::hidden('userShouldVerifyEmail', null, ['id' => 'userShouldVerifyEmail']) !!}
@@ -53,12 +53,25 @@
                         @endguest
                         @auth('visitor')
                             <div class="h-log">
-                                <a href="#" id="js-logout">Logout</a>
+                                <a href="{!! route('logout') !!}" id="js-logout"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    Logout
+                                </a>
+                            </div>
+                            <form id="logout-form" action="{{ route('visitorLogout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        @endauth
+                        @guest('visitor')
+                            <div class="h-account">
+                                <a href="#" id="js-registration">Free Account</a>
+                            </div>
+                        @endguest
+                        @auth('visitor')
+                            <div class="h-account">
+                                <a href="" id="js-registration">{{ $dto->getUserEmail() }}</a>
                             </div>
                         @endauth
-                        <div class="h-account">
-                            <a href="#" id="js-registration">Free Account</a>
-                        </div>
                     </div>
                     <div class="h-btn-wr">
                         <button class="humburger">
@@ -90,10 +103,6 @@
     </header><!-- /. end header -->
 
     <!-- Main block -->
-    <div>
-        {{ print_r($errors->all()) }}
-    </div>
-
     <div class="main-wrapper">
         <div class="main-content">
             <h1 class="m-title">Hospital Pages</h1>
@@ -150,17 +159,17 @@
     <div class="popup-wr popup-wr--hide" id="js-login-popup">
         <button class="popup-btn-cl">Close</button>
         <div class="popup-inner">
-            <form class="popup-form" action="/" name="login" method="post" id="js-login-form">
+            <form class="popup-form" action="{{ route('visitorLogin') }}" name="login" method="post" id="js-login-form">
                 <div class="popup-form__line popup-form__line--center">
                     <p class="popup-form__title">Login</p>
                 </div>
                 <div class="popup-form__line">
                     <label for="l-email">Email</label>
-                    <input id="l-email" type="email" name="login-email" placeholder="Email" required>
+                    <input id="l-email" type="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="popup-form__line">
                     <label for="l-pass">Password</label>
-                    <input id="l-pass" type="password" name="login-pass" placeholder="Password" required>
+                    <input id="l-pass" type="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="popup-form__line">
                     <a href="#">Forgot password?</a>
@@ -207,6 +216,16 @@
             </form>
         </div>
     </div><!-- /. end popup registration -->
+
+    <!-- Popup verify -->
+    <div class="popup-wr popup-wr--hide" id="js-verify-popup">
+        <div class="popup-inner">
+            <div class="popup-form__line popup-form__line--center">
+                <p class="popup-form__title">Before proceeding, please check your email for a verification link.</p>
+                <button id="verifyPopupCloseBtn">Close</button>
+            </div>
+        </div>
+    </div><!-- /. end popup login -->
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

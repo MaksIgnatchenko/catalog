@@ -317,12 +317,20 @@
   var loginBtn = document.getElementById('js-login'),
       loginPopup = document.getElementById('js-login-popup'),
       regBtn = document.getElementById('js-registration'),
-      regPopup = document.getElementById('js-reg-popup');
+      regPopup = document.getElementById('js-reg-popup'),
+      verifyPopup = document.getElementById('js-verify-popup'),
+      isShouldVerifyEmail = document.getElementById('userShouldVerifyEmail'),
+      verifyPopupCloseBtn = document.getElementById('verifyPopupCloseBtn'),
+      jsLogout = document.getElementById('js-logout');
   var closeBtn = $('.popup-btn-cl');
-  loginBtn.addEventListener('click', function (event) {
-    event.preventDefault();
-    $(loginPopup).fadeIn();
-  });
+
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      $(loginPopup).fadeIn();
+    });
+  }
+
   regBtn.addEventListener('click', function (event) {
     event.preventDefault();
     $(regPopup).fadeIn();
@@ -337,6 +345,14 @@
       form[0].reset();
       form.find('[type="submit"]').attr('disabled', true);
     });
+  });
+
+  if (isShouldVerifyEmail) {
+    $(verifyPopup).fadeIn();
+  }
+
+  verifyPopupCloseBtn.addEventListener('click', function () {
+    $(jsLogout).click();
   });
 })(jQuery);
 //# sourceMappingURL=all.js.map

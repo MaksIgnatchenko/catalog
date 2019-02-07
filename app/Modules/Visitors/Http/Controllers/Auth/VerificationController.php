@@ -4,7 +4,7 @@
  *
  */
 
-namespace App\Modules\Visitors\Http\Controllers\Company\Auth;
+namespace App\Modules\Visitors\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
